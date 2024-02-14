@@ -1,0 +1,220 @@
+@keyframes slideRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.profile_and_group_box {
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+
+.fontSmall {
+  font-size: 14px;
+}
+
+.fontDefault {
+  font-size: 16px;
+}
+
+.fontLarge {
+  font-size: 18px;
+}
+
+.group_box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  outline: 1px solid black;
+  height: 5%;
+}
+
+.group_chat_list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  outline: 1px solid black;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mainColor1 {
+  background-color: lightskyblue;
+}
+
+.mainColor2 {
+  background-color: #fd8535;
+}
+
+.mainColor3 {
+  background-color: #e6e6fa;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  pointer-events: none;
+  width: 20px;
+  height: auto;
+}
+
+.search-container input[type="text"] {
+  padding-left: 30px;
+  width: 100%;
+}
+
+.chat_list_box {
+  justify-content: flex-start;
+  width: 100%;
+  display: flex;
+  outline: 1px solid black;
+}
+
+.chat_list_buttons {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+  display: flex;
+  transition: background-color 0.3s ease;
+}
+
+.chat_list_buttons:hover {
+  background-color: #6495ed;
+}
+
+.chat_list_icons {
+  width: 20px;
+  height: auto;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 3%;
+}
+
+.username_box {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 15% 65% 20%;
+  outline: 1px solid black;
+  align-items: center;
+}
+
+.settings_button {
+  width: 25%;
+  margin-left: 50%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+  justify-self: center;
+  transition: transform 0.3s ease;
+}
+
+.settings_button:hover {
+  transform: scale(1.4);
+}
+
+.input-box {
+  border-radius: 50px;
+  outline: 3px solid black;
+}
+
+.profile_box_image_mainUser {
+  width: 20px;
+  height: auto;
+  margin-right: 5%;
+  margin-left: 5%;
+  justify-self: center;
+}
+
+.profile_box_image {
+  width: 20px;
+  height: auto;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+.profile_box_text {
+  position: relative;
+  top: 8px;
+}
+
+.text_box {
+  position: relative;
+}
+
+.input_chat_box {
+  display: flex;
+  flex-direction: column;
+  outline: 1px solid black;
+}
+
+.secondaryColor1 {
+  background-color: lightblue;
+}
+
+.secondaryColor2 {
+  background-color: #fde7c9;
+}
+
+.secondaryColor3 {
+  background-color: #c8a2c8;
+}
+
+.chat_box {
+  height: 92%;
+}
+
+.input_message_box {
+  border-radius: 50px;
+  width: calc(100% - 50px - 10px);
+  margin-left: 5px;
+  padding: 10px;
+}
+
+.input_message_button {
+  width: 5%;
+  height: 100%;
+  color: blue;
+  border-radius: 50px;
+  width: 50px;
+  margin-left: 2px;
+}
+
+.logout_button {
+  border-radius: 50px;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  background: darkorange;
+  transition: transform 0.3s ease;
+}
+
+.logout_button:hover {
+  transform: scale(1.1);
+}
+
+.logout_button_box {
+  margin-top: auto;
+  outline: none;
+}
+
+.logout_text {
+  margin-bottom: 0;
+}
