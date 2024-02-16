@@ -30,7 +30,9 @@ function App() {
               />
               <Route
                 path="/SettingsPage"
-                element={<SettingsPage userData={userData} />}
+                element={
+                  <SettingsPage setUserData={setUserData} userData={userData} />
+                }
               />
             </Routes>
           </ThemeProvider>
