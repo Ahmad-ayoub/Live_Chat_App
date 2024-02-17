@@ -44,7 +44,7 @@ const SettingsPage = ({ userData }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`, // Prepare the Authorization header
     };
