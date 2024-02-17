@@ -65,6 +65,7 @@ const SettingsPage = ({ userData }) => {
   axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem("authToken");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
+    console.log("token", token);
     return config;
   });
 
