@@ -44,31 +44,18 @@ const SettingsPage = ({ userData }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const token = localStorage.getItem("token");
-    const headers = {
-      Authorization: `Bearer ${token}`, // Prepare the Authorization header
-    };
-    console.log("token", token);
-    console.log("example", event);
     const errors = validateForm();
-    console.log("errors", errors);
-    console.log("creds", name, username, email, password);
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await axios.post(
-          "/edit",
-          {
-            name,
-            username,
-            email,
-            password,
-          },
-          { headers: headers }
-        ); // Include the headers in the request
-        console.log("response", response);
+        const response = await axios.post("/edit", {
+          name,
+          username,
+          email,
+          password,
+        });
         setIsEditing(false);
       } catch (error) {
-        console.log("Editing error", error);
+        setFormErrors({ apiError: error.response.data.error });
       }
     } else {
       setFormErrors(errors);
