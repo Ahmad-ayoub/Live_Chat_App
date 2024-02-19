@@ -143,7 +143,7 @@ const SettingsPage = ({ setUserData, userData }) => {
     return errors;
   }
 
-  function validateForm() {
+  function validateForm(name, username, email, password) {
     let errors = {};
 
     const nameErrors = validateName(name);
@@ -151,10 +151,14 @@ const SettingsPage = ({ setUserData, userData }) => {
     const emailErrors = validateEmail(email);
     const passwordErrors = validatePassword(password);
 
-    if (nameErrors) errors.name = nameErrors;
-    if (usernameErrors) errors.username = usernameErrors;
-    if (emailErrors) errors.email = emailErrors;
-    if (passwordErrors) errors.password = passwordErrors;
+    // Merge individual error objects into the main errors object
+    errors = {
+      ...errors,
+      ...nameErrors,
+      ...usernameErrors,
+      ...emailErrors,
+      ...passwordErrors,
+    };
 
     return errors;
   }
