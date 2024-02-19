@@ -418,3 +418,14 @@ TypeError: get_current_user_id() missing 1 required positional argument: 'token'
 2024-02-17 16:10:13,280 INFO:127.0.0.1 - - [17/Feb/2024 16:10:13] "POST /login HTTP/1.1" 200 -
 2024-02-17 16:36:04,353 INFO:127.0.0.1 - - [17/Feb/2024 16:36:04] "[31m[1mPOST /edit HTTP/1.1[0m" 400 -
 2024-02-17 16:38:24,079 INFO:127.0.0.1 - - [17/Feb/2024 16:38:24] "[31m[1mPOST /edit HTTP/1.1[0m" 400 -
+2024-02-19 15:54:37,226 INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-02-19 15:54:37,228 INFO:[33mPress CTRL+C to quit[0m
+2024-02-19 15:54:37,235 INFO: * Restarting with stat
+2024-02-19 15:54:40,586 WARNING: * Debugger is active!
+2024-02-19 15:54:40,606 INFO: * Debugger PIN: 984-008-548
+2024-02-19 15:54:43,924 INFO:127.0.0.1 - - [19/Feb/2024 15:54:43] "POST /login HTTP/1.1" 200 -
+2024-02-19 15:54:44,011 INFO:127.0.0.1 - - [19/Feb/2024 15:54:44] "POST /login HTTP/1.1" 200 -
+2024-02-19 15:55:43,491 INFO:127.0.0.1 - - [19/Feb/2024 15:55:43] "POST /edit HTTP/1.1" 200 -
+2024-02-19 16:03:56,890 INFO:127.0.0.1 - - [19/Feb/2024 16:03:56] "[33mPOST /login HTTP/1.1[0m" 404 -
+2024-02-19 16:04:08,224 INFO:127.0.0.1 - - [19/Feb/2024 16:04:08] "[33mPOST /login HTTP/1.1[0m" 404 -
