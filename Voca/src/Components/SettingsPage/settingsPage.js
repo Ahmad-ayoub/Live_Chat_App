@@ -14,7 +14,7 @@ import { FontClasses } from "../FontChange/FontClasses";
 import FontContext, { useFont } from "../FontChange/FontChange";
 import axios from "axios";
 
-const SettingsPage = ({ userData }) => {
+const SettingsPage = ({ setUserData, userData }) => {
   let navigate = useNavigate();
 
   function goToMain() {
@@ -41,6 +41,7 @@ const SettingsPage = ({ userData }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
+  // const [userData, setUserData] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -53,7 +54,8 @@ const SettingsPage = ({ userData }) => {
           email,
           password,
         });
-        setIsEditing(false);
+        // setIsEditing(false);
+        setUserData(response.data);
       } catch (error) {
         setFormErrors({ apiError: error.response.data.error });
       }
