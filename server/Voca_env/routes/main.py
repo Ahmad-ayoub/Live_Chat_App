@@ -111,7 +111,7 @@ def login():
 def validate_name(name):
     if len(name) < 3:
         return "Name must be at least 3 characters long."
-    return None
+    return ""
 
 
 import re
@@ -125,7 +125,7 @@ def validate_username(username):
     if letter_count < 3:
         return "Username must contain at least 3 letters."
 
-    return None
+    return ""
 
 
 def validate_email(email):
@@ -137,7 +137,7 @@ def validate_email(email):
     if domain not in valid_domains:
         return "Email domain is not valid."
 
-    return None
+    return ""
 
 
 def validate_password(password):
@@ -153,7 +153,7 @@ def validate_password(password):
     if not re.search(r"[!?]", password):
         return "Password must include either '!' or '?'."
 
-    return None
+    return ""
 
 
 def get_current_user_id():
