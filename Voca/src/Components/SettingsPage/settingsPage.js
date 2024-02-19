@@ -45,7 +45,7 @@ const SettingsPage = ({ setUserData, userData }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const errors = validateForm();
+    const errors = validateForm(name, username, email, password);
     if (Object.keys(errors).length === 0) {
       try {
         const response = await axios.post("/edit", {
