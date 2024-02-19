@@ -185,18 +185,15 @@ def edit_profile():
     data = request.json
     print("Received data:", data)
 
-    name_error = validate_name(data.get("name"))
-    username_error = validate_username(data.get("username"))
-    email_error = validate_email(data.get("email"))
-    password_error = validate_password(data.get("password"))
+    errors = {
+        "name": validate_name(data.get("name")),
+        "username": validate_username(data.get("username")),
+        "email": validate_email(data.get("email")),
+        "password": validate_password(data.get("password")),
+    }
 
-    if any([name_error, username_error, email_error, password_error]):
-        errors = {
-            "name": name_error,
-            "username": username_error,
-            "email": email_error,
-            "password": password_error,
-        }
+    # Check if there are any error messages in the errors dictionary
+    if any(errors.values()):
         return jsonify({"error": "Validation failed", "details": errors}), 400
 
     try:
