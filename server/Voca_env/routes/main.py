@@ -158,10 +158,11 @@ def validate_password(password):
 
 def get_current_user_id():
     token = request.headers.get("Authorization")
-    if token:
+    if len(token) > 0:
         prefix = "Bearer"
         if token.startswith(prefix):
             token = token[len(prefix) :]  # Remove "Bearer " prefix
+            token = token.strip()
         try:
             # Decode the token
             data = jwt.decode(token, "your_secret_key", algorithms=["HS256"])
