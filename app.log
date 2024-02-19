@@ -415,3 +415,6 @@ TypeError: get_current_user_id() missing 1 required positional argument: 'token'
 2024-02-17 15:07:17,363 WARNING: * Debugger is active!
 2024-02-17 15:07:17,376 INFO: * Debugger PIN: 984-008-548
 2024-02-17 15:07:51,030 INFO:127.0.0.1 - - [17/Feb/2024 15:07:51] "POST /login HTTP/1.1" 200 -
+2024-02-17 16:10:13,280 INFO:127.0.0.1 - - [17/Feb/2024 16:10:13] "POST /login HTTP/1.1" 200 -
+2024-02-17 16:36:04,353 INFO:127.0.0.1 - - [17/Feb/2024 16:36:04] "[31m[1mPOST /edit HTTP/1.1[0m" 400 -
+2024-02-17 16:38:24,079 INFO:127.0.0.1 - - [17/Feb/2024 16:38:24] "[31m[1mPOST /edit HTTP/1.1[0m" 400 -
