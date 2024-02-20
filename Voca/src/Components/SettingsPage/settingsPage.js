@@ -41,7 +41,7 @@ const SettingsPage = ({ setUserData, userData }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
-  const [userData, setUserData] = useState("");
+  // const [userData, setUserData] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
