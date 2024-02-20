@@ -438,3 +438,21 @@ TypeError: get_current_user_id() missing 1 required positional argument: 'token'
 2024-02-19 16:05:13,134 INFO:127.0.0.1 - - [19/Feb/2024 16:05:13] "[33mPOST /login HTTP/1.1[0m" 404 -
 2024-02-19 16:05:27,118 INFO:127.0.0.1 - - [19/Feb/2024 16:05:27] "[33mPOST /login HTTP/1.1[0m" 404 -
 2024-02-19 16:06:06,823 INFO:127.0.0.1 - - [19/Feb/2024 16:06:06] "POST /login HTTP/1.1" 200 -
+2024-02-20 13:09:23,631 INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-02-20 13:09:23,632 INFO:[33mPress CTRL+C to quit[0m
+2024-02-20 13:09:23,636 INFO: * Restarting with stat
+2024-02-20 13:09:25,533 WARNING: * Debugger is active!
+2024-02-20 13:09:25,540 INFO: * Debugger PIN: 984-008-548
+2024-02-20 13:12:42,542 INFO:127.0.0.1 - - [20/Feb/2024 13:12:42] "POST /login HTTP/1.1" 200 -
+2024-02-20 13:23:27,770 INFO:127.0.0.1 - - [20/Feb/2024 13:23:27] "[33mPOST /login HTTP/1.1[0m" 404 -
+2024-02-20 13:23:41,784 INFO:127.0.0.1 - - [20/Feb/2024 13:23:41] "POST /login HTTP/1.1" 200 -
+2024-02-20 13:31:23,326 INFO:127.0.0.1 - - [20/Feb/2024 13:31:23] "POST /login HTTP/1.1" 200 -
+2024-02-20 13:45:39,259 INFO:127.0.0.1 - - [20/Feb/2024 13:45:39] "POST /login HTTP/1.1" 200 -
+2024-02-20 13:51:27,159 INFO:127.0.0.1 - - [20/Feb/2024 13:51:27] "[31m[1mPOST /edit HTTP/1.1[0m" 400 -
+2024-02-20 13:52:53,800 INFO:127.0.0.1 - - [20/Feb/2024 13:52:53] "POST /edit HTTP/1.1" 200 -
+2024-02-20 13:56:27,241 INFO:127.0.0.1 - - [20/Feb/2024 13:56:27] "POST /login HTTP/1.1" 200 -
+2024-02-20 14:23:33,403 INFO:127.0.0.1 - - [20/Feb/2024 14:23:33] "POST /edit HTTP/1.1" 200 -
+2024-02-20 15:43:12,785 INFO:127.0.0.1 - - [20/Feb/2024 15:43:12] "POST /login HTTP/1.1" 200 -
+2024-02-20 15:44:12,781 INFO:127.0.0.1 - - [20/Feb/2024 15:44:12] "POST /edit HTTP/1.1" 200 -
+2024-02-20 16:12:57,759 INFO: * Detected change in 'C:\\Users\\12672\\Desktop\\My Future\\Software_Dev_MasterMind\\live_chat_app\\server\\Voca_env\\routes\\main.py', reloading

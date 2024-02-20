@@ -220,7 +220,18 @@ def edit_profile():
 
         db.session.commit()
 
-        return jsonify({"message": "Profile updated successfully"}), 200
+        # Return the updated user data
+        return (
+            jsonify(
+                {
+                    "name": user.name,
+                    "username": user.username,
+                    "email": user.email,
+                    # Don't return the password for security reasons
+                }
+            ),
+            200,
+        )
 
     except Exception as e:
         db.session.rollback()
