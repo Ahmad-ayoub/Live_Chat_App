@@ -53,7 +53,7 @@ const SettingsPage = ({ setUserData, userData }) => {
           email,
           password,
         });
-        // setIsEditing(false);
+        setIsEditing(false);
         setUserData(response.data);
         console.log("Updated userData:", userData);
       } catch (error) {
