@@ -55,6 +55,10 @@ const SettingsPage = ({ setUserData, userData }) => {
         });
         setIsEditing(false);
         setUserData(response.data);
+        setName("");
+        setUsername("");
+        setEmail("");
+        setPassword("");
         console.log("Updated userData:", userData);
       } catch (error) {
         setFormErrors({ apiError: error.response.data.error });
