@@ -456,3 +456,6 @@ TypeError: get_current_user_id() missing 1 required positional argument: 'token'
 2024-02-20 15:43:12,785 INFO:127.0.0.1 - - [20/Feb/2024 15:43:12] "POST /login HTTP/1.1" 200 -
 2024-02-20 15:44:12,781 INFO:127.0.0.1 - - [20/Feb/2024 15:44:12] "POST /edit HTTP/1.1" 200 -
 2024-02-20 16:12:57,759 INFO: * Detected change in 'C:\\Users\\12672\\Desktop\\My Future\\Software_Dev_MasterMind\\live_chat_app\\server\\Voca_env\\routes\\main.py', reloading
+2024-02-20 16:13:03,774 INFO: * Restarting with stat
+2024-02-20 16:13:06,219 WARNING: * Debugger is active!
+2024-02-20 16:13:06,226 INFO: * Debugger PIN: 984-008-548
