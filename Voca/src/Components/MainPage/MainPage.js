@@ -12,6 +12,7 @@ import { themeClasses } from "../ThemeChange/ThemeClasses";
 import { ThemeContext } from "../ThemeChange/UseTheme";
 import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
+import io from "socket.io-client";
 
 const MainPage = ({ userData }) => {
   let navigate = useNavigate();
