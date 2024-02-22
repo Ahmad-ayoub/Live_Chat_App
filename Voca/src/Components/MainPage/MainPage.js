@@ -32,6 +32,8 @@ const MainPage = ({ userData }) => {
   const currentFontClasses =
     FontClasses[fontSize] || FontClasses["fontDefault"];
 
+  const socket = io("http://localhost:3000");
+
   return (
     <div className="profile_and_group_box">
       <div
