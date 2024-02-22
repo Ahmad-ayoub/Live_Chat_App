@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import {
@@ -13,6 +13,7 @@ import { ThemeContext } from "../ThemeChange/UseTheme";
 import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
+import axios from "axios";
 
 const MainPage = ({ userData }) => {
   let navigate = useNavigate();
@@ -114,6 +115,11 @@ const MainPage = ({ userData }) => {
         </div>
       </div>
       <div className={`input_chat_box ${currentThemeClasses.secondaryColor}`}>
+        <ul>
+          {chat.map((msg, index) => (
+            <li key={index}>{msg}</li>
+          ))}
+        </ul>
         <div className="group_box">
           <FontAwesomeIcon icon={faUserGroup} className="profile_box_image" />
           <p className="profile_box_text">Group #1</p>
