@@ -34,6 +34,35 @@ const MainPage = ({ userData }) => {
 
   const socket = io("http://localhost:3000");
 
+  const Chat = () => {
+    const [message, setMessage] = useState('');
+    const [chat, setChat] = useState([]);
+  
+    // Function to handle new text from the input field
+    const handleText = async (e) => {
+      e.preventDefault();
+      if (message.trim()) {
+        // Emit the message to the WebSocket server
+        socket.emit('chat message', message);
+  
+        try {
+          // Send the message to your backend server using Axios
+          await axios.post('http://localhost:5000/messages', { text: message });
+        } catch (error) {
+          console.error('Error sending message to the backend:', error);
+        }
+  
+        // Clear the message input field
+        setMessage('');
+      }
+    };
+  
+    // WebSocket listener for incoming messages
+    socket.on('chat message', (msg) => {
+      setChat((prevChat) => [...prevChat, msg]);
+    });
+
+
   return (
     <div className="profile_and_group_box">
       <div
