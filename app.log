@@ -473,3 +473,10 @@ TypeError: get_current_user_id() missing 1 required positional argument: 'token'
 2024-02-21 09:48:15,846 WARNING: * Debugger is active!
 2024-02-21 09:48:15,852 INFO: * Debugger PIN: 984-008-548
 2024-02-21 09:56:24,594 INFO:127.0.0.1 - - [21/Feb/2024 09:56:24] "POST /login HTTP/1.1" 200 -
+2024-02-22 05:49:58,203 INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-02-22 05:49:58,204 INFO:[33mPress CTRL+C to quit[0m
+2024-02-22 05:49:58,208 INFO: * Restarting with stat
+2024-02-22 05:49:59,868 WARNING: * Debugger is active!
+2024-02-22 05:49:59,875 INFO: * Debugger PIN: 984-008-548
+2024-02-22 05:50:11,087 INFO:127.0.0.1 - - [22/Feb/2024 05:50:11] "POST /login HTTP/1.1" 200 -
