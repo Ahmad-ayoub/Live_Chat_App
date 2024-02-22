@@ -34,25 +34,22 @@ const MainPage = ({ userData }) => {
     FontClasses[fontSize] || FontClasses["fontDefault"];
 
   const socket = io("http://localhost:3000");
+  const [message, setMessage] = useState("");
+  const [chat, setChat] = useState([]);
 
-  const Chat = () => {
-    const [message, setMessage] = useState("");
-    const [chat, setChat] = useState([]);
+  const handleText = async (e) => {
+    e.preventDefault();
+    if (message.trim()) {
+      socket.emit("chat message", message);
 
-    const handleText = async (e) => {
-      e.preventDefault();
-      if (message.trim()) {
-        socket.emit("chat message", message);
-
-        try {
-          await axios.post("http://localhost:5000/messages", { text: message });
-        } catch (error) {
-          console.error("Error sending message to the backend:", error);
-        }
-
-        setMessage("");
+      try {
+        await axios.post("http://localhost:5000/messages", { text: message });
+      } catch (error) {
+        console.error("Error sending message to the backend:", error);
       }
-    };
+
+      setMessage("");
+    }
   };
 
   socket.on("chat message", (msg) => {
@@ -115,11 +112,11 @@ const MainPage = ({ userData }) => {
         </div>
       </div>
       <div className={`input_chat_box ${currentThemeClasses.secondaryColor}`}>
-        <ul>
+        {/* <ul>
           {chat.map((msg, index) => (
             <li key={index}>{msg}</li>
           ))}
-        </ul>
+        </ul> */}
         <div className="group_box">
           <FontAwesomeIcon icon={faUserGroup} className="profile_box_image" />
           <p className="profile_box_text">Group #1</p>
