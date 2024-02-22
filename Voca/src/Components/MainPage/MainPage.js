@@ -119,12 +119,18 @@ const MainPage = ({ userData }) => {
           <p className="profile_box_text">Group #1</p>
         </div>
         <div className="chat_box"></div>
-        <div className="text_box">
-          <input className="input_message_box" placeholder="Type here..." />
-          <button className="input_message_button">
+        <form onSubmit={handleText} className="text_box">
+          <input
+            className="input_message_box"
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Type here..."
+          />
+          <button type="submit" className="input_message_button">
             <FontAwesomeIcon icon={faArrowAltCircleRight} />
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
