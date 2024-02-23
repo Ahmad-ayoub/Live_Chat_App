@@ -6060,3 +6060,7 @@ TypeError: get_current_user_id() missing 1 required positional argument: 'token'
 2024-02-23 05:55:53,195 INFO:127.0.0.1 - - [23/Feb/2024 05:55:53] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLctjX HTTP/1.1[0m" 404 -
 2024-02-23 05:55:58,504 INFO:127.0.0.1 - - [23/Feb/2024 05:55:58] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcuxc HTTP/1.1[0m" 404 -
 2024-02-23 05:55:59,193 INFO:127.0.0.1 - - [23/Feb/2024 05:55:59] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcvBD HTTP/1.1[0m" 404 -
+2024-02-23 05:56:04,512 INFO:127.0.0.1 - - [23/Feb/2024 05:56:04] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcwPY HTTP/1.1[0m" 404 -
+2024-02-23 05:56:04,522 INFO:127.0.0.1 - - [23/Feb/2024 05:56:04] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcwPo HTTP/1.1[0m" 404 -
+2024-02-23 05:56:10,192 INFO:127.0.0.1 - - [23/Feb/2024 05:56:10] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcxt6 HTTP/1.1[0m" 404 -
+2024-02-23 05:56:10,501 INFO:127.0.0.1 - - [23/Feb/2024 05:56:10] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcxt7 HTTP/1.1[0m" 404 -
