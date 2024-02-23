@@ -239,5 +239,47 @@ def edit_profile():
         return jsonify({"error": "An error occurred"}), 500
 
 
+@app.route("/messages/send", methods=["POST"])
+def send_message():
+    data = request.json
+    user_id = get_current_user_id()
+
+    if not user_id:
+        return jsonify({"error": "Authentication required"}), 401
+
+    message = Message(user_id=user_id, text=data.get("text"))
+
+    try:
+        db.session.add(message)
+        db.session.commit()
+        return jsonify({"message": "Message sent successfully"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Failed to send message"}), 500
+
+
+@app.route("/messages", methods=["GET"])
+def get_messages():
+    user_id = get_current_user_id()
+
+    if not user_id:
+        return jsonify({"error": "Authentication required"}), 401
+
+    messages = (
+        Message.query.filter_by(user_id=user_id)
+        .order_by(Message.timestamp.desc())
+        .all()
+    )
+    return (
+        jsonify(
+            [
+                {"id": msg.id, "text": msg.text, "timestamp": msg.timestamp}
+                for msg in messages
+            ]
+        ),
+        200,
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True)
