@@ -6047,3 +6047,14 @@ TypeError: get_current_user_id() missing 1 required positional argument: 'token'
 2024-02-23 05:53:01,735 INFO: * Restarting with stat
 2024-02-23 05:53:03,770 WARNING: * Debugger is active!
 2024-02-23 05:53:03,777 INFO: * Debugger PIN: 984-008-548
+2024-02-23 05:55:38,876 INFO:127.0.0.1 - - [23/Feb/2024 05:55:38] "POST /login HTTP/1.1" 200 -
+2024-02-23 05:55:38,935 INFO:127.0.0.1 - - [23/Feb/2024 05:55:38] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcqE5 HTTP/1.1[0m" 404 -
+2024-02-23 05:55:39,246 INFO:127.0.0.1 - - [23/Feb/2024 05:55:39] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcqE7 HTTP/1.1[0m" 404 -
+2024-02-23 05:55:40,461 INFO:127.0.0.1 - - [23/Feb/2024 05:55:40] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcqXh HTTP/1.1[0m" 404 -
+2024-02-23 05:55:40,725 INFO:127.0.0.1 - - [23/Feb/2024 05:55:40] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcqfV HTTP/1.1[0m" 404 -
+2024-02-23 05:55:43,196 INFO:127.0.0.1 - - [23/Feb/2024 05:55:43] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcrHG HTTP/1.1[0m" 404 -
+2024-02-23 05:55:43,503 INFO:127.0.0.1 - - [23/Feb/2024 05:55:43] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcrHG.0 HTTP/1.1[0m" 404 -
+2024-02-23 05:55:46,502 INFO:127.0.0.1 - - [23/Feb/2024 05:55:46] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcs05 HTTP/1.1[0m" 404 -
+2024-02-23 05:55:47,191 INFO:127.0.0.1 - - [23/Feb/2024 05:55:47] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLcsFi HTTP/1.1[0m" 404 -
+2024-02-23 05:55:52,506 INFO:127.0.0.1 - - [23/Feb/2024 05:55:52] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLctTs HTTP/1.1[0m" 404 -
+2024-02-23 05:55:53,195 INFO:127.0.0.1 - - [23/Feb/2024 05:55:53] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLctjX HTTP/1.1[0m" 404 -
