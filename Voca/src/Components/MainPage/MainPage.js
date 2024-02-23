@@ -32,7 +32,6 @@ const MainPage = ({ userData }) => {
   const { fontSize } = useContext(FontContext);
   const currentFontClasses =
     FontClasses[fontSize] || FontClasses["fontDefault"];
-
   const socket = io("http://localhost:3000");
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);

@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 import jwt
 import logging
+from datetime import datetime
 
 load_dotenv()
 
@@ -47,6 +48,17 @@ class User(db.Model):
     username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
     birthdate = db.Column(db.Date)
+
+
+class Message(db.Model):
+    __tablename__ = "messages"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("userdata.id"), nullable=False)
+    text = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    user = db.relationship("User", backref=db.backref("messages", lazy=True))
 
 
 @app.route("/register", methods=["POST"])
