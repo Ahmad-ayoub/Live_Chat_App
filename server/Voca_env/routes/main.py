@@ -173,22 +173,19 @@ def get_current_user_id():
     if len(token) > 0:
         prefix = "Bearer"
         if token.startswith(prefix):
-            token = token[len(prefix) :]  # Remove "Bearer " prefix
+            token = token[len(prefix) :]
             token = token.strip()
         try:
-            # Decode the token
+
             data = jwt.decode(token, "your_secret_key", algorithms=["HS256"])
-            return data.get(
-                "user_id"
-            )  # Use .get to avoid KeyError if "user_id" is missing
+            return data.get("user_id")
         except jwt.ExpiredSignatureError:
-            # Handle expired token
+
             return None
         except jwt.InvalidTokenError:
-            # Handle invalid token
+
             return None
     else:
-        # Handle case where no token is provided
         return None
 
 
@@ -204,7 +201,6 @@ def edit_profile():
         "password": validate_password(data.get("password")),
     }
 
-    # Check if there are any error messages in the errors dictionary
     if any(errors.values()):
         return jsonify({"error": "Validation failed", "details": errors}), 400
 
@@ -212,7 +208,6 @@ def edit_profile():
         user_id = get_current_user_id()
         print("user_id", user_id)
 
-        # Ensure user_id is not None before proceeding
         if not user_id:
             return jsonify({"error": "User ID is missing"}), 400
 
@@ -221,7 +216,6 @@ def edit_profile():
         if not user:
             return jsonify({"error": "User not found"}), 404
 
-        # Update user attributes
         user.name = data.get("name")
         user.username = data.get("username")
         user.email = data.get("email")
@@ -232,14 +226,12 @@ def edit_profile():
 
         db.session.commit()
 
-        # Return the updated user data
         return (
             jsonify(
                 {
                     "name": user.name,
                     "username": user.username,
                     "email": user.email,
-                    # Don't return the password for security reasons
                 }
             ),
             200,
