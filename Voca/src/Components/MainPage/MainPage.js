@@ -111,16 +111,19 @@ const MainPage = ({ userData }) => {
         </div>
       </div>
       <div className={`input_chat_box ${currentThemeClasses.secondaryColor}`}>
-        {/* <ul>
-          {chat.map((msg, index) => (
-            <li key={index}>{msg}</li>
-          ))}
-        </ul> */}
         <div className="group_box">
           <FontAwesomeIcon icon={faUserGroup} className="profile_box_image" />
           <p className="profile_box_text">Group #1</p>
         </div>
-        <div className="chat_box"></div>
+        <div className="chat_box">
+          {message.length > 0 ? (
+            <ul>
+              {message.map((msg, index) => (
+                <li key={index}>{msg}</li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
         <form onSubmit={handleText} className="text_box">
           <input
             className="input_message_box"

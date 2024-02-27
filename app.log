@@ -6668,3 +6668,9 @@ TypeError: get_current_user_id() missing 1 required positional argument: 'token'
 2024-02-23 06:26:08,509 INFO:127.0.0.1 - - [23/Feb/2024 06:26:08] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLjor1 HTTP/1.1[0m" 404 -
 2024-02-23 06:26:14,520 INFO:127.0.0.1 - - [23/Feb/2024 06:26:14] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLjqIo HTTP/1.1[0m" 404 -
 2024-02-23 06:26:14,528 INFO:127.0.0.1 - - [23/Feb/2024 06:26:14] "[33mGET /socket.io/?EIO=4&transport=polling&t=OtLjqIp HTTP/1.1[0m" 404 -
+2024-02-27 06:04:26,554 INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-02-27 06:04:26,554 INFO:[33mPress CTRL+C to quit[0m
+2024-02-27 06:04:26,557 INFO: * Restarting with stat
+2024-02-27 06:04:28,176 WARNING: * Debugger is active!
+2024-02-27 06:04:28,184 INFO: * Debugger PIN: 984-008-548
