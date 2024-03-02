@@ -115,7 +115,14 @@ const MainPage = ({ userData }) => {
           <FontAwesomeIcon icon={faUserGroup} className="profile_box_image" />
           <p className="profile_box_text">Group #1</p>
         </div>
-        <div className="chat_box">{message ? <p>{message}</p> : null}</div>
+        <div className="chat_box">
+          {message ? (
+            <div>
+              <p>{userData.username}</p>
+              <p>{message}</p>
+            </div>
+          ) : null}
+        </div>
         <form onSubmit={handleText} className="text_box">
           <input
             className="input_message_box"
