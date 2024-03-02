@@ -33,7 +33,7 @@ const MainPage = ({ userData }) => {
   const currentFontClasses =
     FontClasses[fontSize] || FontClasses["fontDefault"];
   const socket = io("http://localhost:3000");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
 
   const handleText = async (e) => {
