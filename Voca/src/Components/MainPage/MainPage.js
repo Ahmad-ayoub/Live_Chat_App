@@ -118,7 +118,7 @@ const MainPage = ({ userData }) => {
         <div className="chat_box">
           {message ? (
             <div>
-              <p>{userData.username}</p>
+              {/* <p>{userData.username}</p> */}
               <p>{message}</p>
             </div>
           ) : null}
