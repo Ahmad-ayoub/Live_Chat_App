@@ -17643,3 +17643,16 @@ TypeError: get_current_user_id() missing 1 required positional argument: 'token'
  * Running on http://127.0.0.1:5000
 2024-03-04 05:48:23,524 INFO:[33mPress CTRL+C to quit[0m
 2024-03-04 05:48:23,528 INFO: * Restarting with stat
+2024-03-04 05:48:25,797 WARNING: * Debugger is active!
+2024-03-04 05:48:25,803 INFO: * Debugger PIN: 984-008-548
+2024-03-04 05:49:43,258 INFO:127.0.0.1 - - [04/Mar/2024 05:49:43] "POST /login HTTP/1.1" 200 -
+2024-03-04 05:49:43,321 INFO:127.0.0.1 - - [04/Mar/2024 05:49:43] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95Mvc HTTP/1.1[0m" 404 -
+2024-03-04 05:49:43,619 INFO:127.0.0.1 - - [04/Mar/2024 05:49:43] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95Mvd HTTP/1.1[0m" 404 -
+2024-03-04 05:49:44,415 INFO:127.0.0.1 - - [04/Mar/2024 05:49:44] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95N6Q HTTP/1.1[0m" 404 -
+2024-03-04 05:49:45,027 INFO:127.0.0.1 - - [04/Mar/2024 05:49:45] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95NKv HTTP/1.1[0m" 404 -
+2024-03-04 05:49:46,331 INFO:127.0.0.1 - - [04/Mar/2024 05:49:46] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95NaT HTTP/1.1[0m" 404 -
+2024-03-04 05:49:46,833 INFO:127.0.0.1 - - [04/Mar/2024 05:49:46] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95Nn7 HTTP/1.1[0m" 404 -
+2024-03-04 05:49:48,877 INFO:127.0.0.1 - - [04/Mar/2024 05:49:48] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95OCB HTTP/1.1[0m" 404 -
+2024-03-04 05:49:51,862 INFO:127.0.0.1 - - [04/Mar/2024 05:49:51] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95O_V HTTP/1.1[0m" 404 -
+2024-03-04 05:49:53,903 INFO:127.0.0.1 - - [04/Mar/2024 05:49:53] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95PVb HTTP/1.1[0m" 404 -
+2024-03-04 05:49:56,891 INFO:127.0.0.1 - - [04/Mar/2024 05:49:56] "[33mGET /socket.io/?EIO=4&transport=polling&t=Ou95QE4 HTTP/1.1[0m" 404 -
