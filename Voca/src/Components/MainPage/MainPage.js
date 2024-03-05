@@ -39,17 +39,14 @@ const MainPage = ({ userData }) => {
   const handleText = async (e) => {
     e.preventDefault();
     if (message.trim()) {
-      // Emit the message to the server via Socket.IO
       socket.emit("chat message", message);
 
-      // Optionally, you can still make an Axios POST request to save the message in the database
       try {
         await axios.post("http://localhost:5000/messages", { text: message });
       } catch (error) {
         console.error("Error sending message to the backend:", error);
       }
 
-      // Clear the message input field
       setMessage("");
     }
   };
