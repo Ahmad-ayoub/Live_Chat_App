@@ -51,9 +51,18 @@ const MainPage = ({ userData }) => {
     }
   };
 
-  socket.on("chat message", (msg) => {
-    setChat((prevChat) => [...prevChat, msg]);
-  });
+  useEffect(() => {
+    socket.on("chat message", (msg) => {
+      setChat((prevChat) => [
+        ...prevChat,
+        { username: userData.username, text: msg },
+      ]);
+    });
+
+    return () => {
+      socket.off("chat message");
+    };
+  }, [userData.username]);
 
   return (
     <div className="profile_and_group_box">
