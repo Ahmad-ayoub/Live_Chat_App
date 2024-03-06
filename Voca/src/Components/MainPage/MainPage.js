@@ -42,7 +42,9 @@ const MainPage = ({ userData }) => {
       socket.emit("chat message", message);
 
       try {
-        await axios.post("http://localhost:5000/messages", { text: message });
+        await axios.post("http://localhost:5000/messages/send", {
+          text: message,
+        });
       } catch (error) {
         console.error("Error sending message to the backend:", error);
       }
