@@ -45,7 +45,7 @@ const MainPage = ({ userData }) => {
         await axios.post("http://localhost:5000/messages/send", {
           text: message,
         });
-        await axios.post("http://localhost:5000/messages", { text: message });
+        await axios.get("http://localhost:5000/messages", { text: message });
       } catch (error) {
         console.error("Error sending message to the backend:", error);
       }
