@@ -13,7 +13,7 @@ from datetime import datetime
 load_dotenv()
 
 app = Flask(__name__, static_folder="../../../build", static_url_path="")
-CORS(app, origins=["http://localhost:3000"])
+CORS(app, origins=["http://localhost:3000/*"])
 
 logging.basicConfig(
     level=logging.DEBUG,
