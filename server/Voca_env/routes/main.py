@@ -3,17 +3,17 @@ import secrets
 from flask import Flask, request, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_cors import CORS
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 import jwt
 import logging
 from datetime import datetime
+from flask_socketio import SocketIO, emit
 
 load_dotenv()
 
 app = Flask(__name__, static_folder="../../../build", static_url_path="")
-CORS(app, origins=["http://localhost:3000/*"])
+socketio = SocketIO(app, cors_allowed_origins=["http://localhost:3000"])
 
 logging.basicConfig(
     level=logging.DEBUG,
