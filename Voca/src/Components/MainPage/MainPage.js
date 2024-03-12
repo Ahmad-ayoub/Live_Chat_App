@@ -67,6 +67,13 @@ const MainPage = ({ userData }) => {
     };
   }, [userData.username]);
 
+  socket.on("connect_error", (error) => {
+    console.error("Socket connection error:", error);
+    setTimeout(() => {
+      socket.connect();
+    }, 5000);
+  });
+
   return (
     <div className="profile_and_group_box">
       <div
