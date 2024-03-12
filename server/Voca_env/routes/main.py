@@ -9,11 +9,25 @@ import jwt
 import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
+from flask_cors import CORS
+
 
 load_dotenv()
 
 app = Flask(__name__, static_folder="../../../build", static_url_path="")
 socketio = SocketIO(app, cors_allowed_origins=["http://localhost:3000/*"])
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
+
+
+@socketio.on_error()
+def handle_socket_error(e):
+    print(f"Socket error: {str(e)}")
+
+
+@socketio.on_error_default
+def default_error_handler(e):
+    print(f"Socket error: {str(e)}")
+
 
 logging.basicConfig(
     level=logging.DEBUG,
