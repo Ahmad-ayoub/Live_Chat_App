@@ -1,4 +1,6 @@
-module.exports = function override(config, env) {
+const { override, useEslintRc } = require("customize-cra");
+
+module.exports = override(useEslintRc(), (config) => {
   config.resolve.fallback = {
     util: false,
     http: false,
@@ -10,6 +12,5 @@ module.exports = function override(config, env) {
     zlib: false,
     path: false,
   };
-
   return config;
-};
+});
