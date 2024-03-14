@@ -35,17 +35,6 @@ const MainPage = ({ userData }) => {
   const socket = io("http://localhost:3000/*");
   const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
-  const { createProxyMiddleware } = require("http-proxy-middleware");
-
-  // module.exports = function (app) {
-  //   app.use(
-  //     "/socket.io",
-  //     createProxyMiddleware({
-  //       target: "http://localhost:5000",
-  //       changeOrigin: true,
-  //     })
-  //   );
-  // };
 
   const handleText = async (e) => {
     e.preventDefault();
