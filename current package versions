@@ -1,0 +1,12 @@
+Package                            Current  Wanted  Latest  Location                                        Depended by
+@fortawesome/fontawesome-svg-core    6.4.2   6.5.1   6.5.1  node_modules/@fortawesome/fontawesome-svg-core  Voca
+@fortawesome/free-solid-svg-icons    6.4.2   6.5.1   6.5.1  node_modules/@fortawesome/free-solid-svg-icons  Voca
+@testing-library/jest-dom           5.17.0  5.17.0   6.4.2  node_modules/@testing-library/jest-dom          Voca
+@testing-library/react              13.4.0  13.4.0  14.2.1  node_modules/@testing-library/react             Voca
+@testing-library/user-event         13.5.0  13.5.0  14.5.2  node_modules/@testing-library/user-event        Voca
+axios                                1.5.1   1.6.7   1.6.7  node_modules/axios                              Voca
+bootstrap                            5.3.1   5.3.3   5.3.3  node_modules/bootstrap                          Voca
+react-router-dom                    6.18.0  6.22.3  6.22.3  node_modules/react-router-dom                   Voca
+web-vitals                           2.1.4   2.1.4   3.5.2  node_modules/web-vitals                         Voca
+
+Done at 3/13/24 8:30 PM
