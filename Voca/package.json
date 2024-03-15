@@ -43,10 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": {
-    "/socket.io": {
-      "target": "http://localhost:5000",
-      "ws": true
-    }
-  }
+  "proxy": "http://localhost:5000"
 }
