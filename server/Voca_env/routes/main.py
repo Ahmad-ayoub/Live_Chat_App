@@ -15,8 +15,8 @@ from flask_cors import CORS
 load_dotenv()
 
 app = Flask(__name__, static_folder="../../../build", static_url_path="")
-socketio = SocketIO(app, cors_allowed_origins=["http://localhost:3000/*"])
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000/*"]}})
+socketio = SocketIO(app, cors_allowed_origins=["http://localhost:3000"])
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
 
 
 @socketio.on_error()
