@@ -19,6 +19,15 @@ socketio = SocketIO(app, cors_allowed_origins=["http://localhost:3000"])
 CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
 
 
+@app.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+    response.headers.add(
+        "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"
+    )
+    return response
+
+
 @socketio.on_error()
 def handle_socket_error(e):
     print(f"Socket error: {str(e)}")
