@@ -74,6 +74,24 @@ const MainPage = ({ userData }) => {
     }, 5000);
   });
 
+  socket.on("connect", () => {
+    console.log("Connected to Socket.io server");
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Disconnected from Socket.io server");
+  });
+
+  socket.on("connect_error", (error) => {
+    console.error("Socket.io connection error:", error);
+  });
+
+  socket.emit("test", "Hello from the frontend");
+
+  socket.on("test", (message) => {
+    console.log("Received message from backend:", message);
+  });
+
   return (
     <div className="profile_and_group_box">
       <div
