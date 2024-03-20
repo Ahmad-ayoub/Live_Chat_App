@@ -38,16 +38,14 @@ def default_error_handler(e):
     print(f"Socket error: {str(e)}")
 
 
-@socketio.on("test")
-def handle_test_event(message):
+@socketio.on("frontend_to_backend")
+def handle_frontend_message(message):
     print("Received message from frontend:", message)
 
 
-@app.route("/send-message")
-def send_test_message():
-    message = "Hello from the backend"
-    socketio.emit("test", message)
-    return "Message sent"
+@socketio.on("connect")
+def handle_connect():
+    emit("backend_to_frontend", "Hello from the backend")
 
 
 logging.basicConfig(

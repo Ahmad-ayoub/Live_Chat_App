@@ -86,11 +86,17 @@ const MainPage = ({ userData }) => {
     console.error("Socket.io connection error:", error);
   });
 
-  socket.emit("test", "Hello from the frontend");
+  socket.emit("frontend_to_backend", "Hello from the frontend");
 
-  socket.on("test", (message) => {
-    console.log("Received message from backend:", message);
-  });
+  useEffect(() => {
+    socket.on("backend_to_frontend", (message) => {
+      console.log("Received message from backend:", message);
+    });
+
+    return () => {
+      socket.off("backend_to_frontend");
+    };
+  }, []);
 
   return (
     <div className="profile_and_group_box">
