@@ -43,7 +43,11 @@ def handle_test_event(message):
     print("Received message from frontend:", message)
 
 
-socketio.emit("testing", "Hello from the backend")
+@app.route("/send-message")
+def send_test_message():
+    message = "Hello from the backend"
+    socketio.emit("test", message)
+    return "Message sent"
 
 
 logging.basicConfig(
