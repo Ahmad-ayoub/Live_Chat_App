@@ -286,7 +286,7 @@ def send_message():
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
-
+    print("Message:", message)
     message = Message(user_id=user_id, text=data.get("text"))
 
     try:
