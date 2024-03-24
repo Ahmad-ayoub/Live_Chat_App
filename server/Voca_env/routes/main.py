@@ -203,6 +203,7 @@ def validate_password(password):
 
 def get_current_user_id():
     token = request.headers.get("Authorization")
+    print("token info:", token)
     if len(token) > 0:
         prefix = "Bearer"
         if token.startswith(prefix):
