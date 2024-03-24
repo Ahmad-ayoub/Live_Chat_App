@@ -25,6 +25,7 @@ def after_request(response):
     response.headers.add(
         "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"
     )
+    print("reponse:", response)
     return response
 
 
@@ -286,8 +287,8 @@ def send_message():
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
-    print("Message:", message)
     message = Message(user_id=user_id, text=data.get("text"))
+    print("Message:", message)
 
     try:
         db.session.add(message)
