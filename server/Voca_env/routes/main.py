@@ -279,7 +279,9 @@ def edit_profile():
 @app.route("/messages/send", methods=["POST"])
 def send_message():
     data = request.json
+    print("Request data:", data)
     user_id = get_current_user_id()
+    print("User ID:", user_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
@@ -298,6 +300,7 @@ def send_message():
 @app.route("/messages", methods=["GET"])
 def get_messages():
     user_id = get_current_user_id()
+    print("User ID:", user_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
@@ -307,6 +310,7 @@ def get_messages():
         .order_by(Message.timestamp.desc())
         .all()
     )
+    print("Messages:", messages)
     return (
         jsonify(
             [

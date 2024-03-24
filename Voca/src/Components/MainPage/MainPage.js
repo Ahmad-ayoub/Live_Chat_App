@@ -39,6 +39,7 @@ const MainPage = ({ userData }) => {
   const handleText = async (e) => {
     e.preventDefault();
     if (message) {
+      console.log("Message:", message);
       socket.emit("chat message", message);
 
       try {
