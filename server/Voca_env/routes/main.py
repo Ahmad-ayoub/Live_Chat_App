@@ -316,7 +316,12 @@ def get_messages():
     return (
         jsonify(
             [
-                {"id": msg.id, "text": msg.text, "timestamp": msg.timestamp}
+                {
+                    "id": msg.id,
+                    "username": msg.username,
+                    "text": msg.text,
+                    "timestamp": msg.timestamp,
+                }
                 for msg in messages
             ]
         ),

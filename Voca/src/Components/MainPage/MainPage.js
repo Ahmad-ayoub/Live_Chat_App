@@ -39,17 +39,19 @@ const MainPage = ({ userData }) => {
   const handleText = async (e) => {
     e.preventDefault();
 
+    axios.interceptors.request.use(function (config) {
+      const token = localStorage.getItem("authToken");
+      config.headers.Authorization = token ? `Bearer ${token}` : "";
+      console.log("token", token);
+      return config;
+    });
+
     if (message) {
       console.log("Message:", message);
       socket.emit("chat message", message);
 
       try {
-        axios.interceptors.request.use(function (config) {
-          const token = localStorage.getItem("authToken");
-          config.headers.Authorization = token ? `Bearer ${token}` : "";
-          console.log("token", token);
-          return config;
-        });
+        const token = localStorage.getItem("token");
 
         await axios.post(
           "http://localhost:5000/messages/send",
@@ -181,7 +183,7 @@ const MainPage = ({ userData }) => {
         <div className="chat_box">
           {chat.map((msg, index) => (
             <div key={index}>
-              <p>{msg.username}</p>
+              <p>{msg.id}</p>
               <p>{msg.text}</p>
             </div>
           ))}
