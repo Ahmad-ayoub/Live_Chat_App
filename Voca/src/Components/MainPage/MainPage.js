@@ -45,6 +45,7 @@ const MainPage = ({ userData }) => {
 
       try {
         const token = localStorage.getItem("token");
+        console.log("token FE:", token);
 
         await axios.post(
           "http://localhost:5000/messages/send",
