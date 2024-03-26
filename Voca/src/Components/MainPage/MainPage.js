@@ -44,21 +44,21 @@ const MainPage = ({ userData }) => {
       socket.emit("chat message", message);
 
       try {
-        const token = localStorage.getItem("token"); // Retrieve the token from local storage
+        const token = localStorage.getItem("token");
 
         await axios.post(
           "http://localhost:5000/messages/send",
           { text: message },
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+              Authorization: `Bearer ${token}`,
             },
           }
         );
 
         await axios.get("http://localhost:5000/messages", {
           headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            Authorization: `Bearer ${token}`,
           },
         });
       } catch (error) {
