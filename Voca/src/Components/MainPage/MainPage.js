@@ -38,15 +38,29 @@ const MainPage = ({ userData }) => {
 
   const handleText = async (e) => {
     e.preventDefault();
+
     if (message) {
       console.log("Message:", message);
       socket.emit("chat message", message);
 
       try {
-        await axios.post("http://localhost:5000/messages/send", {
-          text: message,
+        const token = localStorage.getItem("token"); // Retrieve the token from local storage
+
+        await axios.post(
+          "http://localhost:5000/messages/send",
+          { text: message },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            },
+          }
+        );
+
+        await axios.get("http://localhost:5000/messages", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
         });
-        await axios.get("http://localhost:5000/messages");
       } catch (error) {
         console.error("Error sending message to the backend:", error);
       }
