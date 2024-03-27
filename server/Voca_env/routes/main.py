@@ -308,32 +308,25 @@ def get_messages():
         return jsonify({"error": "Authentication required"}), 401
 
     messages = (
-        Message.query.filter_by(user_id=user_id)
+        Message.query.join(User)
+        .filter(Message.user_id == user_id)
         .order_by(Message.timestamp.desc())
         .all()
     )
     print("Messages:", messages)
 
-    user = User.query.get(user_id)
-    if user:
-        username = user.username
-    else:
-        username = "Unknown"
+    message_data = []
+    for msg in messages:
+        message_data.append(
+            {
+                "id": msg.id,
+                "username": msg.user.username,
+                "text": msg.text,
+                "timestamp": msg.timestamp,
+            }
+        )
 
-    return (
-        jsonify(
-            [
-                {
-                    "id": msg.id,
-                    "username": msg.username,
-                    "text": msg.text,
-                    "timestamp": msg.timestamp,
-                }
-                for msg in messages
-            ]
-        ),
-        200,
-    )
+    return jsonify(message_data), 200
 
 
 if __name__ == "__main__":
