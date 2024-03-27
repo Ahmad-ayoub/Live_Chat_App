@@ -313,6 +313,13 @@ def get_messages():
         .all()
     )
     print("Messages:", messages)
+
+    user = User.query.get(user_id)
+    if user:
+        username = user.username
+    else:
+        username = "Unknown"
+
     return (
         jsonify(
             [
