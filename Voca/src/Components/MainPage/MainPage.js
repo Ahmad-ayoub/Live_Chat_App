@@ -35,7 +35,7 @@ const MainPage = ({ userData }) => {
   const socket = io("http://localhost:5000");
   const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
-
+  console.log("chat: ", chat);
   const handleText = async (e) => {
     e.preventDefault();
 
@@ -80,7 +80,7 @@ const MainPage = ({ userData }) => {
     socket.on("chat message", (msg) => {
       setChat((prevChat) => [
         ...prevChat,
-        { username: userData.username, text: msg },
+        { username: userData.username, text: msg.text },
       ]);
     });
 
