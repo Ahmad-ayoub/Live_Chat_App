@@ -36,38 +36,28 @@ const MainPage = ({ userData }) => {
   const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
   console.log("chat: ", chat);
+
+  axios.interceptors.request.use(function (config) {
+    const token = localStorage.getItem("authToken");
+    config.headers.Authorization = token ? `Bearer ${token}` : "";
+    console.log("token", token);
+    return config;
+  });
+
   const handleText = async (e) => {
     e.preventDefault();
-
-    axios.interceptors.request.use(function (config) {
-      const token = localStorage.getItem("authToken");
-      config.headers.Authorization = token ? `Bearer ${token}` : "";
-      console.log("token", token);
-      return config;
-    });
 
     if (message) {
       console.log("Message:", message);
       socket.emit("chat message", message);
 
       try {
-        const token = localStorage.getItem("token");
-
-        await axios.post(
-          "http://localhost:5000/messages/send",
-          { text: message },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        await axios.get("http://localhost:5000/messages", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        await axios.post("http://localhost:5000/messages/send", {
+          text: message,
         });
+        const response = await axios.get("http://localhost:5000/messages");
+        const newMessage = response.data;
+        setChat(newMessage);
       } catch (error) {
         console.error("Error sending message to the backend:", error);
       }
@@ -77,17 +67,17 @@ const MainPage = ({ userData }) => {
   };
 
   useEffect(() => {
-    socket.on("chat message", (msg) => {
-      setChat((prevChat) => [
-        ...prevChat,
-        { username: userData.username, text: msg.text },
-      ]);
+    socket.on("chat message", (newMessage) => {
+      setChat({
+        username: newMessage.username,
+        text: newMessage.text,
+      });
     });
 
     return () => {
       socket.off("chat message");
     };
-  }, [userData.username]);
+  }, []);
 
   socket.on("connect_error", (error) => {
     console.error("Socket connection error:", error);
@@ -181,12 +171,12 @@ const MainPage = ({ userData }) => {
           <p className="profile_box_text">Group #1</p>
         </div>
         <div className="chat_box">
-          {chat.map((msg, index) => (
-            <div key={index}>
-              <p>{msg.username}</p>
-              <p>{msg.text}</p>
+          {chat && (
+            <div>
+              <p>{chat.username}</p>
+              <p>{chat.text}</p>
             </div>
-          ))}
+          )}
         </div>
         <form onSubmit={handleText} className="text_box">
           <input
