@@ -136,6 +136,7 @@ def login():
         return jsonify({"error": "User not found!"}), 404
     token = jwt.encode({"user_id": user.id}, "your_secret_key", algorithm="HS256")
     print("token", token)
+    print("user.id: ", user.id)
     if check_password_hash(user.password, password):
         return (
             jsonify(
@@ -325,6 +326,8 @@ def get_messages():
         return jsonify(message_data), 200
     else:
         return jsonify({"message": "No messages found"}), 200
+
+    print(latest_message.id)
 
 
 if __name__ == "__main__":
