@@ -57,7 +57,7 @@ const MainPage = ({ userData }) => {
         });
         const response = await axios.get("http://localhost:5000/messages");
         const newMessage = response.data;
-        setChat(newMessage);
+        setChat((prevChat) => [...prevChat, newMessage]);
         console.log("newMessage:", newMessage);
       } catch (error) {
         console.error("Error sending message to the backend:", error);
@@ -69,10 +69,7 @@ const MainPage = ({ userData }) => {
 
   useEffect(() => {
     socket.on("chat message", (newMessage) => {
-      setChat({
-        username: newMessage.username,
-        text: newMessage.text,
-      });
+      setChat((prevChat) => [...prevChat, newMessage]);
     });
 
     return () => {
