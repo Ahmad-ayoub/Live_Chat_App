@@ -319,6 +319,7 @@ def get_messages():
     if latest_message:
         message_data = {
             "id": latest_message.id,
+            "user_id": latest_message.user_id,
             "username": latest_message.user.username,
             "text": latest_message.text,
             "timestamp": latest_message.timestamp,
@@ -326,8 +327,6 @@ def get_messages():
         return jsonify(message_data), 200
     else:
         return jsonify({"message": "No messages found"}), 200
-
-    print(latest_message.id)
 
 
 if __name__ == "__main__":
