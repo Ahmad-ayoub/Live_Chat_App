@@ -58,6 +58,7 @@ const MainPage = ({ userData }) => {
         const response = await axios.get("http://localhost:5000/messages");
         const newMessage = response.data;
         setChat((prevChat) => [...prevChat, newMessage]);
+
         console.log("newMessage:", newMessage);
       } catch (error) {
         console.error("Error sending message to the backend:", error);
