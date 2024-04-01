@@ -170,12 +170,12 @@ const MainPage = ({ userData }) => {
           <p className="profile_box_text">Group #1</p>
         </div>
         <div className="chat_box">
-          {chat && (
-            <div>
-              <p>{chat.username}</p>
-              <p>{chat.text}</p>
+          {chat.map((message, index) => (
+            <div key={index}>
+              <p>{message.username}</p>
+              <p>{message.text}</p>
             </div>
-          )}
+          ))}
         </div>
         <form onSubmit={handleText} className="text_box">
           <input
