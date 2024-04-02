@@ -171,9 +171,11 @@ const MainPage = ({ userData }) => {
         </div>
         <div className="chat_box">
           {chat.map((message, index) => (
-            <div key={index}>
-              <p>{message.username}</p>
-              <p>{message.text}</p>
+            <div className="message-container">
+              <div className="message-box" key={index}>
+                <p className="username">{message.username}</p>
+                <p className="text">{message.text}</p>
+              </div>
             </div>
           ))}
         </div>
