@@ -185,7 +185,7 @@
 .chat-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 88vh;
 }
 
 .chat-container {
