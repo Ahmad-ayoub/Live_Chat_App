@@ -182,6 +182,12 @@
   height: 92%;
 }
 
+.chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .chat-container {
   width: 100%;
   margin: 0 auto;

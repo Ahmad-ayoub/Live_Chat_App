@@ -169,15 +169,17 @@ const MainPage = ({ userData }) => {
           <FontAwesomeIcon icon={faUserGroup} className="profile_box_image" />
           <p className="profile_box_text">Group #1</p>
         </div>
-        <div className="chat-container">
-          {chat.map((message, index) => (
-            <div className="message-container" key={index}>
-              <div className="message-box">
-                <p className="username">{message.username}</p>
-                <p className="text">{message.text}</p>
+        <div className="chat-wrapper">
+          <div className="chat-container">
+            {chat.map((message, index) => (
+              <div className="message-container" key={index}>
+                <div className="message-box">
+                  <p className="username">{message.username}</p>
+                  <p className="text">{message.text}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
         <form onSubmit={handleText} className="text_box">
           <input
