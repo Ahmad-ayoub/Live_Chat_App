@@ -169,10 +169,10 @@ const MainPage = ({ userData }) => {
           <FontAwesomeIcon icon={faUserGroup} className="profile_box_image" />
           <p className="profile_box_text">Group #1</p>
         </div>
-        <div className="chat_box">
+        <div className="chat-container">
           {chat.map((message, index) => (
-            <div className="message-container">
-              <div className="message-box" key={index}>
+            <div className="message-container" key={index}>
+              <div className="message-box">
                 <p className="username">{message.username}</p>
                 <p className="text">{message.text}</p>
               </div>
