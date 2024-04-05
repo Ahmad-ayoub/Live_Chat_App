@@ -26,6 +26,15 @@ const MainPage = ({ userData }) => {
     navigate("/");
   }
 
+  function getBackEndData(e) {
+    e.preventDefault
+    if(e) {
+      try {
+        try await axios.get() 
+      }
+    }
+  }
+
   const { theme } = useContext(ThemeContext);
   const currentThemeClasses =
     themeClasses[theme] || themeClasses["defaultTheme"];
