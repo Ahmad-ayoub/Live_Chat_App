@@ -329,6 +329,33 @@ def get_messages():
         return jsonify({"message": "No messages found"}), 200
 
 
+@app.route("/messages/all", methods=["GET"])
+def get_all_messages():
+    user_id = get_current_user_id()
+    print("User ID:", user_id)
+
+    if not user_id:
+        return jsonify({"error": "Authentication required"}), 401
+
+    messages = Message.query.join(User).order_by(Message.timestamp.asc()).all()
+    print("Messages:", messages)
+
+    message_data = []
+    for message in messages:
+        message_data.append(
+            {
+                "id": message.id,
+                "user_id": message.user_id,
+                "username": message.user.username,
+                "text": message.text,
+                "timestamp": message.timestamp,
+                "is_current_user": message.user_id == user_id,
+            }
+        )
+
+    return jsonify(message_data), 200
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
