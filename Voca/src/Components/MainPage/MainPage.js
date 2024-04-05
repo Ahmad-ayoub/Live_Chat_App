@@ -44,6 +44,27 @@ const MainPage = ({ userData }) => {
     return config;
   });
 
+  const ChatComponent = () => {
+    useEffect(async () => {
+      if (message) {
+        try {
+          const token = localStorage.getItem("authToken");
+          const response = await axios.get("/messages/all", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const allMessages = response.data;
+          setChat((prevChat) => [...prevChat, allMessages]);
+        } catch (error) {
+          console.error("Error fetching messages:", error);
+        }
+      }
+
+      setMessage("");
+    }, []);
+  };
+
   const handleText = async (e) => {
     e.preventDefault();
 
