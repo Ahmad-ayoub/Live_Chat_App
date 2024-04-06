@@ -44,8 +44,8 @@ const MainPage = ({ userData }) => {
     return config;
   });
 
-  useEffect(async () => {
-    if (message) {
+  useEffect(() => {
+    const fetchMessages = async () => {
       try {
         const token = localStorage.getItem("authToken");
         const response = await axios.get("/messages/all", {
@@ -54,13 +54,13 @@ const MainPage = ({ userData }) => {
           },
         });
         const allMessages = response.data;
-        setChat((prevChat) => [...prevChat, allMessages]);
+        setChat(allMessages);
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
-    }
+    };
 
-    setMessage("");
+    fetchMessages();
   }, []);
 
   const handleText = async (e) => {
