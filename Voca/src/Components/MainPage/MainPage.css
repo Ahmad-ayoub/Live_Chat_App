@@ -201,6 +201,11 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+  align-items: flex-start;
+}
+
+.message-container.other-user {
+  align-items: flex-end;
 }
 
 .message-box {
@@ -208,8 +213,11 @@
   border-radius: 20px;
   padding: 10px 20px;
   max-width: 70%;
-  align-self: flex-start;
   word-wrap: break-word;
+}
+
+.message-box.other-user {
+  background-color: #e0e0e0;
 }
 
 .username {
@@ -218,9 +226,17 @@
   margin-bottom: 5px;
 }
 
+.username.other-user {
+  color: #000000;
+}
+
 .text {
   color: #ffffff;
   white-space: pre-wrap;
+}
+
+.text.other-user {
+  color: #000000; /* Different color for other users' message text */
 }
 
 .input_message_box {
