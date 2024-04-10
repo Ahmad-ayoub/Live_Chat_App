@@ -35,7 +35,7 @@ const MainPage = ({ userData }) => {
   const socket = io("http://localhost:5000");
   const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
-  const [selectedRoom, setSelectedRoom] = useState();
+  const [selectedRoom, setSelectedRoom] = useState("Group #1");
   console.log("chat: ", chat);
 
   const handleRoomClick = (room) => {
