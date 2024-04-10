@@ -35,7 +35,7 @@ const MainPage = ({ userData }) => {
   const socket = io("http://localhost:5000");
   const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
-  const [selectedRoom, setSelectedRoom] = useState("Group #1");
+  const [selectedRoom, setSelectedRoom] = useState();
   console.log("chat: ", chat);
 
   const handleRoomClick = (room) => {
@@ -159,21 +159,30 @@ const MainPage = ({ userData }) => {
         </div>
 
         <div className="chat_list_box">
-          <button className="chat_list_buttons">
+          <button
+            className="chat_list_buttons"
+            onClick={() => handleRoomClick("Group #1")}
+          >
             <FontAwesomeIcon icon={faUserGroup} className="chat_list_icons" />
-            <p className="profile_box_text">Group #1</p>
+            <p className="profile_box_text">Just Chatting</p>
           </button>
         </div>
         <div className="chat_list_box">
-          <button className="chat_list_buttons">
+          <button
+            className="chat_list_buttons"
+            onClick={() => handleRoomClick("Group #2")}
+          >
             <FontAwesomeIcon icon={faUserGroup} className="chat_list_icons" />
-            <p className="profile_box_text">Group #2</p>
+            <p className="profile_box_text">Video Games</p>
           </button>
         </div>
         <div className="chat_list_box">
-          <button className="chat_list_buttons">
+          <button
+            className="chat_list_buttons"
+            onClick={() => handleRoomClick("Group #3")}
+          >
             <FontAwesomeIcon icon={faUserGroup} className="chat_list_icons" />
-            <p className="profile_box_text">Group #3</p>
+            <p className="profile_box_text">Lieterature</p>
           </button>
         </div>
         <div className="chat_list_box">
@@ -191,11 +200,77 @@ const MainPage = ({ userData }) => {
       <div className={`input_chat_box ${currentThemeClasses.secondaryColor}`}>
         <div className="group_box">
           <FontAwesomeIcon icon={faUserGroup} className="profile_box_image" />
-          <p className="profile_box_text">Group #1</p>
+          <p className="profile_box_text">Just Chatting</p>
         </div>
         <div className="chat-wrapper">
           <div className="chat-container">
             {selectedRoom === "Group #1" && (
+              <>
+                {chat.map((message, index) => (
+                  <div
+                    className={`message-container ${
+                      message.is_current_user ? "" : "other-user"
+                    }`}
+                    key={index}
+                  >
+                    <div
+                      className={`message-box ${
+                        message.is_current_user ? "" : "other-user"
+                      }`}
+                    >
+                      <p
+                        className={`username ${
+                          message.is_current_user ? "" : "other-user"
+                        }`}
+                      >
+                        {message.username}
+                      </p>
+                      <p
+                        className={`text ${
+                          message.is_current_user ? "" : "other-user"
+                        }`}
+                      >
+                        {message.text}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+            {selectedRoom === "Group #2" && (
+              <>
+                {chat.map((message, index) => (
+                  <div
+                    className={`message-container ${
+                      message.is_current_user ? "" : "other-user"
+                    }`}
+                    key={index}
+                  >
+                    <div
+                      className={`message-box ${
+                        message.is_current_user ? "" : "other-user"
+                      }`}
+                    >
+                      <p
+                        className={`username ${
+                          message.is_current_user ? "" : "other-user"
+                        }`}
+                      >
+                        {message.username}
+                      </p>
+                      <p
+                        className={`text ${
+                          message.is_current_user ? "" : "other-user"
+                        }`}
+                      >
+                        {message.text}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+            {selectedRoom === "Group #3" && (
               <>
                 {chat.map((message, index) => (
                   <div
