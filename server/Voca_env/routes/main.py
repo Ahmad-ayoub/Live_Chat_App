@@ -91,6 +91,7 @@ class Message(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("userdata.id"), nullable=False)
     text = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    group_id = db.Column(db.String(20), nullable=False)
     user = db.relationship("User", backref=db.backref("messages", lazy=True))
 
 
@@ -224,6 +225,28 @@ def get_current_user_id():
         return None
 
 
+def get_current_group_id():
+    token = request.headers.get("Authorization")
+    print("token info:", token)
+    if len(token) > 0:
+        prefix = "Bearer"
+        if token.startswith(prefix):
+            token = token[len(prefix)]
+            token = token.strip()
+        try:
+            data = jwt.decode(token, "your_secret_key", algorithms=["HS256"])
+            return data.get("group_id")
+        except jwt.ExpiredSignatureError:
+
+            return None
+        except jwt.InvalidTokenError:
+
+            return None
+
+        else:
+            return None
+
+
 @app.route("/edit", methods=["POST"])
 def edit_profile():
     data = request.json
@@ -288,6 +311,9 @@ def send_message():
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
     message = Message(user_id=user_id, text=data.get("text"))
+    message_group_id = Message(
+        group_id=group_id,
+    )
     print("Message:", message)
 
     try:
