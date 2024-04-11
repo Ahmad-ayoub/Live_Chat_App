@@ -242,9 +242,8 @@ def get_current_group_id():
         except jwt.InvalidTokenError:
 
             return None
-
-        else:
-            return None
+    else:
+        return None
 
 
 @app.route("/edit", methods=["POST"])
@@ -306,18 +305,19 @@ def send_message():
     data = request.json
     print("Request data:", data)
     user_id = get_current_user_id()
+    group_id = get_current_group_id()
     print("User ID:", user_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
     message = Message(user_id=user_id, text=data.get("text"))
-    message_group_id = Message(
-        group_id=group_id,
-    )
+    message_group_id = Message(group_id=group_id, group_id_text=data.get("group_id"))
     print("Message:", message)
+    print("message_group_id:", message_group_id)
 
     try:
         db.session.add(message)
+        db.session.add(message_group_id)
         db.session.commit()
         return jsonify({"message": "Message sent successfully"}), 201
     except Exception as e:
