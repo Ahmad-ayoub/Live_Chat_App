@@ -306,18 +306,19 @@ def send_message():
     print("Request data:", data)
     user_id = get_current_user_id()
     group_id = get_current_group_id()
+
     print("User ID:", user_id)
+    print("Group ID:", group_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
-    message = Message(user_id=user_id, text=data.get("text"))
-    message_group_id = Message(group_id=group_id, group_id_text=data.get("group_id"))
+    if not group_id:
+        return jsonify({"error": "Group ID not found"}), 401
+    message = Message(user_id=user_id, group_id=group_id, text=data.get("text"))
     print("Message:", message)
-    print("message_group_id:", message_group_id)
 
     try:
         db.session.add(message)
-        db.session.add(message_group_id)
         db.session.commit()
         return jsonify({"message": "Message sent successfully"}), 201
     except Exception as e:
@@ -328,6 +329,7 @@ def send_message():
 @app.route("/messages", methods=["GET"])
 def get_messages():
     user_id = get_current_user_id()
+    group_id = get_current_group_id
     print("User ID:", user_id)
 
     if not user_id:
@@ -335,7 +337,7 @@ def get_messages():
 
     latest_message = (
         Message.query.join(User)
-        .filter(Message.user_id == user_id)
+        .filter(Message.user_id == user_id, Message.group_id == group_id)
         .order_by(Message.timestamp.desc())
         .first()
     )
