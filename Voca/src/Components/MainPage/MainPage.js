@@ -78,6 +78,7 @@ const MainPage = ({ userData }) => {
       try {
         await axios.post("http://localhost:5000/messages/send", {
           text: message,
+          groupid: selectedRoom,
         });
         const response = await axios.get("http://localhost:5000/messages");
         const newMessage = response.data;
