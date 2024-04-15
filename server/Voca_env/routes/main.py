@@ -331,6 +331,7 @@ def get_messages():
     user_id = get_current_user_id()
     group_id = get_current_group_id
     print("User ID:", user_id)
+    print("Group ID:", group_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
@@ -350,6 +351,7 @@ def get_messages():
             "user_id": latest_message.user_id,
             "username": latest_message.user.username,
             "text": latest_message.text,
+            "group_id": latest_message.group_id,
             "timestamp": latest_message.timestamp,
         }
         return jsonify(message_data), 200
@@ -360,7 +362,9 @@ def get_messages():
 @app.route("/messages/all", methods=["GET"])
 def get_all_messages():
     user_id = get_current_user_id()
+    group_id = get_current_group_id()
     print("User ID:", user_id)
+    print("Group ID:", group_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
@@ -377,6 +381,7 @@ def get_all_messages():
                 "username": message.user.username,
                 "text": message.text,
                 "timestamp": message.timestamp,
+                "group_id": message.group_id == group_id,
                 "is_current_user": message.user_id == user_id,
             }
         )
