@@ -55,7 +55,10 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s:%(message)s",
 )
 
-SECRET_KEY = secrets.token_hex(16)
+SECRET_KEY = secrets.token_hex(32)
+
+os.environ["SECRET_KEY"] = SECRET_KEY
+
 print("SECRET_KEY", SECRET_KEY)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = (
@@ -392,4 +395,4 @@ def get_all_messages():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
