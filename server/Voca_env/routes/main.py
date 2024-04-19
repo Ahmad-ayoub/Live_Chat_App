@@ -305,8 +305,8 @@ def send_message():
     user_id = get_current_user_id()
     group_id = get_current_group_id()
 
-    print("User ID:", user_id)
-    print("Group ID:", group_id)
+    print("User ID /messages/send:", user_id)
+    print("Group ID /messages/send:", group_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
@@ -328,8 +328,8 @@ def send_message():
 def get_messages():
     user_id = get_current_user_id()
     group_id = get_current_group_id
-    print("User ID:", user_id)
-    print("Group ID:", group_id)
+    print("User ID: /messages", user_id)
+    print("Group ID: /messages", group_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
@@ -361,8 +361,8 @@ def get_messages():
 def get_all_messages():
     user_id = get_current_user_id()
     group_id = get_current_group_id()
-    print("User ID:", user_id)
-    print("Group ID:", group_id)
+    print("User ID: /messages/all", user_id)
+    print("Group ID: /messages/all", group_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
