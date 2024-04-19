@@ -10,7 +10,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
-from config import login_key, user_id_key, group_id_key
+from config import login_key, user_id_key, group_id_key, app_config_key
 
 
 load_dotenv()
