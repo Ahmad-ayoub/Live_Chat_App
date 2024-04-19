@@ -139,8 +139,7 @@ def login():
 
     if not user:
         return jsonify({"error": "User not found!"}), 404
-    secret_key = os.environ.get("SECRET_KEY")
-    token = jwt.encode({"user_id": user.id}, secret_key, algorithm="HS256")
+    token = jwt.encode({"user_id": user.id}, login_key, algorithm="HS256")
     print("token", token)
     print("user.id: ", user.id)
     if check_password_hash(user.password, password):
@@ -218,7 +217,7 @@ def get_current_user_id():
             token = token.strip()
         try:
 
-            data = jwt.decode(token, "your_secret_key", algorithms=["HS256"])
+            data = jwt.decode(token, user_id_key, algorithms=["HS256"])
             return data.get("user_id")
         except jwt.ExpiredSignatureError:
 
@@ -239,7 +238,7 @@ def get_current_group_id():
             token = token[len(prefix)]
             token = token.strip()
         try:
-            data = jwt.decode(token, "your_secret_key", algorithms=["HS256"])
+            data = jwt.decode(token, group_id_key, algorithms=["HS256"])
             return data.get("group_id")
         except jwt.ExpiredSignatureError:
 
