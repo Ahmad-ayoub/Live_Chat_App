@@ -10,6 +10,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
+from config import login_key, user_id_key, group_id_key
 
 
 load_dotenv()
@@ -138,7 +139,8 @@ def login():
 
     if not user:
         return jsonify({"error": "User not found!"}), 404
-    token = jwt.encode({"user_id": user.id}, "your_secret_key", algorithm="HS256")
+    secret_key = os.environ.get("SECRET_KEY")
+    token = jwt.encode({"user_id": user.id}, secret_key, algorithm="HS256")
     print("token", token)
     print("user.id: ", user.id)
     if check_password_hash(user.password, password):
