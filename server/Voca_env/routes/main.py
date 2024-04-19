@@ -56,12 +56,6 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s:%(message)s",
 )
 
-SECRET_KEY = secrets.token_hex(32)
-
-os.environ["SECRET_KEY"] = SECRET_KEY
-
-print("SECRET_KEY", SECRET_KEY)
-
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     os.environ.get("DATABASE_URL")
     or "postgresql://postgres:Talintiar123@localhost:5432/userdata"
@@ -71,7 +65,7 @@ print("SQLALCHEMY_DATABASE_URI", app.config["SQLALCHEMY_DATABASE_URI"])
 
 print("DATABASE_URL", os.environ.get("DATABASE_URL"))
 
-app.config["SECRET_KEY"] = SECRET_KEY
+app.config["SECRET_KEY"] = app_config_key
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
