@@ -212,6 +212,7 @@ def get_current_user_id():
         try:
 
             data = jwt.decode(token, user_id_key, algorithms=["HS256"])
+            print("user_id_key: ", user_id_key)
             return data.get("user_id")
         except jwt.ExpiredSignatureError:
 
