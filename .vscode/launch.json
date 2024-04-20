@@ -11,7 +11,8 @@
                 "FLASK_APP": "main.py",
                 "FLASK_ENV": "development"
             },
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "justMyCode": false
         },
         {
             "name": "Launch Chrome against localhost",
