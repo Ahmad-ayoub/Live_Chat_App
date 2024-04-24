@@ -11,6 +11,7 @@ from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 from config import login_key, user_id_key, group_id_key, app_config_key
+from datetime import datetime, timedelta
 
 
 load_dotenv()
@@ -133,14 +134,14 @@ def login():
 
     if not user:
         return jsonify({"error": "User not found!"}), 404
-    token = jwt.encode({"user_id": user.id}, login_key, algorithm="HS256")
-    print("token", token)
+    login_token = jwt.encode({"user_id": user.id}, login_key, algorithm="HS256")
+    print("token", login_token)
     print("user.id: ", user.id)
     if check_password_hash(user.password, password):
         return (
             jsonify(
                 {
-                    "token": token,
+                    "token": login_token,
                     "id": user.id,
                     "email": user.email,
                     "username": user.username,
@@ -201,27 +202,51 @@ def validate_password(password):
     return ""
 
 
+def generate_user_token(login_token):
+    if login_token:
+        try:
+            # Decode the login token to extract the user ID
+            print("login_token: ", login_token)
+            decoded_login_token = jwt.decode(
+                login_token, login_key, algorithms=["HS256"]
+            )
+            user_id = decoded_login_token.get("user_id")
+
+            if user_id:
+                # Generate a new token with the user ID as the payload
+                payload = {
+                    "user_id": user_id,
+                    "exp": datetime.utcnow()
+                    + timedelta(days=7),  # Token expiration time
+                }
+                user_token = jwt.encode(payload, user_id_key, algorithm="HS256")
+
+                return user_token
+            else:
+                return None
+        except jwt.ExpiredSignatureError:
+            return None
+        except jwt.InvalidTokenError:
+            return None
+    else:
+        return None
+
+
 def get_current_user_id():
-    token = request.headers.get("Authorization")
-    print("token info:", token)
-    if len(token) > 0:
-        prefix = "Bearer"
-        if token.startswith(prefix):
-            token = token[len(prefix) :]
-            token = token.strip()
+    user_token = generate_user_token()
+
+    if user_token:
         try:
             print("user_id_key: ", user_id_key)
-            data = jwt.decode(token, user_id_key, algorithms=["HS256"])
+            data = jwt.decode(user_token, user_id_key, algorithms=["HS256"])
             print("data: ", data)
             return data.get("user_id")
         except jwt.ExpiredSignatureError:
-
             print("Expired Token")
         except jwt.InvalidTokenError:
-
             print("Invalid Token")
-    else:
-        return None
+
+    return None
 
 
 def get_current_group_id():
