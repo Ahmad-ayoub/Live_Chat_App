@@ -205,7 +205,6 @@ def validate_password(password):
 def generate_user_token(login_token):
     if login_token:
         try:
-            # Decode the login token to extract the user ID
             print("login_token: ", login_token)
             decoded_login_token = jwt.decode(
                 login_token, login_key, algorithms=["HS256"]
@@ -213,11 +212,9 @@ def generate_user_token(login_token):
             user_id = decoded_login_token.get("user_id")
 
             if user_id:
-                # Generate a new token with the user ID as the payload
                 payload = {
                     "user_id": user_id,
-                    "exp": datetime.utcnow()
-                    + timedelta(days=7),  # Token expiration time
+                    "exp": datetime.utcnow() + timedelta(days=7),
                 }
                 user_token = jwt.encode(payload, user_id_key, algorithm="HS256")
 
@@ -232,8 +229,8 @@ def generate_user_token(login_token):
         return None
 
 
-def get_current_user_id():
-    user_token = generate_user_token()
+def get_current_user_id(login_token):
+    user_token = generate_user_token(login_token)
 
     if user_token:
         try:
