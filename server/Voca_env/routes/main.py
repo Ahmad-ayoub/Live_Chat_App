@@ -323,6 +323,7 @@ def edit_profile():
 
 @app.route("/messages/send", methods=["POST"])
 def send_message(login_token):
+    print("login_token:", login_token)
     data = request.json
     print("Request data:", data)
     user_id = get_current_user_id(login_token)
