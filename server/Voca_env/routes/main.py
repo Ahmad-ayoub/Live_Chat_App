@@ -135,13 +135,16 @@ def login():
     if not user:
         return jsonify({"error": "User not found!"}), 404
     login_token = jwt.encode({"user_id": user.id}, login_key, algorithm="HS256")
-    print("token", login_token)
+    print("login_token: ", login_token)
     print("user.id: ", user.id)
     if check_password_hash(user.password, password):
+        user_token = generate_user_token(login_token)
+        print("user_token: ", user_token)
         return (
             jsonify(
                 {
                     "token": login_token,
+                    "user_token": user_token,
                     "id": user.id,
                     "email": user.email,
                     "username": user.username,
@@ -229,8 +232,8 @@ def generate_user_token(login_token):
         return None
 
 
-def get_current_user_id(login_token):
-    user_token = generate_user_token(login_token)
+def get_current_user_id():
+    user_token = generate_user_token()
 
     if user_token:
         try:
@@ -322,11 +325,10 @@ def edit_profile():
 
 
 @app.route("/messages/send", methods=["POST"])
-def send_message(login_token):
-    print("login_token:", login_token)
+def send_message():
     data = request.json
     print("Request data:", data)
-    user_id = get_current_user_id(login_token)
+    user_id = get_current_user_id()
     group_id = get_current_group_id()
 
     print("User ID /messages/send:", user_id)
