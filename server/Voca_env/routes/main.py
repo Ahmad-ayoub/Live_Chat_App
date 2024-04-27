@@ -140,6 +140,7 @@ def login():
     if check_password_hash(user.password, password):
         user_token = generate_user_token(login_token)
         session["user_token"] = user_token
+        print("user_token: ", user_token)
         return (
             jsonify(
                 {
@@ -220,6 +221,7 @@ def generate_user_token(login_token):
                 }
                 user_token = jwt.encode(payload, user_id_key, algorithm="HS256")
                 session["user_token"] = user_token
+                print("user_token: ", user_token)
                 return user_token
             else:
                 return None
