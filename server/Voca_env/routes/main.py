@@ -235,7 +235,7 @@ def generate_user_token(login_token):
 
 def get_current_user_id():
     user_token = session.get("user_token")
-
+    print("user_token: ", user_token)
     if user_token:
         try:
             print("user_id_key: ", user_id_key)
