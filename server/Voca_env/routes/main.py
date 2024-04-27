@@ -139,12 +139,11 @@ def login():
     print("user.id: ", user.id)
     if check_password_hash(user.password, password):
         user_token = generate_user_token(login_token)
-        print("user_token: ", user_token)
+        session["user_token"] = user_token
         return (
             jsonify(
                 {
                     "token": login_token,
-                    "user_token": user_token,
                     "id": user.id,
                     "email": user.email,
                     "username": user.username,
@@ -220,7 +219,7 @@ def generate_user_token(login_token):
                     "exp": datetime.utcnow() + timedelta(days=7),
                 }
                 user_token = jwt.encode(payload, user_id_key, algorithm="HS256")
-
+                session["user_token"] = user_token
                 return user_token
             else:
                 return None
@@ -233,7 +232,7 @@ def generate_user_token(login_token):
 
 
 def get_current_user_id():
-    user_token = generate_user_token()
+    user_token = session.get("user_token")
 
     if user_token:
         try:
