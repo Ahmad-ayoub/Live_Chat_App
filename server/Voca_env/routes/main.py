@@ -221,7 +221,7 @@ def generate_user_token(login_token):
                 }
                 user_token = jwt.encode(payload, user_id_key, algorithm="HS256")
                 session["user_token"] = user_token
-                print("user_token: ", user_token)
+                print("user_token: gen_u_tok ", user_token)
                 return user_token
             else:
                 return None
@@ -235,7 +235,7 @@ def generate_user_token(login_token):
 
 def get_current_user_id():
     user_token = session.get("user_token")
-    print("user_token: ", user_token)
+    print("user_token: get_cur_tok", user_token)
     if user_token:
         try:
             print("user_id_key: ", user_id_key)
