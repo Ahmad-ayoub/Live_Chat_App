@@ -10,7 +10,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
-from config import login_key, user_id_key, group_id_key, app_config_key
+from config import login_key, user_id_key, group_id_key, app_config_key, flask_app_key
 from datetime import datetime, timedelta
 
 
@@ -19,6 +19,7 @@ load_dotenv()
 app = Flask(__name__, static_folder="../../../build", static_url_path="")
 socketio = SocketIO(app, cors_allowed_origins=["http://localhost:3000"])
 CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
+app.secret_key = flask_app_key
 
 
 @app.after_request
