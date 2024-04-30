@@ -17,5 +17,4 @@ class Message(db.Model):
     text = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     group_id = db.Column(db.String(20), nullable=False)
-
     user = db.relationship('User', backref=db.backref('messages', lazy=True))
