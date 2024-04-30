@@ -47,7 +47,6 @@ const MainPage = ({ userData }) => {
 
   const handleRoomClick = (room) => {
     setSelectedRoom(room);
-    console.log("room", room);
     setSelectedRoomName(roomNames[room]);
   };
 
