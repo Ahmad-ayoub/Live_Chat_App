@@ -36,10 +36,17 @@ const MainPage = ({ userData }) => {
   const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState("Group #1");
+  const [roomName, setRoomName] = useState();
   console.log("chat: ", chat);
 
   const handleRoomClick = (room) => {
     setSelectedRoom(room);
+  };
+
+  const roomNames = {
+    Group1: "Just Chatting",
+    Group2: "Video Games",
+    Group3: "Literature",
   };
 
   axios.interceptors.request.use(function (config) {
@@ -205,7 +212,7 @@ const MainPage = ({ userData }) => {
         </div>
         <div className="chat-wrapper">
           <div className="chat-container">
-            {selectedRoom === "Group #1" && (
+            {selectedRoom === "Group1" && (
               <>
                 {chat.map((message, index) => (
                   <div
@@ -238,7 +245,7 @@ const MainPage = ({ userData }) => {
                 ))}
               </>
             )}
-            {selectedRoom === "Group #2" && (
+            {selectedRoom === "Group2" && (
               <>
                 {chat.map((message, index) => (
                   <div
@@ -271,7 +278,7 @@ const MainPage = ({ userData }) => {
                 ))}
               </>
             )}
-            {selectedRoom === "Group #3" && (
+            {selectedRoom === "Group3" && (
               <>
                 {chat.map((message, index) => (
                   <div
