@@ -16,6 +16,12 @@ import io from "socket.io-client";
 import axios from "axios";
 
 const MainPage = ({ userData }) => {
+  const roomNames = {
+    Group1: "Just Chatting",
+    Group2: "Video Games",
+    Group3: "Literature",
+  };
+
   let navigate = useNavigate();
 
   function goToSettings() {
@@ -35,18 +41,14 @@ const MainPage = ({ userData }) => {
   const socket = io("http://localhost:5000");
   const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
-  const [selectedRoom, setSelectedRoom] = useState("Group #1");
-  const [roomName, setRoomName] = useState();
+  const [selectedRoom, setSelectedRoom] = useState("Group1");
+  const [selectedRoomName, setSelectedRoomName] = useState("Just Chatting");
   console.log("chat: ", chat);
 
   const handleRoomClick = (room) => {
     setSelectedRoom(room);
-  };
-
-  const roomNames = {
-    Group1: "Just Chatting",
-    Group2: "Video Games",
-    Group3: "Literature",
+    console.log("room", room);
+    setSelectedRoomName(roomNames[room]);
   };
 
   axios.interceptors.request.use(function (config) {
@@ -169,7 +171,7 @@ const MainPage = ({ userData }) => {
         <div className="chat_list_box">
           <button
             className="chat_list_buttons"
-            onClick={() => handleRoomClick("Group #1")}
+            onClick={() => handleRoomClick("Group1")}
           >
             <FontAwesomeIcon icon={faUserGroup} className="chat_list_icons" />
             <p className="profile_box_text">Just Chatting</p>
@@ -178,7 +180,7 @@ const MainPage = ({ userData }) => {
         <div className="chat_list_box">
           <button
             className="chat_list_buttons"
-            onClick={() => handleRoomClick("Group #2")}
+            onClick={() => handleRoomClick("Group2")}
           >
             <FontAwesomeIcon icon={faUserGroup} className="chat_list_icons" />
             <p className="profile_box_text">Video Games</p>
@@ -187,10 +189,10 @@ const MainPage = ({ userData }) => {
         <div className="chat_list_box">
           <button
             className="chat_list_buttons"
-            onClick={() => handleRoomClick("Group #3")}
+            onClick={() => handleRoomClick("Group3")}
           >
             <FontAwesomeIcon icon={faUserGroup} className="chat_list_icons" />
-            <p className="profile_box_text">Lieterature</p>
+            <p className="profile_box_text">Literature</p>
           </button>
         </div>
         <div className="chat_list_box">
@@ -208,7 +210,7 @@ const MainPage = ({ userData }) => {
       <div className={`input_chat_box ${currentThemeClasses.secondaryColor}`}>
         <div className="group_box">
           <FontAwesomeIcon icon={faUserGroup} className="profile_box_image" />
-          <p className="profile_box_text">Just Chatting</p>
+          <p className="profile_box_text">{selectedRoomName}</p>
         </div>
         <div className="chat-wrapper">
           <div className="chat-container">
