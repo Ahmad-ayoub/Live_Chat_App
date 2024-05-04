@@ -137,10 +137,10 @@ def login():
         return jsonify({"error": "User not found!"}), 404
     login_token = jwt.encode({"user_id": user.id}, login_key, algorithm="HS256")
     print("login_token: ", login_token)
-    print("user.id: ", user.id)
     if check_password_hash(user.password, password):
         user_token = generate_user_token(login_token)
         session["user_token"] = user_token
+        print("user.id: ", user.id)
         print("user_token: ", user_token)
         return (
             jsonify(
