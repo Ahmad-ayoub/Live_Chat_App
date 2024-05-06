@@ -26,7 +26,6 @@ def upgrade():
                 "group_id",
                 sa.String(20),
                 nullable=False,
-                server_default="default_group",
             ),
         )
 
