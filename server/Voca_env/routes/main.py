@@ -327,6 +327,7 @@ def edit_profile():
 @app.route("/messages/send", methods=["POST"])
 def send_message():
     data = request.json
+    auth_header = request.headers.get("Authorization")
     print("Request data:", data)
     user_id = get_current_user_id()
     group_id = get_current_group_id()
