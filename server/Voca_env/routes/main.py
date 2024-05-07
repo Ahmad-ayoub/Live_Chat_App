@@ -140,6 +140,8 @@ def login():
         print("login_token: ", login_token)
         user_token = generate_user_token(login_token)
         print("user_token: ", user_token)
+
+        session["user_token"] = user_token
         return (
             jsonify(
                 {
@@ -251,7 +253,7 @@ def get_current_user_id():
 
 def get_current_group_id():
     token = request.headers.get("Authorization")
-    print("token info:", token)
+    print("group token info:", token)
     if len(token) > 0:
         prefix = "Bearer"
         if token.startswith(prefix):
@@ -327,7 +329,8 @@ def edit_profile():
 @app.route("/messages/send", methods=["POST"])
 def send_message():
     data = request.json
-    auth_header = request.headers.get("Authorization")
+    user_token = session.get("user_token")
+    print("User Token:", user_token)
     print("Request data:", data)
     user_id = get_current_user_id()
     group_id = get_current_group_id()
