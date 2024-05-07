@@ -63,6 +63,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
     or "postgresql://postgres:Talintiar123@localhost:5432/userdata"
 )
 
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
+
 print("SQLALCHEMY_DATABASE_URI", app.config["SQLALCHEMY_DATABASE_URI"])
 
 print("DATABASE_URL", os.environ.get("DATABASE_URL"))
@@ -142,6 +144,7 @@ def login():
         print("user_token: ", user_token)
 
         session["user_token"] = user_token
+        print("user_token in login func", user_token)
         return (
             jsonify(
                 {
@@ -332,7 +335,7 @@ def send_message():
     user_token = session.get("user_token")
     print("User Token:", user_token)
     print("Request data:", data)
-    user_id = get_current_user_id()
+    user_id = get_current_user_id(user_token)
     group_id = get_current_group_id()
 
     print("User ID /messages/send:", user_id)
