@@ -1,6 +1,6 @@
 import os
 import secrets
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, g
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
@@ -329,13 +329,19 @@ def edit_profile():
         return jsonify({"error": "An error occurred"}), 500
 
 
+@app.before_request
+def load_user_token():
+    user_token = session.get("user_token")
+    g.user_token = user_token
+
+
 @app.route("/messages/send", methods=["POST"])
 def send_message():
     data = request.json
     user_token = session.get("user_token")
     print("User Token:", user_token)
     print("Request data:", data)
-    user_id = get_current_user_id(user_token)
+    user_id = get_current_user_id()
     group_id = get_current_group_id()
 
     print("User ID /messages/send:", user_id)
