@@ -337,21 +337,28 @@ def load_user_token():
 
 @app.route("/messages/send", methods=["POST"])
 def send_message():
-    data = request.json
     user_token = session.get("user_token")
-    print("User Token:", user_token)
-    print("Request data:", data)
-    user_id = get_current_user_id()
-    group_id = get_current_group_id()
+    print("user_token_msg_func", user_token)
+    return send_message_helper(user_token)
 
-    print("User ID /messages/send:", user_id)
-    print("Group ID /messages/send:", group_id)
+
+def send_message_helper(user_token):
+    if not user_token:
+        return jsonify({"error": "User token is missing"}), 401
+
+    user_id = get_current_user_id(user_token)
 
     if not user_id:
-        return jsonify({"error": "Authentication required"}), 401
+        return jsonify({"error": "Invalid user token"}), 401
+
+    data = request.json
+    text = data.get("text")
+    group_id = data.get("group_id")
+
     if not group_id:
-        return jsonify({"error": "Group ID not found"}), 401
-    message = Message(user_id=user_id, group_id=group_id, text=data.get("text"))
+        return jsonify({"error": "Group ID is missing"}), 400
+
+    message = Message(user_id=user_id, group_id=group_id, text=text)
     print("Message:", message)
 
     try:
