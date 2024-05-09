@@ -20,6 +20,7 @@ app = Flask(__name__, static_folder="../../../build", static_url_path="")
 socketio = SocketIO(app, cors_allowed_origins=["http://localhost:3000"])
 CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
 app.secret_key = flask_app_key
+print("app.secret_key", app.secret_key)
 
 
 @app.after_request
@@ -142,7 +143,6 @@ def login():
         print("login_token: ", login_token)
         user_token = generate_user_token(login_token)
         print("user_token: ", user_token)
-
         session["user_token"] = user_token
         print("user_token in login func", user_token)
         return (
@@ -226,6 +226,7 @@ def generate_user_token(login_token):
                 user_token = jwt.encode(payload, user_id_key, algorithm="HS256")
                 session["user_token"] = user_token
                 print("user_token: gen_u_tok ", user_token)
+
                 return user_token
             else:
                 return None
@@ -329,10 +330,10 @@ def edit_profile():
         return jsonify({"error": "An error occurred"}), 500
 
 
-@app.before_request
-def load_user_token():
-    user_token = session.get("user_token")
-    g.user_token = user_token
+# @app.before_request
+# def load_user_token():
+#     user_token = session.get("user_token")
+#     g.user_token = user_token
 
 
 @app.route("/messages/send", methods=["POST"])
