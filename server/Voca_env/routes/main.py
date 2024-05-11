@@ -237,6 +237,34 @@ def generate_user_token(login_token):
         return None
 
 
+def generate_group_token(login_token):
+    if login_token:
+        try:
+            print("login_token: ", login_token)
+            decoded_login_token = jwt.decode(
+                login_token, login_key, algorithms=["HS256"]
+            )
+            group_id = decoded_login_token.get("group_id")
+
+            if group_id:
+                payload = {
+                    "group_id": group_id,
+                    "exp": datetime.utcnow() + timedelta(days=7),
+                }
+                group_token = jwt.encode(payload, group_id_key, algorithm="HS256")
+                print("user_token: gen_u_tok ", group_token)
+
+                return group_token
+            else:
+                return None
+        except jwt.ExpiredSignatureError:
+            return None
+        except jwt.InvalidTokenError:
+            return None
+    else:
+        return None
+
+
 def get_current_user_id():
     user_token = request.headers.get("Authorization")
     print("user_token: get_cur_tok", user_token)
