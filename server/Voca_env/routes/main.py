@@ -143,7 +143,6 @@ def login():
         print("login_token: ", login_token)
         user_token = generate_user_token(login_token)
         print("user_token: ", user_token)
-        session["user_token"] = user_token
         print("user_token in login func", user_token)
         return (
             jsonify(
@@ -225,7 +224,6 @@ def generate_user_token(login_token):
                     "exp": datetime.utcnow() + timedelta(days=7),
                 }
                 user_token = jwt.encode(payload, user_id_key, algorithm="HS256")
-                session["user_token"] = user_token
                 print("user_token: gen_u_tok ", user_token)
 
                 return user_token
