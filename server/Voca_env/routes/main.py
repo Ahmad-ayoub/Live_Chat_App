@@ -148,7 +148,8 @@ def login():
         return (
             jsonify(
                 {
-                    "token": login_token,
+                    "login_token": login_token,
+                    "user_token": user_token,
                     "id": user.id,
                     "email": user.email,
                     "username": user.username,
@@ -330,36 +331,21 @@ def edit_profile():
         return jsonify({"error": "An error occurred"}), 500
 
 
-# @app.before_request
-# def load_user_token():
-#     user_token = session.get("user_token")
-#     g.user_token = user_token
-
-
 @app.route("/messages/send", methods=["POST"])
 def send_message():
-    user_token = session.get("user_token")
-    print("user_token_msg_func", user_token)
-    return send_message_helper(user_token)
+    data = request.json
+    print("Request data:", data)
+    user_id = get_current_user_id()
+    group_id = get_current_group_id()
 
-
-def send_message_helper(user_token):
-    if not user_token:
-        return jsonify({"error": "User token is missing"}), 401
-
-    user_id = get_current_user_id(user_token)
+    print("User ID /messages/send:", user_id)
+    print("Group ID /messages/send:", group_id)
 
     if not user_id:
-        return jsonify({"error": "Invalid user token"}), 401
-
-    data = request.json
-    text = data.get("text")
-    group_id = data.get("group_id")
-
+        return jsonify({"error": "Authentication required"}), 401
     if not group_id:
-        return jsonify({"error": "Group ID is missing"}), 400
-
-    message = Message(user_id=user_id, group_id=group_id, text=text)
+        return jsonify({"error": "Group ID not found"}), 401
+    message = Message(user_id=user_id, group_id=group_id, text=data.get("text"))
     print("Message:", message)
 
     try:
