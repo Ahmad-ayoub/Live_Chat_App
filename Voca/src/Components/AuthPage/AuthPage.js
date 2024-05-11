@@ -51,9 +51,12 @@ const AuthPage = ({ setUserData }) => {
         setUserData(response.data);
         setMessage("You logged in!");
         console.log(response.data.message);
-        const token = response.data.token;
-        console.log("token", token);
-        localStorage.setItem("authToken", token);
+        const login_token = response.data.login_token;
+        console.log("login_token", login_token);
+        localStorage.setItem("authToken", login_token);
+        const user_token = response.data.user_token;
+        localStorage.setItem("user_token", user_token);
+        console.log("user_token", user_token);
         navigate("/MainPage");
       })
       .catch((error) => {
