@@ -53,23 +53,30 @@ const MainPage = ({ userData }) => {
   axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem("authToken");
     const user_token = localStorage.getItem("user_token");
+    const group_token = localStorage.getItem("group_token");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     config.headers.Authorization = user_token ? `Bearer ${user_token}` : "";
+    config.headers.Authorization = group_token ? `Bearer ${group_token}` : "";
+    console.log("User_token", user_token);
     console.log("login_token", token);
+    console.log("group_token", group_token);
     return config;
   });
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const token = localStorage.getItem("authToken");
-        const response = await axios.get("/messages/all", {
+        const userToken = localStorage.getItem("user_token");
+        const groupToken = localStorage.getItem("group_token");
+
+        const response = await axios.get("http://localhost:5000/messages/all", {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: userToken,
+            "Group-Authorization": groupToken,
           },
         });
-        const allMessages = response.data;
-        setChat(allMessages);
+
+        setChat(response.data);
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
@@ -86,9 +93,12 @@ const MainPage = ({ userData }) => {
       socket.emit("chat message", message);
 
       try {
+        const userToken = localStorage.getItem("user_token");
+        const groupToken = localStorage.getItem("group_token");
         await axios.post("http://localhost:5000/messages/send", {
           text: message,
-          group_id: selectedRoom,
+          user_token: userToken,
+          group_token: groupToken,
         });
         const response = await axios.get("http://localhost:5000/messages");
         const newMessage = response.data;

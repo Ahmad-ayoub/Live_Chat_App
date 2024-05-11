@@ -238,13 +238,13 @@ def generate_user_token(login_token):
 
 
 def get_current_user_id():
-    user_token = session.get("user_token")
+    user_token = request.headers.get("Authorization")
     print("user_token: get_cur_tok", user_token)
     if user_token:
         try:
-            print("user_id_key: ", user_id_key)
             data = jwt.decode(user_token, user_id_key, algorithms=["HS256"])
             print("data: ", data)
+            print("user_id_key: ", user_id_key)
             return data.get("user_id")
         except jwt.ExpiredSignatureError:
             print("Expired Token")
@@ -329,21 +329,40 @@ def edit_profile():
         return jsonify({"error": "An error occurred"}), 500
 
 
+def decode_user_token(token):
+    try:
+        data = jwt.decode(token, user_id_key, algorithms=["HS256"])
+        return data.get("user_id")
+    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
+        return None
+
+
+def decode_group_token(token):
+    try:
+        data = jwt.decode(token, group_id_key, algorithms=["HS256"])
+        return data.get("group_id")
+    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
+        return None
+
+
 @app.route("/messages/send", methods=["POST"])
 def send_message():
     data = request.json
+    user_token = data.get("user_token")
+    group_token = data.get("group_token")
     print("Request data:", data)
-    user_id = get_current_user_id()
-    group_id = get_current_group_id()
+    print("user_token", user_token)
+    print("group_token", group_token)
+    text = data.get("text")
 
-    print("User ID /messages/send:", user_id)
-    print("Group ID /messages/send:", group_id)
+    user_id = decode_user_token(user_token)
+    group_id = decode_group_token(group_token)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
     if not group_id:
         return jsonify({"error": "Group ID not found"}), 401
-    message = Message(user_id=user_id, group_id=group_id, text=data.get("text"))
+    message = Message(user_id=user_id, group_id=group_id, text=text)
     print("Message:", message)
 
     try:
@@ -352,6 +371,7 @@ def send_message():
         return jsonify({"message": "Message sent successfully"}), 201
     except Exception as e:
         db.session.rollback()
+        logging.error(f"Error occurred in /messages/send route: {e}", exc_info=True)
         return jsonify({"error": "Failed to send message"}), 500
 
 
@@ -390,10 +410,11 @@ def get_messages():
 
 @app.route("/messages/all", methods=["GET"])
 def get_all_messages():
-    user_id = get_current_user_id()
-    group_id = get_current_group_id()
-    print("User ID: /messages/all", user_id)
-    print("Group ID: /messages/all", group_id)
+    user_token = request.headers.get("Authorization")
+    group_token = request.headers.get("Group-Authorization")
+
+    user_id = decode_user_token(user_token)
+    group_id = decode_group_token(group_token)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
