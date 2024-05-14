@@ -140,16 +140,19 @@ def login():
         return jsonify({"error": "User not found!"}), 404
     if check_password_hash(user.password, password):
         login_token = jwt.encode({"user_id": user.id}, login_key, algorithm="HS256")
-        print("login_token: ", login_token)
         user_token = generate_user_token(login_token)
-        print("user_token: ", user_token)
+        group_token = generate_group_token(login_token)
+        user.id = get_current_user_id(user_token)
+        print("login_token in login func: ", login_token)
         print("user_token in login func", user_token)
+        print("group_token in login func", group_token)
         return (
             jsonify(
                 {
                     "login_token": login_token,
                     "user_token": user_token,
-                    "id": user.id,
+                    "group_token": group_token,
+                    "user.id": user.id,
                     "email": user.email,
                     "username": user.username,
                     "name": user.name,
@@ -252,7 +255,7 @@ def generate_group_token(login_token):
                     "exp": datetime.utcnow() + timedelta(days=7),
                 }
                 group_token = jwt.encode(payload, group_id_key, algorithm="HS256")
-                print("user_token: gen_u_tok ", group_token)
+                print("group_token", group_token)
 
                 return group_token
             else:
@@ -265,8 +268,8 @@ def generate_group_token(login_token):
         return None
 
 
-def get_current_user_id():
-    user_token = request.headers.get("Authorization")
+def get_current_user_id(user_token):
+    # user_token = request.headers.get("Authorization")
     print("user_token: get_cur_tok", user_token)
     if user_token:
         try:
@@ -283,7 +286,7 @@ def get_current_user_id():
 
 
 def get_current_group_id():
-    token = request.headers.get("Authorization")
+    # token = request.headers.get("Authorization")
     print("group token info:", token)
     if len(token) > 0:
         prefix = "Bearer"
