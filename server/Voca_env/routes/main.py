@@ -145,6 +145,7 @@ def login():
         user.id = get_current_user_id(user_token)
         print("login_token in login func: ", login_token)
         print("user_token in login func", user_token)
+        print("user id in login func", user.id)
         print("group_token in login func", group_token)
         return (
             jsonify(
