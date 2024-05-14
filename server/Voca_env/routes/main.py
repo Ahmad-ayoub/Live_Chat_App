@@ -153,7 +153,7 @@ def login():
                     "login_token": login_token,
                     "user_token": user_token,
                     "group_token": group_token,
-                    "user.id": user.id,
+                    "user_id": user.id,
                     "email": user.email,
                     "username": user.username,
                     "name": user.name,
