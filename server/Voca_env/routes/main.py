@@ -143,10 +143,12 @@ def login():
         user_token = generate_user_token(login_token)
         group_token = generate_group_token(login_token)
         user.id = get_current_user_id(user_token)
+        group_id = get_current_group_id(login_token)
         print("login_token in login func: ", login_token)
         print("user_token in login func", user_token)
         print("user id in login func", user.id)
         print("group_token in login func", group_token)
+        print("group_id", group_id)
         return (
             jsonify(
                 {
@@ -154,6 +156,7 @@ def login():
                     "user_token": user_token,
                     "group_token": group_token,
                     "user_id": user.id,
+                    "group_id": group_id,
                     "email": user.email,
                     "username": user.username,
                     "name": user.name,
@@ -244,7 +247,7 @@ def generate_user_token(login_token):
 def generate_group_token(login_token):
     if login_token:
         try:
-            print("login_token: ", login_token)
+            print("login_token in group token func: ", login_token)
             decoded_login_token = jwt.decode(
                 login_token, login_key, algorithms=["HS256"]
             )
@@ -286,9 +289,9 @@ def get_current_user_id(user_token):
     return None
 
 
-def get_current_group_id():
+def get_current_group_id(group_token):
     # token = request.headers.get("Authorization")
-    print("group token info:", token)
+    print("group token info:", group_token)
     if len(token) > 0:
         prefix = "Bearer"
         if token.startswith(prefix):
