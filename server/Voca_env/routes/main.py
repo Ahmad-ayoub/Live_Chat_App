@@ -143,7 +143,7 @@ def login():
         user_token = generate_user_token(login_token)
         group_token = generate_group_token(login_token)
         user.id = get_current_user_id(user_token)
-        group_id = get_current_group_id(login_token)
+        group_id = get_current_group_id(group_token)
         print("login_token in login func: ", login_token)
         print("user_token in login func", user_token)
         print("user id in login func", user.id)
