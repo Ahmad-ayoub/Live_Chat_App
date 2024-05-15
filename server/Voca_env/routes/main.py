@@ -299,11 +299,9 @@ def get_current_group_id(group_token):
             print("group_id_key: ", group_id_key)
             return data.get("group_id")
         except jwt.ExpiredSignatureError:
-
-            return None
+            print("Expired Token")
         except jwt.InvalidTokenError:
-
-            return None
+            print("Invalid Token")
     else:
         return None
 
