@@ -290,13 +290,13 @@ def get_current_user_id(user_token):
 
 
 def get_current_group_id(group_token):
-    # token = request.headers.get("Authorization")
     print("group token info: get_cur_grp", group_token)
+    print("group_id_key: ", group_id_key)
+
     if group_token:
         try:
             data = jwt.decode(group_token, group_id_key, algorithms=["HS256"])
             print("group_data", data)
-            print("group_id_key: ", group_id_key)
             return data.get("group_id")
         except jwt.ExpiredSignatureError:
             print("Expired Token")
