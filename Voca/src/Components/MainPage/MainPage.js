@@ -53,13 +53,10 @@ const MainPage = ({ userData }) => {
   axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem("authToken");
     const user_token = localStorage.getItem("user_token");
-    const group_token = localStorage.getItem("group_token");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     config.headers.Authorization = user_token ? `Bearer ${user_token}` : "";
-    config.headers.Authorization = group_token ? `Bearer ${group_token}` : "";
     console.log("User_token", user_token);
     console.log("login_token", token);
-    console.log("group_token", group_token);
     return config;
   });
 
@@ -67,12 +64,10 @@ const MainPage = ({ userData }) => {
     const fetchMessages = async () => {
       try {
         const userToken = localStorage.getItem("user_token");
-        const groupToken = localStorage.getItem("group_token");
-
         const response = await axios.get("http://localhost:5000/messages/all", {
           headers: {
             Authorization: userToken,
-            "Group-Authorization": groupToken,
+            selectedRoom,
           },
         });
 
@@ -94,11 +89,10 @@ const MainPage = ({ userData }) => {
 
       try {
         const userToken = localStorage.getItem("user_token");
-        const groupToken = localStorage.getItem("group_token");
         await axios.post("http://localhost:5000/messages/send", {
           text: message,
           user_token: userToken,
-          group_token: groupToken,
+          group_room_number: selectedRoom,
         });
         const response = await axios.get("http://localhost:5000/messages");
         const newMessage = response.data;

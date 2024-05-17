@@ -130,6 +130,7 @@ def login():
     data = request.json
     user_name_or_email = data.get("username") or data.get("email")
     password = data.get("password")
+    group_room_number = data.get("selectedRoom")
     name = data.get("name")
 
     user = User.query.filter(
@@ -252,7 +253,7 @@ def generate_group_token(login_token):
                 login_token, login_key, algorithms=["HS256"]
             )
             group_id = decoded_login_token.get("group_id")
-
+            print("GROUP_ID:", group_id)
             if group_id:
                 payload = {
                     "group_id": group_id,
