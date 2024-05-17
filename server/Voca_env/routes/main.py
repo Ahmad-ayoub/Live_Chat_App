@@ -142,7 +142,7 @@ def login():
     if check_password_hash(user.password, password):
         login_token = jwt.encode({"user_id": user.id}, login_key, algorithm="HS256")
         user_token = generate_user_token(login_token)
-        group_token = generate_group_token(login_token)
+        group_token = generate_group_token(group_room_number)
         user.id = get_current_user_id(user_token)
         group_id = get_current_group_id(group_token)
         print("login_token in login func: ", login_token)
@@ -245,18 +245,14 @@ def generate_user_token(login_token):
         return None
 
 
-def generate_group_token(login_token):
-    if login_token:
+def generate_group_token(group_room_number):
+    if group_room_number:
         try:
-            print("login_token in group token func: ", login_token)
-            decoded_login_token = jwt.decode(
-                login_token, login_key, algorithms=["HS256"]
-            )
-            group_id = decoded_login_token.get("group_id")
-            print("GROUP_ID:", group_id)
-            if group_id:
+            print("login_token in group token func: ", group_room_number)
+            print("GROUP_ID:", group_room_number)
+            if group_room_number:
                 payload = {
-                    "group_id": group_id,
+                    "group_id": group_room_number,
                     "exp": datetime.utcnow() + timedelta(days=7),
                 }
                 group_token = jwt.encode(payload, group_id_key, algorithm="HS256")
