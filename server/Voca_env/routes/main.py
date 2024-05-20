@@ -130,7 +130,7 @@ def login():
     data = request.json
     user_name_or_email = data.get("username") or data.get("email")
     password = data.get("password")
-    group_room_number = data.get("selectedRoom")
+
     name = data.get("name")
 
     user = User.query.filter(
@@ -142,22 +142,16 @@ def login():
     if check_password_hash(user.password, password):
         login_token = jwt.encode({"user_id": user.id}, login_key, algorithm="HS256")
         user_token = generate_user_token(login_token)
-        group_token = generate_group_token(group_room_number)
         user.id = get_current_user_id(user_token)
-        group_id = get_current_group_id(group_token)
         print("login_token in login func: ", login_token)
         print("user_token in login func", user_token)
         print("user id in login func", user.id)
-        print("group_token in login func", group_token)
-        print("group_id", group_id)
         return (
             jsonify(
                 {
                     "login_token": login_token,
                     "user_token": user_token,
-                    "group_token": group_token,
                     "user_id": user.id,
-                    "group_id": group_id,
                     "email": user.email,
                     "username": user.username,
                     "name": user.name,
@@ -377,10 +371,16 @@ def decode_group_token(token):
 def send_message():
     data = request.json
     user_token = data.get("user_token")
+    group_room_number = data.get("selectedRoom")
+    print("group_room_number", group_room_number)
+    group_token = generate_group_token(group_room_number)
+    group_id = get_current_group_id(group_token)
     group_token = data.get("group_token")
     print("Request data:", data)
     print("user_token", user_token)
     print("group_token", group_token)
+    print("group_token in login func", group_token)
+    print("group_id", group_id)
     text = data.get("text")
 
     user_id = decode_user_token(user_token)

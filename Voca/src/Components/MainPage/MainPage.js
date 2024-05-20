@@ -67,7 +67,7 @@ const MainPage = ({ userData }) => {
         const response = await axios.get("http://localhost:5000/messages/all", {
           headers: {
             Authorization: userToken,
-            selectedRoom,
+            group_room_number: selectedRoom,
           },
         });
 
