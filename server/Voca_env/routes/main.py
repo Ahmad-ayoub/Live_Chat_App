@@ -372,14 +372,13 @@ def send_message():
     data = request.json
     user_token = data.get("user_token")
     group_room_number = data.get("selectedRoom")
-    print("group_room_number", group_room_number)
     group_token = generate_group_token(group_room_number)
     group_id = get_current_group_id(group_token)
     group_token = data.get("group_token")
     print("Request data:", data)
     print("user_token", user_token)
-    print("group_token", group_token)
-    print("group_token in login func", group_token)
+    print("group_token in messages/send", group_token)
+    print("group_room_number", group_room_number)
     print("group_id", group_id)
     text = data.get("text")
 
