@@ -51,14 +51,17 @@ const MainPage = ({ userData }) => {
 
   axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem("authToken");
-    const group_room_number = localStorage.getItem("group_room_number");
-    // const user_token = localStorage.getItem("user_token");
+    const selectedRoom = localStorage.getItem("group_room_number");
+
     config.headers.Authorization = token ? `Bearer ${token}` : "";
-    config.headers.group_room_number = group_room_number;
-    // config.headers.Authorization = user_token ? `Bearer ${user_token}` : "";
-    // console.log("User_token", user_token);
+
+    if (selectedRoom) {
+      config.headers.selectedRoom = selectedRoom;
+    }
+
     console.log("login_token", token);
-    console.log("group_room_number", group_room_number);
+    console.log("selectedRoom", selectedRoom);
+
     return config;
   });
 
