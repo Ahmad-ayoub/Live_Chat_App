@@ -51,11 +51,14 @@ const MainPage = ({ userData }) => {
 
   axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem("authToken");
-    const user_token = localStorage.getItem("user_token");
+    const group_room_number = localStorage.getItem("group_room_number");
+    // const user_token = localStorage.getItem("user_token");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
-    config.headers.Authorization = user_token ? `Bearer ${user_token}` : "";
-    console.log("User_token", user_token);
+    config.headers.group_room_number = group_room_number;
+    // config.headers.Authorization = user_token ? `Bearer ${user_token}` : "";
+    // console.log("User_token", user_token);
     console.log("login_token", token);
+    console.log("group_room_number", group_room_number);
     return config;
   });
 
@@ -65,7 +68,7 @@ const MainPage = ({ userData }) => {
         const userToken = localStorage.getItem("user_token");
         const response = await axios.get("http://localhost:5000/messages/all", {
           headers: {
-            Authorization: userToken,
+            Authorization: userToken ? `Bearer ${userToken}` : "",
             group_room_number: selectedRoom,
           },
         });
@@ -77,7 +80,7 @@ const MainPage = ({ userData }) => {
     };
 
     fetchMessages();
-  }, []);
+  }, [selectedRoom]);
 
   const handleText = async (e) => {
     e.preventDefault();

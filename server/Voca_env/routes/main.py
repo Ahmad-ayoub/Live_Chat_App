@@ -438,10 +438,10 @@ def get_messages():
 @app.route("/messages/all", methods=["GET"])
 def get_all_messages():
     user_token = request.headers.get("Authorization")
-    group_token = request.headers.get("Group-Authorization")
+    group_room_number = request.headers.get("group_room_number")
 
     user_id = decode_user_token(user_token)
-    group_id = decode_group_token(group_token)
+    group_id = group_room_number
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
@@ -458,7 +458,7 @@ def get_all_messages():
                 "username": message.user.username,
                 "text": message.text,
                 "timestamp": message.timestamp,
-                "group_room_number": message.group_room_number == group_id,
+                "group_room_number": message.group_room_number,
                 "is_current_user": message.user_id == user_id,
             }
         )
