@@ -458,7 +458,7 @@ def get_all_messages():
                 "username": message.user.username,
                 "text": message.text,
                 "timestamp": message.timestamp,
-                "group_id": message.group_id == group_id,
+                "group_room_number": message.group_room_number == group_id,
                 "is_current_user": message.user_id == user_id,
             }
         )

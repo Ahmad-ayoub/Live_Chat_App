@@ -43,7 +43,6 @@ const MainPage = ({ userData }) => {
   const [chat, setChat] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState("Group1");
   const [selectedRoomName, setSelectedRoomName] = useState("Just Chatting");
-  console.log("chat: ", chat);
 
   const handleRoomClick = (room) => {
     setSelectedRoom(room);
