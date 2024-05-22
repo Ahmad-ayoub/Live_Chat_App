@@ -44,13 +44,24 @@ const MainPage = ({ userData }) => {
   const [selectedRoom, setSelectedRoom] = useState("Group1");
   const [selectedRoomName, setSelectedRoomName] = useState("Just Chatting");
 
+  const setCurrentRoom = (selectedRoom) => {
+    localStorage.setItem("current_group_room_number", selectedRoom);
+    return setCurrentRoom;
+  };
+
   const handleRoomClick = (room) => {
     setSelectedRoom(room);
     setSelectedRoomName(roomNames[room]);
+    localStorage.setItem("group_room_number", room);
+    console.log("group_room_number", room);
   };
 
   axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem("authToken");
+    const currentSelectedRoom = setCurrentRoom(selectedRoom);
+    const setCurrentSelectedRoom = localStorage.getItem(
+      "current_group_room_number"
+    );
     const selectedRoom = localStorage.getItem("group_room_number");
 
     config.headers.Authorization = token ? `Bearer ${token}` : "";
