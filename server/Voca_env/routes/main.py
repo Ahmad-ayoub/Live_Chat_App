@@ -441,7 +441,6 @@ def get_all_messages():
     group_room_number = request.headers.get("group_room_number")
 
     user_id = decode_user_token(user_token)
-    group_id = group_room_number
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401

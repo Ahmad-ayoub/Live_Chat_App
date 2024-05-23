@@ -44,10 +44,9 @@ const MainPage = ({ userData }) => {
   const [selectedRoom, setSelectedRoom] = useState("Group1");
   const [selectedRoomName, setSelectedRoomName] = useState("Just Chatting");
 
-  const setCurrentRoom = (selectedRoom) => {
-    localStorage.setItem("current_group_room_number", selectedRoom);
-    return setCurrentRoom;
-  };
+  useEffect(() => {
+    localStorage.setItem("selectedRoom", selectedRoom);
+  }, []);
 
   const handleRoomClick = (room) => {
     setSelectedRoom(room);
@@ -58,12 +57,7 @@ const MainPage = ({ userData }) => {
 
   axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem("authToken");
-    const currentSelectedRoom = setCurrentRoom(selectedRoom);
-    const setCurrentSelectedRoom = localStorage.getItem(
-      "current_group_room_number"
-    );
     const selectedRoom = localStorage.getItem("group_room_number");
-
     config.headers.Authorization = token ? `Bearer ${token}` : "";
 
     if (selectedRoom) {
@@ -80,13 +74,14 @@ const MainPage = ({ userData }) => {
     const fetchMessages = async () => {
       try {
         const userToken = localStorage.getItem("user_token");
+        const selectedRoom = localStorage.getItem("group_room_number");
         const response = await axios.get("http://localhost:5000/messages/all", {
           headers: {
             Authorization: userToken ? `Bearer ${userToken}` : "",
             group_room_number: selectedRoom,
           },
         });
-
+        console.log("selectedRoom", selectedRoom);
         setChat(response.data);
       } catch (error) {
         console.error("Error fetching messages:", error);
