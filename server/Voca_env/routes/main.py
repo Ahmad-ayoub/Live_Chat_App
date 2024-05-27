@@ -436,6 +436,7 @@ def get_messages():
 
 
 @app.route("/messages/all", methods=["GET"])
+@app.before_request
 def get_all_messages():
     user_token = request.headers.get("Authorization")
     group_room_number = request.headers.get("group_room_number")
