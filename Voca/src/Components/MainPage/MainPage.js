@@ -56,16 +56,22 @@ const MainPage = ({ userData }) => {
   };
 
   axios.interceptors.request.use(function (config) {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("login_token");
+    const userToken = localStorage.getItem("user_token");
     const selectedRoom = localStorage.getItem("group_room_number");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
+
+    if (userToken) {
+      config.headers.userToken = userToken;
+    }
 
     if (selectedRoom) {
       config.headers.selectedRoom = selectedRoom;
     }
 
-    console.log("login_token", token);
-    console.log("selectedRoom", selectedRoom);
+    console.log("login_token axios", token);
+    console.log("userToken axios", userToken);
+    console.log("selectedRoom axios", selectedRoom);
 
     return config;
   });
@@ -74,14 +80,15 @@ const MainPage = ({ userData }) => {
     const fetchMessages = async () => {
       try {
         const userToken = localStorage.getItem("user_token");
+        console.log("userToken: useEffect ", userToken);
         const selectedRoom = localStorage.getItem("group_room_number");
+        console.log("selectedroom: useEffect ", selectedRoom);
         const response = await axios.get("http://localhost:5000/messages/all", {
           headers: {
             Authorization: userToken ? `Bearer ${userToken}` : "",
             group_room_number: selectedRoom,
           },
         });
-        console.log("selectedRoom", selectedRoom);
         setChat(response.data);
       } catch (error) {
         console.error("Error fetching messages:", error);

@@ -53,7 +53,7 @@ const AuthPage = ({ setUserData }) => {
         console.log(response.data.message);
         const login_token = response.data.login_token;
         console.log("login_token", login_token);
-        localStorage.setItem("authToken", login_token);
+        localStorage.setItem("login_token", login_token);
         const user_token = response.data.user_token;
         localStorage.setItem("user_token", user_token);
         console.log("user_token", user_token);
