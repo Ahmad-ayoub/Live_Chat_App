@@ -439,16 +439,25 @@ def get_messages():
 def get_all_messages():
     user_token = request.headers.get("Authorization")
     group_room_number = request.headers.get("group_room_number")
-
+    print("user_token msg/all: ", user_token),
+    print("group_room_number msg/all: ", group_room_number)
     user_id = decode_user_token(user_token)
+    print("user_id msg/all: ", user_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
 
     if group_room_number:
-        messages = Message.query.join(User).filter(Message.group_room_number == group_room_number).order_by(Message.timestamp.asc()).all()
+        messages = (
+            Message.query.join(User)
+            .filter(Message.group_room_number == group_room_number)
+            .order_by(Message.timestamp.asc())
+            .all()
+        )
     else:
-        messages = Message.query.join(User).order_by(Message.timestamp.asc()).all()    print("Messages:", messages)
+        messages = Message.query.join(User).order_by(Message.timestamp.asc()).all()
+
+    print("Messages:", messages)
 
     message_data = []
     for message in messages:
