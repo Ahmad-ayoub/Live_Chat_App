@@ -445,8 +445,10 @@ def get_all_messages():
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
 
-    messages = Message.query.join(User).order_by(Message.timestamp.asc()).all()
-    print("Messages:", messages)
+    if group_room_number:
+        messages = Message.query.join(User).filter(Message.group_room_number == group_room_number).order_by(Message.timestamp.asc()).all()
+    else:
+        messages = Message.query.join(User).order_by(Message.timestamp.asc()).all()    print("Messages:", messages)
 
     message_data = []
     for message in messages:
