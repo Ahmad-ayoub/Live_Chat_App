@@ -211,6 +211,14 @@ def validate_password(password):
     return ""
 
 
+@app.before_request
+def process_request():
+    user_token = request.headers.get("Authorization")
+    group_room_number = request.headers.get("group_room_number")
+    g.user_token = user_token
+    g.group_room_number = group_room_number
+
+
 def generate_user_token(login_token):
     if login_token:
         try:
@@ -264,7 +272,6 @@ def generate_group_token(group_room_number):
 
 
 def get_current_user_id(user_token):
-    # user_token = request.headers.get("Authorization")
     print("user_token: get_cur_tok", user_token)
     if user_token:
         try:
@@ -436,13 +443,15 @@ def get_messages():
 
 
 @app.route("/messages/all", methods=["GET"])
-@app.before_request
 def get_all_messages():
-    user_token = request.headers.get("Authorization")
-    group_room_number = request.headers.get("group_room_number")
+    user_token = g.user_token
+    group_room_number = g.group_room_number
+    # user_token = request.headers.get("Authorization")
+    # group_room_number = request.headers.get("group_room_number")
     print("user_token msg/all: ", user_token),
     print("group_room_number msg/all: ", group_room_number)
     user_id = decode_user_token(user_token)
+    group_room_number = generate_group_token(group_room_number)
     print("user_id msg/all: ", user_id)
 
     if not user_id:
