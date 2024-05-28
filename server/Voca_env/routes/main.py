@@ -214,6 +214,7 @@ def validate_password(password):
 @app.before_request
 def process_request():
     user_token = request.headers.get("Authorization")
+    print("userToken before_request: ", user_token)
     group_room_number = request.headers.get("group_room_number")
     g.user_token = user_token
     g.group_room_number = group_room_number
