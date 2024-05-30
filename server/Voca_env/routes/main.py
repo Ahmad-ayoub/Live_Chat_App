@@ -428,7 +428,7 @@ def get_messages():
             "user_id": latest_message.user_id,
             "username": latest_message.user.username,
             "text": latest_message.text,
-            "group_id": latest_message.group_id,
+            "group_room_number": latest_message.group_room_number,
             "timestamp": latest_message.timestamp,
         }
         return jsonify(message_data), 200
