@@ -94,7 +94,7 @@ class Message(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("userdata.id"), nullable=False)
     text = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    group_id = db.Column(db.String(20), nullable=False)
+    group_room_number = db.Column(db.String(20), nullable=False)
     user = db.relationship("User", backref=db.backref("messages", lazy=True))
 
 
@@ -211,13 +211,13 @@ def validate_password(password):
     return ""
 
 
-@app.before_request
-def process_request():
-    user_token = request.headers.get("Authorization")
-    print("userToken before_request: ", user_token)
-    group_room_number = request.headers.get("group_room_number")
-    g.user_token = user_token
-    g.group_room_number = group_room_number
+# @app.before_request
+# def process_request():
+#     user_token = request.headers.get("Authorization")
+#     print("userToken before_request: ", user_token)
+#     group_room_number = request.headers.get("group_room_number")
+#     g.user_token = user_token
+#     g.group_room_number = group_room_number
 
 
 def generate_user_token(login_token):
@@ -379,25 +379,18 @@ def decode_group_token(token):
 def send_message():
     data = request.json
     user_token = data.get("user_token")
-    group_room_number = data.get("selectedRoom")
-    group_token = generate_group_token(group_room_number)
-    group_id = get_current_group_id(group_token)
-    group_token = data.get("group_token")
+    group_room_number = data.get("group_room_number")
     print("Request data:", data)
     print("user_token", user_token)
-    print("group_token in messages/send", group_token)
-    print("group_room_number", group_room_number)
-    print("group_id", group_id)
+    print("group_room_number messages/send", group_room_number)
     text = data.get("text")
 
     user_id = decode_user_token(user_token)
-    group_id = decode_group_token(group_token)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
-    if not group_id:
-        return jsonify({"error": "Group ID not found"}), 401
-    message = Message(user_id=user_id, group_id=group_id, text=text)
+
+    message = Message(user_id=user_id, group_room_number=group_room_number, text=text)
     print("Message:", message)
 
     try:
@@ -445,14 +438,13 @@ def get_messages():
 
 @app.route("/messages/all", methods=["GET"])
 def get_all_messages():
-    user_token = g.user_token
-    group_room_number = g.group_room_number
-    # user_token = request.headers.get("Authorization")
-    # group_room_number = request.headers.get("group_room_number")
+    user_token = request.headers.get("Authorization")
+    if user_token:
+        user_token = user_token.replace("Bearer ", "")
+    group_room_number = request.headers.get("group_room_number")
     print("user_token msg/all: ", user_token),
     print("group_room_number msg/all: ", group_room_number)
     user_id = decode_user_token(user_token)
-    group_room_number = generate_group_token(group_room_number)
     print("user_id msg/all: ", user_id)
 
     if not user_id:
