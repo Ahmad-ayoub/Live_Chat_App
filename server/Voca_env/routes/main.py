@@ -359,20 +359,21 @@ def edit_profile():
         return jsonify({"error": "An error occurred"}), 500
 
 
-def decode_user_token(token):
+def decode_user_token(user_token):
+    if not user_token:
+        return None
+
     try:
-        data = jwt.decode(token, user_id_key, algorithms=["HS256"])
+        data = jwt.decode(user_token, user_id_key, algorithms=["HS256"])
         return data.get("user_id")
     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
         return None
 
 
-def decode_group_token(token):
-    try:
-        data = jwt.decode(token, group_id_key, algorithms=["HS256"])
-        return data.get("group_id")
-    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
-        return None
+# def decode_group_token(token):
+#         data = jwt.decode(token, group_id_key, algorithms=["HS256"])
+#         return data.get("group_id")
+#     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
 
 
 @app.route("/messages/send", methods=["POST"])
@@ -386,6 +387,7 @@ def send_message():
     text = data.get("text")
 
     user_id = decode_user_token(user_token)
+    print("user_id msg/send: ", user_id)
 
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
