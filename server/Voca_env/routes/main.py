@@ -220,23 +220,26 @@ def validate_password(password):
 #     g.group_room_number = group_room_number
 
 
-@app.before_request
-def load_user_token():
-    user_token = request.headers.get("Authorization")
-    if user_token:
-        user_token = user_token.replace("Bearer ", "")
-    group_room_number = request.headers.get("group_room_number")
-    print("user_token: ", user_token)
-    print("group_room_number: ", group_room_number)
-    user_id = get_current_user_id(user_token)
-    print("user_id: ", user_id)
+# @app.before_request
+# def load_user_token():
+#     user_token = request.headers.get("Authorization")
+#     if user_token:
+#         user_token = user_token.replace("Bearer ", "")
+#     group_room_number = request.headers.get("group_room_number")
+#     print("user_token: ", user_token)
+#     print("group_room_number: ", group_room_number)
+#     user_id = get_current_user_id(user_token)
+#     print("user_id: ", user_id)
 
-    if not user_id:
-        return jsonify({"error": "Authentication required"}), 401
+#     if not user_id:
+#         return jsonify({"error": "Authentication required"}), 401
 
-    g.user_token = user_token
-    g.group_room_number = group_room_number
-    g.user_id = user_id
+#     g.user_token = user_token
+#     print("g.user_token: ", g.user_token)
+#     g.group_room_number = group_room_number
+#     print("g.group_room_number: ", g.group_room_number)
+#     g.user_id = user_id
+#     print("g.user_id: ", g.user_id)
 
 
 def generate_user_token(login_token):
@@ -398,9 +401,8 @@ def decode_user_token(user_token):
 @app.route("/messages/send", methods=["POST"])
 def send_message():
     data = request.json
-    user_token = g.user_token
-    user_id = g.user_id
-    group_room_number = g.group_room_number
+    user_token = data.get("user_token")
+    group_room_number = data.get("group_room_number")
     print("Request data:", data)
     print("user_token", user_token)
     print("group_room_number messages/send", group_room_number)
@@ -437,7 +439,9 @@ def get_messages():
 
     latest_message = (
         Message.query.join(User)
-        .filter(Message.user_id == user_id, Message.group_id == group_id)
+        .filter(
+            Message.user_id == user_id, Message.group_room_number == group_room_number
+        )
         .order_by(Message.timestamp.desc())
         .first()
     )
