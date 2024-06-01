@@ -381,15 +381,15 @@ def edit_profile():
         return jsonify({"error": "An error occurred"}), 500
 
 
-def decode_user_token(user_token):
-    if not user_token:
-        return None
+# def decode_user_token(user_token):
+#     if not user_token:
+#         return None
 
-    try:
-        data = jwt.decode(user_token, user_id_key, algorithms=["HS256"])
-        return data.get("user_id")
-    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
-        return None
+#     try:
+#         data = jwt.decode(user_token, user_id_key, algorithms=["HS256"])
+#         return data.get("user_id")
+#     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
+#         return None
 
 
 # def decode_group_token(token):
@@ -400,15 +400,27 @@ def decode_user_token(user_token):
 
 @app.route("/messages/send", methods=["POST"])
 def send_message():
-    data = request.json
-    user_token = data.get("user_token")
-    group_room_number = data.get("group_room_number")
-    print("Request data:", data)
-    print("user_token", user_token)
-    print("group_room_number messages/send", group_room_number)
-    text = data.get("text")
+    try:
+        data = request.json
+        print("Request data:", data)
+        
+        if not data:
+            return jsonify({"error": "Missing request data"}), 400
+        
+        user_token = data.get("user_token")
+        print("User token:", user_token)
+        
+        if not user_token:
+            return jsonify({"error": "Missing user token"}), 400
+        
+        try:
+            decoded_token = jwt.decode(user_token, user_id_key, algorithms=["HS256"])
+            print("Decoded token payload:", decoded_token)
+        except jwt.InvalidTokenError as e:
+            print("Invalid token:", str(e))
+            return jsonify({"error": "Invalid token"}), 401
 
-    user_id = decode_user_token(user_token)
+    # user_id = get_current_user_id(user_token)
     print("user_id msg/send: ", user_id)
 
     if not user_id:
@@ -417,20 +429,25 @@ def send_message():
     message = Message(user_id=user_id, group_room_number=group_room_number, text=text)
     print("Message:", message)
 
-    try:
-        db.session.add(message)
-        db.session.commit()
-        return jsonify({"message": "Message sent successfully"}), 201
+    
+    db.session.add(message)
+    db.session.commit()
+    return jsonify({"message": "Message sent successfully"}), 201
     except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error occurred in /messages/send route: {e}", exc_info=True)
-        return jsonify({"error": "Failed to send message"}), 500
+    db.session.rollback()
+    logging.error(f"Error occurred in /messages/send route: {e}", exc_info=True)
+    return jsonify({"error": "Failed to send message"}), 500
+    except Exception as e:
+    print("Error in /messages/send route:", str(e))
+    return jsonify({"error": "Internal server error"}), 500
 
 
 @app.route("/messages", methods=["GET"])
 def get_messages():
-    user_id = g.user_id
-    group_room_number = g.group_room_number
+    data = request.json
+    user_token = data.get("user_token")
+    group_room_number = data.get("group_room_number")
+    user_id = get_current_user_id(user_token)
     print("User ID: /messages", user_id)
     print("group_room_number: /messages", group_room_number)
 
@@ -470,7 +487,7 @@ def get_all_messages():
     group_room_number = request.headers.get("group_room_number")
     print("user_token msg/all: ", user_token),
     print("group_room_number msg/all: ", group_room_number)
-    user_id = decode_user_token(user_token)
+    user_id = get_current_user_id(user_token)
     print("user_id msg/all: ", user_id)
 
     if not user_id:
