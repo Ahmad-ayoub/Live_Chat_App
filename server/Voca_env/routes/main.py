@@ -25,7 +25,11 @@ print("app.secret_key", app.secret_key)
 
 @app.after_request
 def after_request(response):
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+    response.headers.add(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization",
+        "application/json",
+    )
     response.headers.add(
         "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"
     )
@@ -403,16 +407,19 @@ def send_message():
     try:
         data = request.json
         print("Request data:", data)
-        
+
         if not data:
             return jsonify({"error": "Missing request data"}), 400
-        
+
         user_token = data.get("user_token")
+        group_room_number = data.get("group_room_number")
+        text = data.get("text")
+
         print("User token:", user_token)
-        
+
         if not user_token:
             return jsonify({"error": "Missing user token"}), 400
-        
+
         try:
             decoded_token = jwt.decode(user_token, user_id_key, algorithms=["HS256"])
             print("Decoded token payload:", decoded_token)
@@ -420,26 +427,23 @@ def send_message():
             print("Invalid token:", str(e))
             return jsonify({"error": "Invalid token"}), 401
 
-    # user_id = get_current_user_id(user_token)
-    print("user_id msg/send: ", user_id)
+        user_id = get_current_user_id(user_token)
+        print("user_id msg/send: ", user_id)
 
-    if not user_id:
-        return jsonify({"error": "Authentication required"}), 401
+        if not user_id:
+            return jsonify({"error": "Authentication required"}), 401
 
-    message = Message(user_id=user_id, group_room_number=group_room_number, text=text)
-    print("Message:", message)
-
-    
-    db.session.add(message)
-    db.session.commit()
-    return jsonify({"message": "Message sent successfully"}), 201
+        message = Message(
+            user_id=user_id, group_room_number=group_room_number, text=text
+        )
+        print("Message:", message)
+        db.session.add(message)
+        db.session.commit()
+        return jsonify({"message": "Message sent successfully"}), 201
     except Exception as e:
-    db.session.rollback()
-    logging.error(f"Error occurred in /messages/send route: {e}", exc_info=True)
-    return jsonify({"error": "Failed to send message"}), 500
-    except Exception as e:
-    print("Error in /messages/send route:", str(e))
-    return jsonify({"error": "Internal server error"}), 500
+        db.session.rollback()
+        logging.error(f"Error occurred in /messages/send route: {e}", exc_info=True)
+        return jsonify({"error": "Failed to send message"}), 500
 
 
 @app.route("/messages", methods=["GET"])
