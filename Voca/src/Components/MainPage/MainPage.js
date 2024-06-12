@@ -95,11 +95,19 @@ const MainPage = ({ userData }) => {
 
       try {
         const userToken = localStorage.getItem("user_token");
-        await axios.post("http://localhost:5000/messages/send", {
-          text: message,
-          user_token: userToken,
-          group_room_number: selectedRoom,
-        });
+        await axios.post(
+          "http://localhost:5000/messages/send",
+          {
+            text: message,
+            user_token: userToken,
+            group_room_number: selectedRoom,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const response = await axios.get("http://localhost:5000/messages");
         const newMessage = response.data;
         setChat((prevChat) => [...prevChat, newMessage]);
@@ -326,7 +334,11 @@ const MainPage = ({ userData }) => {
             )}
           </div>
         </div>
-        <form onSubmit={handleText} className="text_box">
+        <form
+          onSubmit={handleText}
+          enctype="application/json"
+          className="text_box"
+        >
           <input
             className="input_message_box"
             type="text"
