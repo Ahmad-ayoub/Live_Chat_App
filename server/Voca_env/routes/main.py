@@ -26,13 +26,8 @@ print("app.secret_key", app.secret_key)
 @app.after_request
 def after_request(response):
     response.headers.add(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization",
-        "application/json",
-    )
-    response.headers.add(
-        "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"
-    )
+        "Access-Control-Allow-Headers", "Content-Type, Authorization, application/json"
+    ),
     print("reponse:", response)
     return response
 
