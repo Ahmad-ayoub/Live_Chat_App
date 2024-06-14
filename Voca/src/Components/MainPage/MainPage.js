@@ -108,7 +108,12 @@ const MainPage = ({ userData }) => {
             },
           }
         );
-        const response = await axios.get("http://localhost:5000/messages");
+        const response = await axios.get("http://localhost:5000/messages", {
+          params: {
+            user_token: userToken,
+            group_room_number: selectedRoom,
+          },
+        });
         const newMessage = response.data;
         setChat((prevChat) => [...prevChat, newMessage]);
 

@@ -445,8 +445,8 @@ def send_message():
 def get_messages():
     data = request.json
     print("request Data /messages: ", data)
-    user_token = data.get("user_token")
-    group_room_number = data.get("group_room_number")
+    user_token = request.args.get("user_token")
+    group_room_number = request.args.get("group_room_number")
     user_id = get_current_user_id(user_token)
     print("User ID: /messages", user_id)
     print("group_room_number: /messages", group_room_number)
