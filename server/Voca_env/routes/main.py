@@ -444,6 +444,7 @@ def send_message():
 @app.route("/messages", methods=["GET"])
 def get_messages():
     data = request.json
+    print("request Data /messages: ", data)
     user_token = data.get("user_token")
     group_room_number = data.get("group_room_number")
     user_id = get_current_user_id(user_token)
