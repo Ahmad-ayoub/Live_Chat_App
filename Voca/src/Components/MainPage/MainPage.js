@@ -51,6 +51,7 @@ const MainPage = ({ userData }) => {
     if (storedRoom && storedRoomName) {
       setSelectedRoom(storedRoom);
       setSelectedRoomName(storedRoomName);
+      console.log("selectedRoom useEffect", selectedRoom);
     }
   }, []);
 
@@ -131,6 +132,7 @@ const MainPage = ({ userData }) => {
           },
         });
         const newMessage = response.data;
+        console.log("Response", response);
         setChat((prevChat) => [...prevChat, newMessage]);
 
         console.log("newMessage:", newMessage);
