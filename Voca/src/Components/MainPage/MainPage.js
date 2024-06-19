@@ -76,7 +76,7 @@ const MainPage = ({ userData }) => {
     }
 
     if (selectedRoom) {
-      config.headers.selectedRoom = selectedRoom;
+      config.headers.group_room_number = selectedRoom;
     }
 
     console.log("userToken axios", userToken);
@@ -88,13 +88,18 @@ const MainPage = ({ userData }) => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
+        const userToken = localStorage.getItem("user_token");
+        const group_room_number = localStorage.getItem("group_room_number");
         const response = await axios.get("http://localhost:5000/messages/all", {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
           params: {
-            group_room_number: selectedRoom,
+            group_room_number,
           },
         });
         setChat(response.data);
-        console.log("group room number: ", selectedRoom);
+        console.log("group room number: msg/all ", selectedRoom);
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
@@ -112,7 +117,8 @@ const MainPage = ({ userData }) => {
 
       try {
         const userToken = localStorage.getItem("user_token");
-        await axios.post(
+
+        const sendResponse = await axios.post(
           "http://localhost:5000/messages/send",
           {
             text: message,
@@ -125,21 +131,27 @@ const MainPage = ({ userData }) => {
             },
           }
         );
-        const response = await axios.get("http://localhost:5000/messages", {
-          params: {
-            user_token: userToken,
-            group_room_number: selectedRoom,
-          },
-        });
-        const newMessage = response.data;
-        console.log("Response", response);
-        setChat((prevChat) => [...prevChat, newMessage]);
 
-        console.log("newMessage:", newMessage);
+        console.log("Send Response", sendResponse);
+
+        if (sendResponse === 200 || sendResponse === 201) {
+          const response = await axios.get("http://localhost:5000/messages", {
+            params: {
+              text: message,
+              user_token: userToken,
+              group_room_number: selectedRoom,
+            },
+          });
+          const newMessage = response.data;
+          console.log("Response", response);
+          setChat((prevChat) => [...prevChat, newMessage]);
+          console.log("newMessage:", newMessage);
+        } else {
+          console.error("Error sending message:", sendResponse.status);
+        }
       } catch (error) {
         console.error("Error sending message to the backend:", error);
       }
-
       setMessage("");
     }
   };

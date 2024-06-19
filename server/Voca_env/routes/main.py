@@ -408,6 +408,7 @@ def send_message():
 
         user_token = data.get("user_token")
         group_room_number = data.get("group_room_number")
+        print("group_room_number msg/send", group_room_number)
         text = data.get("text")
 
         print("User token:", user_token)
@@ -443,8 +444,6 @@ def send_message():
 
 @app.route("/messages", methods=["GET"])
 def get_messages():
-    data = request.json
-    print("request Data /messages: ", data)
     user_token = request.args.get("user_token")
     group_room_number = request.args.get("group_room_number")
     user_id = get_current_user_id(user_token)
@@ -484,7 +483,7 @@ def get_all_messages():
     user_token = request.headers.get("Authorization")
     if user_token:
         user_token = user_token.replace("Bearer ", "")
-    group_room_number = request.headers.get("group_room_number")
+    group_room_number = request.args.get("group_room_number")
     print("user_token msg/all: ", user_token),
     print("group_room_number msg/all: ", group_room_number)
     user_id = get_current_user_id(user_token)
@@ -502,6 +501,7 @@ def get_all_messages():
         )
     else:
         messages = Message.query.join(User).order_by(Message.timestamp.asc()).all()
+    print("group_room_number msg/all: ", group_room_number)
 
     print("Messages:", messages)
 
@@ -518,7 +518,7 @@ def get_all_messages():
                 "is_current_user": message.user_id == user_id,
             }
         )
-
+    print("message_data msg/all", message_data)
     return jsonify(message_data), 200
 
 
