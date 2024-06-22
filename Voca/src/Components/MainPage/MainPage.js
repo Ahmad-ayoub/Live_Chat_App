@@ -43,7 +43,7 @@ const MainPage = ({ userData }) => {
   const [chat, setChat] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState("Group1");
   const [selectedRoomName, setSelectedRoomName] = useState("Just Chatting");
-
+  console.log("whole_new_chat", chat);
   useEffect(() => {
     const storedRoom = localStorage.getItem("group_room_number");
     const storedRoomName = localStorage.getItem("group_room_name");
@@ -143,7 +143,7 @@ const MainPage = ({ userData }) => {
             },
           });
           const newMessage = response.data;
-          console.log("Response", response);
+          console.log("Response messsages", response);
           setChat((prevChat) => [...prevChat, newMessage]);
           console.log("newMessage:", newMessage);
         } else {

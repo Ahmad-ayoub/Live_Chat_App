@@ -453,7 +453,7 @@ def get_messages():
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
 
-    latest_message = (
+    message = (
         Message.query.join(User)
         .filter(
             Message.user_id == user_id, Message.group_room_number == group_room_number
@@ -462,16 +462,17 @@ def get_messages():
         .first()
     )
 
-    print("Latest Message:", latest_message)
+    print("Latest Message:", message)
 
-    if latest_message:
+    if message:
         message_data = {
-            "id": latest_message.id,
-            "user_id": latest_message.user_id,
-            "username": latest_message.user.username,
-            "text": latest_message.text,
-            "group_room_number": latest_message.group_room_number,
-            "timestamp": latest_message.timestamp,
+            "id": message.id,
+            "user_id": message.user_id,
+            "username": message.user.username,
+            "text": message.text,
+            "group_room_number": message.group_room_number,
+            "timestamp": message.timestamp,
+            "is_current_user": message.user_id == user_id,
         }
         return jsonify(message_data), 200
     else:
