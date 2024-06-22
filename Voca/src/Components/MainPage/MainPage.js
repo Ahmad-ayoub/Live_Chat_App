@@ -117,7 +117,7 @@ const MainPage = ({ userData }) => {
 
       try {
         const userToken = localStorage.getItem("user_token");
-
+        const selectedRoom = localStorage.getItem("group_room_number");
         const sendResponse = await axios.post(
           "http://localhost:5000/messages/send",
           {
@@ -134,7 +134,7 @@ const MainPage = ({ userData }) => {
 
         console.log("Send Response", sendResponse);
 
-        if (sendResponse === 200 || sendResponse === 201) {
+        if (sendResponse.status === 200 || sendResponse.status === 201) {
           const response = await axios.get("http://localhost:5000/messages", {
             params: {
               text: message,
