@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import {
@@ -14,6 +14,7 @@ import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
+import Fuse from "fuse.js";
 
 const MainPage = ({ userData }) => {
   const roomNames = {
@@ -43,6 +44,9 @@ const MainPage = ({ userData }) => {
   const [chat, setChat] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState("Group1");
   const [selectedRoomName, setSelectedRoomName] = useState("Just Chatting");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
   console.log("whole_new_chat", chat);
   useEffect(() => {
     const storedRoom = localStorage.getItem("group_room_number");
@@ -156,6 +160,31 @@ const MainPage = ({ userData }) => {
     }
   };
 
+  const fuse = useMemo(() => {
+    console.log("fuse info:", fuse);
+    const options = {
+      keys: ["text"],
+      threshold: 0.3,
+    };
+    return new Fuse(chat, options);
+  }, [chat]);
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/search?term=${searchTerm}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          },
+        }
+      );
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error("Error searching messages:", error);
+    }
+  };
+
   useEffect(() => {
     socket.on("chat message", (newMessage) => {
       setChat((prevChat) => [...prevChat, newMessage]);
@@ -213,9 +242,18 @@ const MainPage = ({ userData }) => {
           </button>
         </div>
         <div className="search-container">
-          <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            className="search-icon"
+            onClick={handleSearch}
+          />
           <input
             type="text"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              handleSearch();
+            }}
             placeholder="Search"
             aria-label="Search"
             className="input-box"
