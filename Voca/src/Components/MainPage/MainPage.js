@@ -15,6 +15,7 @@ import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
 import Fuse from "fuse.js";
+import { debounce } from "lodash";
 
 const MainPage = ({ userData }) => {
   const roomNames = {
@@ -160,15 +161,6 @@ const MainPage = ({ userData }) => {
     }
   };
 
-  const fuse = useMemo(() => {
-    console.log("fuse info:", fuse);
-    const options = {
-      keys: ["text"],
-      threshold: 0.3,
-    };
-    return new Fuse(chat, options);
-  }, [chat]);
-
   const handleSearch = async () => {
     try {
       const response = await axios.get(
@@ -183,6 +175,20 @@ const MainPage = ({ userData }) => {
     } catch (error) {
       console.error("Error searching messages:", error);
     }
+  };
+
+  const highlightText = (text, searchTerm) => {
+    if (!searchTerm.trim()) return text;
+    const regex = new RegExp(`(${searchTerm})`, "gi");
+    return text.split(regex).map((part, index) =>
+      regex.test(part) ? (
+        <span key={index} className="highlight">
+          {part}
+        </span>
+      ) : (
+        part
+      )
+    );
   };
 
   useEffect(() => {
