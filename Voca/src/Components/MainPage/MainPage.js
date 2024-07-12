@@ -312,73 +312,7 @@ const MainPage = ({ userData }) => {
         </div>
         <div className="chat-wrapper">
           <div className="chat-container">
-            {selectedRoom === "Group1" && (
-              <>
-                {chat.map((message, index) => (
-                  <div
-                    className={`message-container ${
-                      message.is_current_user ? "" : "other-user"
-                    }`}
-                    key={index}
-                  >
-                    <div
-                      className={`message-box ${
-                        message.is_current_user ? "" : "other-user"
-                      }`}
-                    >
-                      <p
-                        className={`username ${
-                          message.is_current_user ? "" : "other-user"
-                        }`}
-                      >
-                        {message.username}
-                      </p>
-                      <p
-                        className={`text ${
-                          message.is_current_user ? "" : "other-user"
-                        }`}
-                      >
-                        {message.text}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </>
-            )}
-            {selectedRoom === "Group2" && (
-              <>
-                {chat.map((message, index) => (
-                  <div
-                    className={`message-container ${
-                      message.is_current_user ? "" : "other-user"
-                    }`}
-                    key={index}
-                  >
-                    <div
-                      className={`message-box ${
-                        message.is_current_user ? "" : "other-user"
-                      }`}
-                    >
-                      <p
-                        className={`username ${
-                          message.is_current_user ? "" : "other-user"
-                        }`}
-                      >
-                        {message.username}
-                      </p>
-                      <p
-                        className={`text ${
-                          message.is_current_user ? "" : "other-user"
-                        }`}
-                      >
-                        {message.text}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </>
-            )}
-            {selectedRoom === "Group3" && (
+            {selectedRoom && (
               <>
                 {chat.map((message, index) => (
                   <div
