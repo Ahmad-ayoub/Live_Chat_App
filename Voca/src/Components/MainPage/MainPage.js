@@ -314,35 +314,39 @@ const MainPage = ({ userData }) => {
           <div className="chat-container">
             {selectedRoom && (
               <>
-                {chat.map((message, index) => (
-                  <div
-                    className={`message-container ${
-                      message.is_current_user ? "" : "other-user"
-                    }`}
-                    key={index}
-                  >
+                {(searchResults.length > 0 ? searchResults : chat).map(
+                  (message, index) => (
                     <div
-                      className={`message-box ${
+                      className={`message-container ${
                         message.is_current_user ? "" : "other-user"
                       }`}
+                      key={index}
                     >
-                      <p
-                        className={`username ${
+                      <div
+                        className={`message-box ${
                           message.is_current_user ? "" : "other-user"
                         }`}
                       >
-                        {message.username}
-                      </p>
-                      <p
-                        className={`text ${
-                          message.is_current_user ? "" : "other-user"
-                        }`}
-                      >
-                        {message.text}
-                      </p>
+                        <p
+                          className={`username ${
+                            message.is_current_user ? "" : "other-user"
+                          }`}
+                        >
+                          {message.username}
+                        </p>
+                        <p
+                          className={`text ${
+                            message.is_current_user ? "" : "other-user"
+                          }`}
+                        >
+                          {searchResults.length > 0
+                            ? highlightText(message.text, searchTerm)
+                            : message.text}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                )}
               </>
             )}
           </div>
