@@ -481,7 +481,6 @@ def get_messages():
 
 @app.route("/search?term", methods=["GET"])
 def filter_search_terms():
-    data = request.json
     user_token = request.headers.get("Authorization")
     if user_token:
         user_id = get_current_user_id(user_token)
