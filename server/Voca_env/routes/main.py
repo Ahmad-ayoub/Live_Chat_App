@@ -479,7 +479,7 @@ def get_messages():
         return jsonify({"message": "No messages found"}), 200
 
 
-@app.route("/search?term", methods=["GET"])
+@app.route("/search", methods=["GET"])
 def filter_search_terms():
     user_token = request.headers.get("Authorization")
     if user_token:

@@ -176,7 +176,15 @@ const MainPage = ({ userData }) => {
       );
       setSearchResults(response.data);
     } catch (error) {
-      console.error("Error searching messages:", error);
+      if (error.response) {
+        console.log("Data: ", error.response.data);
+        console.log("status", error.response.status);
+        console.log("Headers", error.response.headers);
+      } else if (error.request) {
+        console.error("No Response received: ", error.request);
+      } else {
+        console.error("Error: ", error.message);
+      }
     }
   };
 
