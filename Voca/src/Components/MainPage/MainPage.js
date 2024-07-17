@@ -169,6 +169,9 @@ const MainPage = ({ userData }) => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("user_token")}`,
           },
+          params: {
+            group_room_number: selectedRoom,
+          },
         }
       );
       setSearchResults(response.data);

@@ -479,6 +479,47 @@ def get_messages():
         return jsonify({"message": "No messages found"}), 200
 
 
+@app.route("/search?term", methods=["GET"])
+def filter_search_terms():
+    data = request.json
+    user_token = request.headers.get("Authorization")
+    if user_token:
+        user_id = get_current_user_id(user_token)
+        group_room_number = request.headers.get("group_room_number")
+        print("searchTerm user_id: ", user_id)
+        print("searchTerm groupRoomNumber: ", group_room_number)
+        search_term = request.args.get("term")
+        print("search_term: ", search_term)
+
+        search_Term_Results = (
+            (
+                Message.query.join(User).filter(
+                    Message.user_id == user_id,
+                    Message.group_room_number == group_room_number,
+                    Message.text == search_term,
+                )
+            )
+            .order_by(Message.timestamp.desc())
+            .all()
+        )
+
+        print("search_Term_Results: ", search_Term_Results)
+
+        if search_Term_Results:
+            search_Term_Results_Data = {
+                "id": search_Term_Results.id,
+                "user_id": search_Term_Results.user_id,
+                "group_room_number": search_Term_Results.group_room_number,
+                "text": search_Term_Results.text,
+                "username": search_Term_Results.username,
+                "timestamp": search_Term_Results.timestamp,
+                "is_current_user": search_Term_Results.is_current_user,
+            }
+            return jsonify(search_Term_Results_Data), 200
+        else:
+            return jsonify({"search_term_results": "no results found"}), 200
+
+
 @app.route("/messages/all", methods=["GET"])
 def get_all_messages():
     user_token = request.headers.get("Authorization")
