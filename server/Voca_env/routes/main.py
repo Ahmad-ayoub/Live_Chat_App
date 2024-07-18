@@ -482,7 +482,8 @@ def get_messages():
 @app.route("/search", methods=["GET"])
 def filter_search_terms():
     user_token = request.headers.get("Authorization")
-    if user_token:
+    user_token_only = user_token.replace("Bearer", "")
+    if user_token_only:
         user_id = get_current_user_id(user_token)
         group_room_number = request.headers.get("group_room_number")
         print("searchTerm user_id: ", user_id)
