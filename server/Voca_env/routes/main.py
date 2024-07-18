@@ -483,6 +483,7 @@ def get_messages():
 def filter_search_terms():
     user_token = request.headers.get("Authorization")
     user_token_only = user_token.replace("Bearer", "")
+    print("user_token_only: ", user_token_only)
     if user_token_only:
         user_id = get_current_user_id(user_token)
         group_room_number = request.headers.get("group_room_number")
