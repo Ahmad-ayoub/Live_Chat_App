@@ -482,7 +482,8 @@ def get_messages():
 @app.route("/search", methods=["GET"])
 def filter_search_terms():
     user_token = request.headers.get("Authorization")
-    user_token_only = user_token.replace("Bearer", "").trim()
+    user_token_only = str(user_token.replace("Bearer", "")).strip()
+    # user_token_only_trim = user_token_only.trim()
     print("user_token_only: ", user_token_only)
     if user_token_only:
         user_id = get_current_user_id(user_token_only)
