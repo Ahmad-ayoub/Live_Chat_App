@@ -485,7 +485,7 @@ def filter_search_terms():
     user_token_only = user_token.replace("Bearer", "")
     print("user_token_only: ", user_token_only)
     if user_token_only:
-        user_id = get_current_user_id(user_token)
+        user_id = get_current_user_id(user_token_only)
         group_room_number = request.headers.get("group_room_number")
         print("searchTerm user_id: ", user_id)
         print("searchTerm groupRoomNumber: ", group_room_number)
