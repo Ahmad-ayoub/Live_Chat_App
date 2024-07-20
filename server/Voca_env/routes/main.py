@@ -495,6 +495,7 @@ def filter_search_terms():
         search_Term_Results = (
             (
                 Message.query.join(User).filter(
+                    Message.id == id,
                     Message.user_id == user_id,
                     Message.group_room_number == group_room_number,
                     Message.text == search_term,

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useMemo } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import {
@@ -14,8 +14,6 @@ import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
-import Fuse from "fuse.js";
-import { debounce } from "lodash";
 
 const MainPage = ({ userData }) => {
   const roomNames = {
@@ -45,7 +43,8 @@ const MainPage = ({ userData }) => {
   const [chat, setChat] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState("Group1");
   const [selectedRoomName, setSelectedRoomName] = useState("Just Chatting");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState([]);
+  console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
 
   console.log("whole_new_chat", chat);
@@ -259,7 +258,7 @@ const MainPage = ({ userData }) => {
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
         </div>
-        <div className="search-container">
+        <form className="search-container">
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             className="search-icon"
@@ -275,7 +274,7 @@ const MainPage = ({ userData }) => {
             aria-label="Search"
             className="input-box"
           />
-        </div>
+        </form>
 
         <div className="chat_list_box">
           <button
