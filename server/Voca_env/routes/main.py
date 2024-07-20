@@ -482,14 +482,15 @@ def get_messages():
 @app.route("/search", methods=["GET"])
 def filter_search_terms():
     user_token = request.headers.get("Authorization")
+    group_room_number = request.args.get("group_room_number")
     user_token_only = str(user_token.replace("Bearer", "")).strip()
     print("user_token_only: ", user_token_only)
     if user_token_only:
         user_id = get_current_user_id(user_token_only)
-        group_room_number = request.headers.get("group_room_number")
         print("searchTerm user_id: ", user_id)
         print("searchTerm groupRoomNumber: ", group_room_number)
         search_term = request.args.get("term")
+        text = search_term
         print("search_term: ", search_term)
 
         search_Term_Results = (
@@ -498,7 +499,7 @@ def filter_search_terms():
                     Message.id == id,
                     Message.user_id == user_id,
                     Message.group_room_number == group_room_number,
-                    Message.text == search_term,
+                    Message.text == text,
                 )
             )
             .order_by(Message.timestamp.desc())
