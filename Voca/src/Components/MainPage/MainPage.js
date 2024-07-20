@@ -171,6 +171,7 @@ const MainPage = ({ userData }) => {
           },
           params: {
             group_room_number: selectedRoom,
+            searchTerm: searchTerm,
           },
         }
       );
@@ -269,7 +270,6 @@ const MainPage = ({ userData }) => {
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
-              handleSearch();
             }}
             placeholder="Search"
             aria-label="Search"
