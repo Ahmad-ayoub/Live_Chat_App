@@ -490,7 +490,6 @@ def filter_search_terms():
         print("searchTerm user_id: ", user_id)
         print("searchTerm groupRoomNumber: ", group_room_number)
         search_term = request.args.get("term")
-        text = search_term
         print("search_term: ", search_term)
 
         search_Term_Results = (
