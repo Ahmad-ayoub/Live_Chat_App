@@ -514,9 +514,9 @@ def filter_search_terms():
                     "user_id": result.user_id,
                     "group_room_number": result.group_room_number,
                     "text": result.text,
-                    "username": result.username,
+                    "username": result.user.username,
                     "timestamp": result.timestamp,
-                    "is_current_user": result.is_current_user,
+                    "is_current_user": result.user_id == user_id,
                 }
                 for result in search_Term_Results
             ]

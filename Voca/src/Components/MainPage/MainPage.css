@@ -246,6 +246,10 @@
   color: #000000; /* Different color for other users' message text */
 }
 
+.highlight {
+  color: lightblue;
+}
+
 .input_message_box {
   border-radius: 50px;
   width: calc(100% - 50px - 10px);
