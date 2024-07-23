@@ -496,10 +496,9 @@ def filter_search_terms():
         search_Term_Results = (
             (
                 Message.query.join(User).filter(
-                    Message.id == id,
                     Message.user_id == user_id,
                     Message.group_room_number == group_room_number,
-                    Message.text == text,
+                    Message.text.ilike(f"%{search_term}%"),
                 )
             )
             .order_by(Message.timestamp.desc())
@@ -509,15 +508,19 @@ def filter_search_terms():
         print("search_Term_Results: ", search_Term_Results)
 
         if search_Term_Results:
-            search_Term_Results_Data = {
-                "id": search_Term_Results.id,
-                "user_id": search_Term_Results.user_id,
-                "group_room_number": search_Term_Results.group_room_number,
-                "text": search_Term_Results.text,
-                "username": search_Term_Results.username,
-                "timestamp": search_Term_Results.timestamp,
-                "is_current_user": search_Term_Results.is_current_user,
-            }
+            search_Term_Results_Data = [
+                {
+                    "id": result.id,
+                    "user_id": result.user_id,
+                    "group_room_number": result.group_room_number,
+                    "text": result.text,
+                    "username": result.username,
+                    "timestamp": result.timestamp,
+                    "is_current_user": result.is_current_user,
+                }
+                for result in search_Term_Results
+            ]
+
             return jsonify(search_Term_Results_Data), 200
         else:
             return jsonify({"search_term_results": "no results found"}), 200
