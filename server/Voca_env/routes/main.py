@@ -495,7 +495,6 @@ def filter_search_terms():
         search_Term_Results = (
             (
                 Message.query.join(User).filter(
-                    Message.user_id == user_id,
                     Message.group_room_number == group_room_number,
                     Message.text.ilike(f"%{search_term}%"),
                 )
@@ -510,7 +509,6 @@ def filter_search_terms():
             search_Term_Results_Data = [
                 {
                     "id": result.id,
-                    "user_id": result.user_id,
                     "group_room_number": result.group_room_number,
                     "text": result.text,
                     "timestamp": result.timestamp,
