@@ -486,15 +486,13 @@ def filter_search_terms():
     user_token_only = str(user_token.replace("Bearer", "")).strip()
     print("user_token_only: ", user_token_only)
     if user_token_only:
-        user_id = get_current_user_id(user_token_only)
-        print("searchTerm user_id: ", user_id)
         print("searchTerm groupRoomNumber: ", group_room_number)
         search_term = request.args.get("term")
         print("search_term: ", search_term)
 
         search_Term_Results = (
             (
-                Message.query.join(User).filter(
+                Message.query.filter(
                     Message.group_room_number == group_room_number,
                     Message.text.ilike(f"%{search_term}%"),
                 )
