@@ -329,39 +329,37 @@ const MainPage = ({ userData }) => {
           <div className="chat-container">
             {selectedRoom && (
               <>
-                {(searchResults.length > 0 ? searchResults : chat).map(
-                  (message, index) => (
+                {chat.map((message, index) => (
+                  <div
+                    className={`message-container ${
+                      message.is_current_user ? "" : "other-user"
+                    }`}
+                    key={index}
+                  >
                     <div
-                      className={`message-container ${
+                      className={`message-box ${
                         message.is_current_user ? "" : "other-user"
                       }`}
-                      key={index}
                     >
-                      <div
-                        className={`message-box ${
+                      <p
+                        className={`username ${
                           message.is_current_user ? "" : "other-user"
                         }`}
                       >
-                        <p
-                          className={`username ${
-                            message.is_current_user ? "" : "other-user"
-                          }`}
-                        >
-                          {message.username}
-                        </p>
-                        <p
-                          className={`text ${
-                            message.is_current_user ? "" : "other-user"
-                          }`}
-                        >
-                          {searchResults.length > 0
-                            ? highlightText(message.text, searchTerm)
-                            : message.text}
-                        </p>
-                      </div>
+                        {message.username}
+                      </p>
+                      <p
+                        className={`text ${
+                          message.is_current_user ? "" : "other-user"
+                        }`}
+                      >
+                        {searchResults.length > 0
+                          ? highlightText(message.text, searchTerm)
+                          : message.text}
+                      </p>
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </>
             )}
           </div>
