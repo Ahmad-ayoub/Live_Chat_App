@@ -177,6 +177,7 @@ const MainPage = ({ userData }) => {
         }
       );
       setSearchResults(response.data);
+      console.log("response.data search results: ", response.data);
     } catch (error) {
       if (error.response) {
         console.log("Data: ", error.response.data);
@@ -192,7 +193,9 @@ const MainPage = ({ userData }) => {
 
   const highlightText = (text, searchTerm) => {
     if (!searchTerm.trim()) return text;
+    console.log("highlight text: ", text);
     const regex = new RegExp(`(${searchTerm})`, "gi");
+    console.log("regex text: ", regex);
     return text.split(regex).map((part, index) =>
       regex.test(part) ? (
         <span key={index} className="highlight">
