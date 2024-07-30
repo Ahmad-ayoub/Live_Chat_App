@@ -1,5 +1,4 @@
 import os
-import secrets
 from flask import Flask, request, jsonify, session, g
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
