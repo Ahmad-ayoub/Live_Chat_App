@@ -1,14 +1,15 @@
 import os
-from flask import Flask, request, jsonify, session, g
+from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 import jwt
 import logging
+import psycopg2
 from datetime import datetime
 from flask_socketio import SocketIO, emit
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from config import login_key, user_id_key, group_id_key, app_config_key, flask_app_key
 from datetime import datetime, timedelta
 
