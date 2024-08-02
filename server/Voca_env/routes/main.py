@@ -22,6 +22,13 @@ CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
 app.secret_key = flask_app_key
 print("app.secret_key", app.secret_key)
 
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+DB_USER = os.environ.get("DB_USER")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+
 
 @app.after_request
 def after_request(response):
@@ -73,6 +80,12 @@ app.config["app_config_key"] = app_config_key
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def catch_all(path):
+    return app.send_static_file("index.html")
 
 
 class User(db.Model):
