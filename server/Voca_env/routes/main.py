@@ -26,6 +26,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
+print("DATABASE_URL: ", DATABASE_URL)
 DB_USER = os.environ.get("DB_USER")
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 
@@ -64,11 +65,6 @@ logging.basicConfig(
     filename="app.log",
     format="%(asctime)s %(levelname)s:%(message)s",
 )
-
-# app.config["SQLALCHEMY_DATABASE_URI"] = (
-#     os.environ.get("DATABASE_URL")
-#     or "postgresql://postgres:Talintiar123@localhost:5432/userdata"
-# )
 
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
 
@@ -224,37 +220,6 @@ def validate_password(password):
     return ""
 
 
-# @app.before_request
-# def process_request():
-#     user_token = request.headers.get("Authorization")
-#     print("userToken before_request: ", user_token)
-#     group_room_number = request.headers.get("group_room_number")
-#     g.user_token = user_token
-#     g.group_room_number = group_room_number
-
-
-# @app.before_request
-# def load_user_token():
-#     user_token = request.headers.get("Authorization")
-#     if user_token:
-#         user_token = user_token.replace("Bearer ", "")
-#     group_room_number = request.headers.get("group_room_number")
-#     print("user_token: ", user_token)
-#     print("group_room_number: ", group_room_number)
-#     user_id = get_current_user_id(user_token)
-#     print("user_id: ", user_id)
-
-#     if not user_id:
-#         return jsonify({"error": "Authentication required"}), 401
-
-#     g.user_token = user_token
-#     print("g.user_token: ", g.user_token)
-#     g.group_room_number = group_room_number
-#     print("g.group_room_number: ", g.group_room_number)
-#     g.user_id = user_id
-#     print("g.user_id: ", g.user_id)
-
-
 def generate_user_token(login_token):
     if login_token:
         try:
@@ -392,23 +357,6 @@ def edit_profile():
         db.session.rollback()
         logging.error(f"Error occurred in /edit route: {e}", exc_info=True)
         return jsonify({"error": "An error occurred"}), 500
-
-
-# def decode_user_token(user_token):
-#     if not user_token:
-#         return None
-
-#     try:
-#         data = jwt.decode(user_token, user_id_key, algorithms=["HS256"])
-#         return data.get("user_id")
-#     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
-#         return None
-
-
-# def decode_group_token(token):
-#         data = jwt.decode(token, group_id_key, algorithms=["HS256"])
-#         return data.get("group_id")
-#     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
 
 
 @app.route("/messages/send", methods=["POST"])
