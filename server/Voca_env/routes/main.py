@@ -17,8 +17,8 @@ from datetime import datetime, timedelta
 load_dotenv()
 
 app = Flask(__name__, static_folder="../../../build", static_url_path="")
-socketio = SocketIO(app, cors_allowed_origins=["http://localhost:3000"])
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
+socketio = SocketIO(app)
+CORS(app)
 app.secret_key = flask_app_key
 print("app.secret_key", app.secret_key)
 
@@ -65,17 +65,18 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s:%(message)s",
 )
 
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    os.environ.get("DATABASE_URL")
-    or "postgresql://postgres:Talintiar123@localhost:5432/userdata"
-)
+# app.config["SQLALCHEMY_DATABASE_URI"] = (
+#     os.environ.get("DATABASE_URL")
+#     or "postgresql://postgres:Talintiar123@localhost:5432/userdata"
+# )
 
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
 
 print("SQLALCHEMY_DATABASE_URI", app.config["SQLALCHEMY_DATABASE_URI"])
 
 print("DATABASE_URL", os.environ.get("DATABASE_URL"))
-
+# postgresql://users_database_xz8x_user:otApHYv9tr6smNmsMYaTjza9qD9sFEVT@dpg-cqmn9c5svqrc73fd29ng-a.ohio-postgres.render.com/users_database_xz8x
+# postgresql://users_database_xz8x_user:otApHYv9tr6smNmsMYaTjza9qD9sFEVT@dpg-cqmn9c5svqrc73fd29ng-a/users_database_xz8x
 app.config["app_config_key"] = app_config_key
 
 db = SQLAlchemy(app)
@@ -579,4 +580,4 @@ def get_all_messages():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)

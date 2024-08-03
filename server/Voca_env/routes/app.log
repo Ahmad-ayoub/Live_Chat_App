@@ -1154,3 +1154,9 @@
 2024-05-01 06:17:08,266 INFO:127.0.0.1 - - [01/May/2024 06:17:08] "GET /socket.io/?EIO=4&transport=polling&t=Oypg75y.0&sid=7ttLlZiyyN77HnISAART HTTP/1.1" 200 -
 2024-05-01 06:17:08,274 INFO:127.0.0.1 - - [01/May/2024 06:17:08] "GET /socket.io/?EIO=4&transport=polling&t=Oypg75y.1&sid=T40GdNrqjgEGmQDdAARU HTTP/1.1" 200 -
 2024-05-01 06:17:08,279 INFO:127.0.0.1 - - [01/May/2024 06:17:08] "GET /socket.io/?EIO=4&transport=polling&t=Oypg76C&sid=3muh7homW8Q2CKVDAARV HTTP/1.1" 200 -
+2024-08-03 12:20:42,476 INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-03 12:20:42,477 INFO:[33mPress CTRL+C to quit[0m
+2024-08-03 12:48:12,412 INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-03 12:48:12,413 INFO:[33mPress CTRL+C to quit[0m
