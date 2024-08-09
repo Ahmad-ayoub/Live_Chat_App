@@ -6,7 +6,6 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 import jwt
 import logging
-import psycopg2
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
@@ -24,6 +23,9 @@ print("app.secret_key", app.secret_key)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 print("DATABASE_URL: ", DATABASE_URL)
@@ -81,8 +83,9 @@ migrate = Migrate(app, db)
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
+@cross_origin(origins=[])
 def catch_all(path):
-    return app.send_static_file("index.html")
+    return send_from_directory(app.j, "index.html")
 
 
 class User(db.Model):
