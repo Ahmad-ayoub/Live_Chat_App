@@ -18,7 +18,7 @@
             "name": "Launch LibreWolf against localhost",
             "type": "firefox",
             "request": "launch",
-            "url": "http://localhost:3000",
+            "url": "https://live-chat-app-doaz.onrender.com",
             "webRoot": "${workspaceFolder}/Voca/src"
         }
     ],

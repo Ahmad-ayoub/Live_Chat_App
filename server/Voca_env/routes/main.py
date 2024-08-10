@@ -1,5 +1,6 @@
 import os
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
+from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
@@ -83,7 +84,7 @@ migrate = Migrate(app, db)
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
-@cross_origin(origins=[])
+@cross_origin(origins=["https://live-chat-app-doaz.onrender.com"])
 def catch_all(path):
     return send_from_directory(app.j, "index.html")
 
