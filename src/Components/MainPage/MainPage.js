@@ -215,7 +215,7 @@ const MainPage = ({ userData }) => {
     return () => {
       socket.off("chat message");
     };
-  }, []);
+  });
 
   socket.on("connect_error", (error) => {
     console.error("Socket connection error:", error);
@@ -246,7 +246,7 @@ const MainPage = ({ userData }) => {
     return () => {
       socket.off("backend_to_frontend");
     };
-  }, []);
+  });
 
   return (
     <div className="profile_and_group_box">
