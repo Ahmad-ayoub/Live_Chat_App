@@ -58,7 +58,7 @@ const MainPage = ({ userData }) => {
       setSelectedRoomName(storedRoomName);
       console.log("selectedRoom useEffect", selectedRoom);
     }
-  }, []);
+  }, [selectedRoom]);
 
   useEffect(() => {
     localStorage.setItem("selectedRoom", selectedRoom);
