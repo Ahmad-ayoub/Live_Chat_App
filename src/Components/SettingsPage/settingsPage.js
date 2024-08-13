@@ -62,9 +62,11 @@ const SettingsPage = ({ setUserData, userData }) => {
         console.log("Updated userData:", userData);
       } catch (error) {
         setFormErrors({ apiError: error.response.data.error });
+        console.log(formErrors);
       }
     } else {
       setFormErrors(errors);
+      console.log(formErrors);
     }
   };
 
