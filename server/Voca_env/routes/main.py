@@ -10,7 +10,9 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
-from server.Voca_env.routes.token_keys import (
+
+__all__ = ["token_keys"]
+from token_keys.token_keys import (
     login_key,
     user_id_key,
     group_id_key,
