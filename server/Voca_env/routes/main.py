@@ -90,7 +90,7 @@ app.config["app_config_key"] = app_config_key
 @cross_origin(origins=["https://live-chat-app-doaz.onrender.com"])
 def catch_all(path):
     try:
-        return send_from_directory(app.j, "index.html")
+        return send_from_directory("/static", "index.html")
     except Exception as e:
         print("e: ", e)
         raise e
