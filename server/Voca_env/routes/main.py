@@ -79,12 +79,10 @@ app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
 print("SQLALCHEMY_DATABASE_URI", app.config["SQLALCHEMY_DATABASE_URI"])
 
 print("DATABASE_URL", os.environ.get("DATABASE_URL"))
-# postgresql://users_database_xz8x_user:otApHYv9tr6smNmsMYaTjza9qD9sFEVT@dpg-cqmn9c5svqrc73fd29ng-a.ohio-postgres.render.com/users_database_xz8x
-# postgresql://users_database_xz8x_user:otApHYv9tr6smNmsMYaTjza9qD9sFEVT@dpg-cqmn9c5svqrc73fd29ng-a/users_database_xz8x
 app.config["app_config_key"] = app_config_key
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+# db = SQLAlchemy(app)
+# migrate = Migrate(app, db)
 
 
 @app.route("/", defaults={"path": ""})
@@ -230,30 +228,28 @@ def validate_password(password):
 
 
 def generate_user_token(login_token):
-    if login_token:
-        try:
-            print("login_token: ", login_token)
-            decoded_login_token = jwt.decode(
-                login_token, login_key, algorithms=["HS256"]
-            )
-            user_id = decoded_login_token.get("user_id")
+    if not login_token:
+        return None
 
-            if user_id:
-                payload = {
-                    "user_id": user_id,
-                    "exp": datetime.utcnow() + timedelta(days=7),
-                }
-                user_token = jwt.encode(payload, user_id_key, algorithm="HS256")
-                print("user_token: gen_u_tok ", user_token)
+    try:
+        print("login_token: ", login_token)
+        decoded_login_token = jwt.decode(login_token, login_key, algorithms=["HS256"])
+        user_id = decoded_login_token.get("user_id")
 
-                return user_token
-            else:
-                return None
-        except jwt.ExpiredSignatureError:
+        if not user_id:
             return None
-        except jwt.InvalidTokenError:
-            return None
-    else:
+
+        payload = {
+            "user_id": user_id,
+            "exp": datetime.utcnow() + timedelta(days=7),
+        }
+        user_token = jwt.encode(payload, user_id_key, algorithm="HS256")
+        print("user_token: gen_u_tok ", user_token)
+
+        return user_token
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
         return None
 
 
