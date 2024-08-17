@@ -89,7 +89,11 @@ app.config["app_config_key"] = app_config_key
 @app.route("/<path:path>")
 @cross_origin(origins=["https://live-chat-app-doaz.onrender.com"])
 def catch_all(path):
-    return send_from_directory(app.j, "index.html")
+    try:
+        return send_from_directory(app.j, "index.html")
+    except Exception as e:
+        print("e: ", e)
+        raise e
 
 
 class User(db.Model):
