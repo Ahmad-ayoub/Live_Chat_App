@@ -1,7 +1,7 @@
 import psycopg2
 
 conn = psycopg2.connect(
-    "host=live_chat_app_database",
+    host="dpg-cqmn9c5svqrc73fd29ng-a",
     dbname="users_database_xz8x",
     user="users_database_xz8x_user",
     password="otApHYv9tr6smNmsMYaTjza9qD9sFEVT",
@@ -10,22 +10,36 @@ conn = psycopg2.connect(
 
 cur = conn.cursor()
 
-cur.execute(
-    """CREATE TABLE IF NOT EXISTS userdata (
-            id integer primary key, name varchar, email varchar, username varchar, password varchar, birthdate date
-            )
+# cur.execute(
+#     """CREATE TABLE userdata (
+#             id SERIAL PRIMARY KEY, name varchar, email varchar, username varchar, password varchar, birthdate date
+#             )
 
- """
+#  """
+# )
+
+cur.execute(
+    """INSERT INTO userdata (id, name, email, username, password, birthdate)
+                VALUES (%(int)s, %(str)s, %(str)s, %(str)s, %(str)s, %(date)s)
+
+             """
 )
 
 cur.execute(
-    """ CREATE TABLE IF NOT EXISTS messages(
-            id integer primary key, user_id integer , text text, timestamp date, group_room_number varchar, user
-            )
-
+    """INSERT INTO messages (id, user_id, text, timestamp, group_room_number, user)
+        VALUES (%(int)s, %(int)s, %(text)s, %(date)s, %(str)s, %(str)s)
 
 """
 )
+
+
+# cur.execute(
+#     """ CREATE TABLE messages(
+#             id integer primary key, user_id integer , text text, timestamp date, group_room_number varchar, user)
+
+
+# """
+# )
 
 
 conn.commit()
