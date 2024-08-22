@@ -54,5 +54,6 @@ except (Exception, Error) as error:
 finally:
     if conn:
         conn.commit()
-    cur.close()
-    conn.close()
+        cur.close()
+        conn.close()
+        print("PostgreSQL connection is closed")
