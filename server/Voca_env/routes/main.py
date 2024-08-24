@@ -10,7 +10,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
-from .token_keys_list import (
+from token_keys_list import (
     login_key,
     user_id_key,
     group_id_key,
@@ -36,7 +36,9 @@ migrate = Migrate(app, db)
 DATABASE_URL = os.environ.get("DATABASE_URL")
 print("DATABASE_URL: ", DATABASE_URL)
 DB_USER = os.environ.get("DB_USER")
+print("DB_USER: ", DB_USER)
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
+print("DB_PASSWORD: ", DB_PASSWORD)
 
 
 @app.after_request
