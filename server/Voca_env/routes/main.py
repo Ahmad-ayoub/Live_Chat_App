@@ -81,9 +81,6 @@ print("SQLALCHEMY_DATABASE_URI", app.config["SQLALCHEMY_DATABASE_URI"])
 print("DATABASE_URL", os.environ.get("DATABASE_URL"))
 app.config["app_config_key"] = app_config_key
 
-# db = SQLAlchemy(app)
-# migrate = Migrate(app, db)
-
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
