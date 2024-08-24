@@ -7,7 +7,7 @@ try:
         dbname="users_database_xz8x",
         user="users_database_xz8x_user",
         password="otApHYv9tr6smNmsMYaTjza9qD9sFEVT",
-        internal_database_url="postgresql://users_database_xz8x_user:otApHYv9tr6smNmsMYaTjza9qD9sFEVT@dpg-cqmn9c5svqrc73fd29ng-a/users_database_xz8x",
+        external_database_url="postgresql://users_database_xz8x_user:otApHYv9tr6smNmsMYaTjza9qD9sFEVT@dpg-cqmn9c5svqrc73fd29ng-a.ohio-postgres.render.com/users_database_xz8x",
         port="5432",
     )
 
