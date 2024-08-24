@@ -1,29 +1,35 @@
 import psycopg2
+from psycopg2 import Error
 
-# conn = psycopg2.connect(
-#     host="dpg-cqmn9c5svqrc73fd29ng-a",
-#     dbname="users_database_xz8x",
-#     user="users_database_xz8x_user",
-#     password="otApHYv9tr6smNmsMYaTjza9qD9sFEVT",
-#     port="postgresql://users_database_xz8x_user:otApHYv9tr6smNmsMYaTjza9qD9sFEVT@dpg-cqmn9c5svqrc73fd29ng-a.ohio-postgres.render.com/users_database_xz8x",
-# )
+try:
+    conn = psycopg2.connect(
+        host="dpg-cqmn9c5svqrc73fd29ng-a",
+        dbname="users_database_xz8x",
+        user="users_database_xz8x_user",
+        password="otApHYv9tr6smNmsMYaTjza9qD9sFEVT",
+        internal_database_url="postgresql://users_database_xz8x_user:otApHYv9tr6smNmsMYaTjza9qD9sFEVT@dpg-cqmn9c5svqrc73fd29ng-a/users_database_xz8x",
+        port="5432",
+    )
 
+    cur = conn.cursor()
 
-def connect_to_database():
+    cur.execute(
+        """SELECT userdata FROM information_schema.tables WHERE table_schema = 'public'"""
+    )
+    for table in cur.fetchall():
+        print("table: ", table)
 
-    database_url = "postgresql://users_database_xz8x_user:otApHYv9tr6smNmsMYaTjza9qD9sFEVT@dpg-cqmn9c5svqrc73fd29ng-a.ohio-postgres.render.com/users_database_xz8x"
-    user = "users_database_xz8x_user"
-    password = "otApHYv9tr6smNmsMYaTjza9qD9sFEVT"
+    cur.execute(
+        """SELECT messages FROM information_schema.tables WHERE table_schema = 'public'"""
+    )
+    for table in cur.fetchall():
+        print("table: ", table)
 
-    connection = psycopg2.connect(database_url, user=user, password=password)
-    return connection
-
-
-def close_connection(connection):
-    """Closes a psycopg2 connection.
-
-    Args:
-        connection: A psycopg2 connection object.
-    """
-
-    connection.close()
+except (Exception, Error) as error:
+    print("Error while connecting to PostgreSQL", error)
+finally:
+    if conn:
+        conn.commit()
+        cur.close()
+        conn.close()
+        print("PostgreSQL connection is closed")
