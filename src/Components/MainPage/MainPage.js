@@ -22,7 +22,7 @@ const MainPage = ({ userData }) => {
     Group3: "Literature",
   };
 
-  let render_conn = "https://live-chat-app-doaz.onrender.com";
+  // let render_conn = "https://live-chat-app-doaz.onrender.com";
 
   let navigate = useNavigate();
 
@@ -97,14 +97,17 @@ const MainPage = ({ userData }) => {
       try {
         const userToken = localStorage.getItem("user_token");
         const group_room_number = localStorage.getItem("group_room_number");
-        const response = await axios.get(`${render_conn}/messages/all`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-          params: {
-            group_room_number,
-          },
-        });
+        const response = await axios.get(
+          `https://live-chat-app-doaz.onrender.com/messages/all`,
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+            params: {
+              group_room_number,
+            },
+          }
+        );
         setChat(response.data);
         console.log("group room number: msg/all ", selectedRoom);
       } catch (error) {
@@ -126,7 +129,7 @@ const MainPage = ({ userData }) => {
         const userToken = localStorage.getItem("user_token");
         const selectedRoom = localStorage.getItem("group_room_number");
         const sendResponse = await axios.post(
-          `${render_conn}/messages/send`,
+          `https://live-chat-app-doaz.onrender.com/messages/send`,
           {
             text: message,
             user_token: userToken,
@@ -142,13 +145,16 @@ const MainPage = ({ userData }) => {
         console.log("Send Response", sendResponse);
 
         if (sendResponse.status === 200 || sendResponse.status === 201) {
-          const response = await axios.get(`${render_conn}/messages`, {
-            params: {
-              text: message,
-              user_token: userToken,
-              group_room_number: selectedRoom,
-            },
-          });
+          const response = await axios.get(
+            `https://live-chat-app-doaz.onrender.com/messages`,
+            {
+              params: {
+                text: message,
+                user_token: userToken,
+                group_room_number: selectedRoom,
+              },
+            }
+          );
           const newMessage = response.data;
           console.log("Response messsages", response);
           setChat((prevChat) => [...prevChat, newMessage]);
@@ -167,7 +173,7 @@ const MainPage = ({ userData }) => {
     try {
       const selectedRoom = localStorage.getItem("group_room_number");
       const response = await axios.get(
-        `${render_conn}/search?term=${searchTerm}`,
+        `https://live-chat-app-doaz.onrender.com/search?term=${searchTerm}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("user_token")}`,
