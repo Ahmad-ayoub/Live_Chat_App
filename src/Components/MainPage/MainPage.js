@@ -22,6 +22,8 @@ const MainPage = ({ userData }) => {
     Group3: "Literature",
   };
 
+  let render_conn = "https://live-chat-app-doaz.onrender.com";
+
   let navigate = useNavigate();
 
   function goToSettings() {
@@ -38,7 +40,7 @@ const MainPage = ({ userData }) => {
   const { fontSize } = useContext(FontContext);
   const currentFontClasses =
     FontClasses[fontSize] || FontClasses["fontDefault"];
-  const socket = io("http://localhost:5000");
+  const socket = io("https://live-chat-app-doaz.onrender.com");
   const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState("Group1");
@@ -95,7 +97,7 @@ const MainPage = ({ userData }) => {
       try {
         const userToken = localStorage.getItem("user_token");
         const group_room_number = localStorage.getItem("group_room_number");
-        const response = await axios.get("http://localhost:5000/messages/all", {
+        const response = await axios.get(`${render_conn}/messages/all`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -124,7 +126,7 @@ const MainPage = ({ userData }) => {
         const userToken = localStorage.getItem("user_token");
         const selectedRoom = localStorage.getItem("group_room_number");
         const sendResponse = await axios.post(
-          "http://localhost:5000/messages/send",
+          `${render_conn}/messages/send`,
           {
             text: message,
             user_token: userToken,
@@ -140,7 +142,7 @@ const MainPage = ({ userData }) => {
         console.log("Send Response", sendResponse);
 
         if (sendResponse.status === 200 || sendResponse.status === 201) {
-          const response = await axios.get("http://localhost:5000/messages", {
+          const response = await axios.get(`${render_conn}/messages`, {
             params: {
               text: message,
               user_token: userToken,
@@ -165,7 +167,7 @@ const MainPage = ({ userData }) => {
     try {
       const selectedRoom = localStorage.getItem("group_room_number");
       const response = await axios.get(
-        `http://localhost:5000/search?term=${searchTerm}`,
+        `${render_conn}/search?term=${searchTerm}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("user_token")}`,
