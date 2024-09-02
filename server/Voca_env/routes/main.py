@@ -21,7 +21,7 @@ from datetime import datetime, timedelta
 
 load_dotenv()
 
-app = Flask(__name__, static_folder="../../../build", static_url_path="")
+app = Flask(__name__, static_folder="../../../build", static_url_path="/")
 socketio = SocketIO(app)
 CORS(app)
 app.secret_key = flask_app_key
