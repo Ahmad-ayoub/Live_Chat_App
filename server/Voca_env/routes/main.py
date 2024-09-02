@@ -88,7 +88,7 @@ app.config["app_config_key"] = app_config_key
 @app.route("/<path:path>")
 @cross_origin(origins=["https://live-chat-app-doaz.onrender.com"])
 def catch_all(path):
-    return render_template("index.html")
+    return "You want path: %s" % path
 
 
 @app.errorhandler(404)
