@@ -21,7 +21,7 @@ from datetime import datetime, timedelta
 
 load_dotenv()
 
-app = Flask(__name__, static_folder="../../../build", static_url_path="/")
+app = Flask(__name__, static_folder="../../../build", static_url_path="/app")
 socketio = SocketIO(app)
 CORS(app)
 app.secret_key = flask_app_key
@@ -526,7 +526,7 @@ def get_all_messages():
 @app.route("/<path:path>")
 @cross_origin(origins=["https://live-chat-app-doaz.onrender.com"])
 def catch_all(path):
-    return redirect(url_for("index"))
+    return app.send_static_file("index.html")
 
 
 @app.errorhandler(404)
