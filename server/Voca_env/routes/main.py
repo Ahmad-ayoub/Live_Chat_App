@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -82,18 +82,6 @@ print("SQLALCHEMY_DATABASE_URI", app.config["SQLALCHEMY_DATABASE_URI"])
 
 print("DATABASE_URL", os.environ.get("DATABASE_URL"))
 app.config["app_config_key"] = app_config_key
-
-
-@app.route("/", defaults={"path": ""}, methods=["GET", "POST"])
-@app.route("/<path:path>")
-@cross_origin(origins=["https://live-chat-app-doaz.onrender.com"])
-def catch_all(path):
-    return app.send_static_file("index.html")
-
-
-@app.errorhandler(404)
-def not_found(e):
-    return render_template("404.html")
 
 
 class User(db.Model):
@@ -532,6 +520,18 @@ def get_all_messages():
         )
     print("message_data msg/all", message_data)
     return jsonify(message_data), 200
+
+
+@app.route("/", defaults={"path": ""}, methods=["GET", "POST"])
+@app.route("/<path:path>")
+@cross_origin(origins=["https://live-chat-app-doaz.onrender.com"])
+def catch_all(path):
+    return app.send_static_file("index.html")
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html"), 404
 
 
 if __name__ == "__main__":
