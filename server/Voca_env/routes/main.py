@@ -526,7 +526,7 @@ def get_all_messages():
 @app.route("/<path:path>")
 @cross_origin(origins=["https://live-chat-app-doaz.onrender.com"])
 def catch_all(path):
-    return app.send_static_file("index.html")
+    return redirect(url_for("index"))
 
 
 @app.errorhandler(404)
