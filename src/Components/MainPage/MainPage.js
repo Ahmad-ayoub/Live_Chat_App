@@ -22,8 +22,6 @@ const MainPage = ({ userData }) => {
     Group3: "Literature",
   };
 
-  // let render_conn = "https://live-chat-app-doaz.onrender.com";
-
   let navigate = useNavigate();
 
   function goToSettings() {
