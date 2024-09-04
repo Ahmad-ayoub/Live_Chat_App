@@ -21,7 +21,7 @@ from datetime import datetime, timedelta
 
 load_dotenv()
 
-app = Flask(__name__, static_folder="../../../build", static_url_path="")
+app = Flask(__name__, static_folder="../../../build/static", static_url_path="/static")
 socketio = SocketIO(app)
 CORS(app)
 app.secret_key = flask_app_key
@@ -82,17 +82,6 @@ print("SQLALCHEMY_DATABASE_URI", app.config["SQLALCHEMY_DATABASE_URI"])
 
 print("DATABASE_URL", os.environ.get("DATABASE_URL"))
 app.config["app_config_key"] = app_config_key
-
-
-@app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
-@cross_origin(origins=["https://live-chat-app-doaz.onrender.com"])
-def catch_all(path):
-    try:
-        return app.send_static_file("index.html")
-    except Exception as e:
-        print("e: ", e)
-        raise e
 
 
 class User(db.Model):
@@ -531,6 +520,21 @@ def get_all_messages():
         )
     print("message_data msg/all", message_data)
     return jsonify(message_data), 200
+
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def catch_all(path):
+    build_dir = os.path.abspath(os.path.join(app.root_path, "..", "..", "..", "build"))
+    doesFilePathExist = os.path.exists(os.path.abspath(os.path.join(build_dir, path)))
+
+    if path != "" and doesFilePathExist:
+        return send_from_directory(build_dir, path)
+    else:
+        try:
+            return send_from_directory(build_dir, "index.html")
+        except Exception as e:
+            return f"An error occurred: {str(e)}", 500
 
 
 if __name__ == "__main__":
