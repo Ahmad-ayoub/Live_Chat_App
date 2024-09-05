@@ -65,15 +65,20 @@ const MainPage = ({ userData }) => {
     localStorage.setItem("selectedRoom", selectedRoom);
   }, [selectedRoom]);
 
-  useEffect(() => {
-    const userName = localStorage.setItem(
-      "current_user_name",
-      userData.username
-    );
-    if (userName) {
-      setUserName(userName);
-    }
-  }, [userData.username]);
+  useEffect(
+    (userData) => {
+      localStorage.setItem("current_user_name", userData.username);
+
+      const userName = localStorage.getItem(
+        "current_user_name",
+        userData.username
+      );
+      if (userName) {
+        setUserName(userName);
+      }
+    },
+    [userData.username]
+  );
 
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
