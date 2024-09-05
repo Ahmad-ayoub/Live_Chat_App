@@ -46,6 +46,7 @@ const MainPage = ({ userData }) => {
   const [searchTerm, setSearchTerm] = useState([]);
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
+  const [userName, setUserName] = useState("");
   console.log("searchResults: ", searchResults);
 
   console.log("whole_new_chat", chat);
@@ -65,12 +66,14 @@ const MainPage = ({ userData }) => {
   }, [selectedRoom]);
 
   useEffect(() => {
-    localStorage.setItem("current_user_name", userData.username);
-  }, [userData.username]);
-
-  const setUserName = () => {
-    localStorage.getItem("current_user_name", userData.username);
-  };
+    const userName = localStorage.setItem(
+      "current_user_name",
+      userData.username
+    );
+    if (userName) {
+      setUserName(userName);
+    }
+  }, []);
 
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
@@ -272,7 +275,7 @@ const MainPage = ({ userData }) => {
             icon={faUser}
             className="profile_box_image_mainUser"
           />
-          {<p className="profile_box_text">{setUserName}</p>}
+          {<p className="profile_box_text">{userName}</p>}
           <button className="settings_button" onClick={goToSettings}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
