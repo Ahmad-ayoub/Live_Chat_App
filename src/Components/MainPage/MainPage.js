@@ -64,6 +64,14 @@ const MainPage = ({ userData }) => {
     localStorage.setItem("selectedRoom", selectedRoom);
   }, [selectedRoom]);
 
+  useEffect(() => {
+    localStorage.setItem("current_user_name", userData.username);
+  }, [userData.username]);
+
+  const setUserName = () => {
+    localStorage.getItem("current_user_name", userData.username);
+  };
+
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
     setSelectedRoomName(roomNames[currentRoom]);
@@ -264,7 +272,7 @@ const MainPage = ({ userData }) => {
             icon={faUser}
             className="profile_box_image_mainUser"
           />
-          {userData && <p className="profile_box_text">{userData.username}</p>}
+          {<p className="profile_box_text">{setUserName}</p>}
           <button className="settings_button" onClick={goToSettings}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
