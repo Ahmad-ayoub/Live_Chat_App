@@ -280,7 +280,11 @@ const MainPage = ({ userData }) => {
             icon={faUser}
             className="profile_box_image_mainUser"
           />
-          {<p className="profile_box_text">{userName}</p>}
+          {userName && (
+            <p className="profile_box_text">
+              {localStorage.getItem("current_user_name")}
+            </p>
+          )}
           <button className="settings_button" onClick={goToSettings}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
