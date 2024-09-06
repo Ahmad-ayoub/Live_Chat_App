@@ -66,6 +66,10 @@ const MainPage = ({ userData }) => {
   }, [selectedRoom]);
 
   useEffect(() => {
+    localStorage.setItem("current_username", userData.username);
+  }, [userData.username]);
+
+  useEffect(() => {
     const current_username = localStorage.getItem(
       "current_username",
       userData.username
@@ -74,25 +78,6 @@ const MainPage = ({ userData }) => {
       setUserName(current_username);
     }
   }, [userData.username]);
-
-  // useEffect(() => {
-  //   localStorage.getItem("current_username", userData.username);
-  // });
-
-  // useEffect(
-  //   (userData) => {
-  //     localStorage.setItem("current_user_name", userData.username);
-  //     console.log(userName);
-  //     const userName = localStorage.getItem(
-  //       "current_user_name",
-  //       userData.username
-  //     );
-  //     if (userName) {
-  //       setUserName(userName);
-  //     }
-  //   },
-  //   [userData.username]
-  // );
 
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
