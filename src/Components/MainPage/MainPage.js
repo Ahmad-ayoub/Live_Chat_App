@@ -73,10 +73,10 @@ const MainPage = ({ userData }) => {
     if (current_username) {
       setUserName(current_username);
     }
-  }, [current_username]);
+  });
 
   useEffect(() => {
-    localStorage.getItem("current_username", current_username);
+    localStorage.getItem("current_username", userData.username);
   });
 
   // useEffect(
