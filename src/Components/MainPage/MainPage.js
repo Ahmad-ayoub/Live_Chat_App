@@ -66,7 +66,7 @@ const MainPage = ({ userData }) => {
   }, [selectedRoom]);
 
   useEffect(() => {
-    const current_username = localStorage.setItem(
+    const current_username = localStorage.getItem(
       "current_username",
       userData.username
     );
@@ -75,9 +75,9 @@ const MainPage = ({ userData }) => {
     }
   }, [userData.username]);
 
-  useEffect(() => {
-    localStorage.getItem("current_username", userData.username);
-  });
+  // useEffect(() => {
+  //   localStorage.getItem("current_username", userData.username);
+  // });
 
   // useEffect(
   //   (userData) => {
