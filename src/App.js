@@ -12,7 +12,7 @@ import { FontProvider } from "./Components/FontChange/FontChange";
 import { UserProvider } from "./Components/UserContext/UserContext";
 
 function App() {
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState(localStorage.getItem("userData"));
 
   useEffect(() => {
     if (userData !== "") setUserData(userData);
