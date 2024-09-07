@@ -13,6 +13,30 @@ import { UserProvider } from "./Components/UserContext/UserContext";
 
 function App() {
   const [userData, setUserData] = useState("");
+
+  const loginUser = (event) => {
+    event.preventDefault();
+    axios
+      .post("/login", { username, password })
+      .then((response) => {
+        console.log("response data", response.data);
+        setUserData(response.data);
+        setMessage("You logged in!");
+        console.log(response.data.message);
+        const login_token = response.data.login_token;
+        console.log("login_token", login_token);
+        localStorage.setItem("login_token", login_token);
+        const user_token = response.data.user_token;
+        localStorage.setItem("user_token", user_token);
+        console.log("user_token", user_token);
+        navigate("/MainPage");
+      })
+      .catch((error) => {
+        console.log(error);
+        setMessage("Failed to log in. Please check your credentials.");
+      });
+  };
+
   return (
     <Router>
       <UserProvider>
@@ -21,7 +45,7 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={<AuthPage setUserData={setUserData} />}
+                element={<AuthPage loginUser={loginUser} />}
                 index
               />
               <Route

@@ -66,10 +66,12 @@ const MainPage = ({ userData }) => {
   }, [selectedRoom]);
 
   useEffect(() => {
+    console.log("Setting userdata", userData);
     localStorage.setItem("current_username", userData.username);
   }, [userData.username]);
 
   useEffect(() => {
+    console.log("Getting userdata", localStorage.getItem);
     const current_username = localStorage.getItem("current_username");
     if (current_username) {
       setUserName(current_username);

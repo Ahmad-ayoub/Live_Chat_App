@@ -7,7 +7,7 @@ import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import UserSafe from "../userSafe/userSafe";
 
-const AuthPage = ({ setUserData }) => {
+const AuthPage = ({ loginUser }) => {
   const [name, setName] = useState();
   const [username, setUserName] = useState();
   const [email, setEmail] = useState();
@@ -42,28 +42,28 @@ const AuthPage = ({ setUserData }) => {
     setBirthDate(e.target.value);
   };
 
-  const loginUser = (event) => {
-    event.preventDefault();
-    axios
-      .post("/login", { username, password })
-      .then((response) => {
-        console.log("response data", response.data);
-        setUserData(response.data);
-        setMessage("You logged in!");
-        console.log(response.data.message);
-        const login_token = response.data.login_token;
-        console.log("login_token", login_token);
-        localStorage.setItem("login_token", login_token);
-        const user_token = response.data.user_token;
-        localStorage.setItem("user_token", user_token);
-        console.log("user_token", user_token);
-        navigate("/MainPage");
-      })
-      .catch((error) => {
-        console.log(error);
-        setMessage("Failed to log in. Please check your credentials.");
-      });
-  };
+  // const loginUser = (event) => {
+  //   event.preventDefault();
+  //   axios
+  //     .post("/login", { username, password })
+  //     .then((response) => {
+  //       console.log("response data", response.data);
+  //       setUserData(response.data);
+  //       setMessage("You logged in!");
+  //       console.log(response.data.message);
+  //       const login_token = response.data.login_token;
+  //       console.log("login_token", login_token);
+  //       localStorage.setItem("login_token", login_token);
+  //       const user_token = response.data.user_token;
+  //       localStorage.setItem("user_token", user_token);
+  //       console.log("user_token", user_token);
+  //       navigate("/MainPage");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setMessage("Failed to log in. Please check your credentials.");
+  //     });
+  // };
 
   const registerUser = (event) => {
     event.preventDefault();
