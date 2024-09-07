@@ -75,7 +75,7 @@ const MainPage = ({ userData }) => {
       setUserName(current_username);
     }
     return userName;
-  }, [userData.userName]);
+  }, [userName]);
 
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
