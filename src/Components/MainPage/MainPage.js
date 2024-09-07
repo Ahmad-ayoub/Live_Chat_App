@@ -46,7 +46,7 @@ const MainPage = ({ userData }) => {
   const [searchTerm, setSearchTerm] = useState([]);
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
-  const [userName, setUserName] = useState("");
+
   console.log("searchResults: ", searchResults);
 
   console.log("whole_new_chat", chat);
@@ -70,13 +70,11 @@ const MainPage = ({ userData }) => {
   }, [userData.username]);
 
   useEffect(() => {
-    const current_username = localStorage.getItem(
-      "current_username",
-      userData.username
-    );
-    if (current_username) {
-      setUserName(current_username);
-    }
+    const [userName, setUserName] = useState(() => {
+      return localStorage.getItem("current_username");
+    });
+
+    return userName;
   }, [userData.username]);
 
   const handleRoomClick = (currentRoom) => {
