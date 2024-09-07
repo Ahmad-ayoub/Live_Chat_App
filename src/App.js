@@ -15,7 +15,7 @@ function App() {
   const [userData, setUserData] = useState("");
 
   useEffect(() => {
-    if (userData != "") setUserData(userData);
+    if (userData !== "") setUserData(userData);
   }, [userData]);
 
   return (
