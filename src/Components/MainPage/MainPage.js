@@ -68,7 +68,7 @@ const MainPage = ({ userData }) => {
   useEffect(() => {
     console.log("Setting userdata", userData);
     localStorage.setItem("current_username", userData.username);
-  }, [userData.username]);
+  }, [userData]);
 
   useEffect(() => {
     console.log("Getting userdata", localStorage.getItem);
