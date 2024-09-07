@@ -46,7 +46,7 @@ const MainPage = ({ userData }) => {
   const [searchTerm, setSearchTerm] = useState([]);
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState("Manyak");
   console.log("searchResults: ", searchResults);
 
   console.log("whole_new_chat", chat);
