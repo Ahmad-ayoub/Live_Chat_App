@@ -139,8 +139,6 @@ def login():
     user_name_or_email = data.get("username") or data.get("email")
     password = data.get("password")
 
-    name = data.get("name")
-
     user = User.query.filter(
         (User.username == user_name_or_email) | (User.email == user_name_or_email)
     ).first()
