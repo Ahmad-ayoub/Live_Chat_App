@@ -10,7 +10,7 @@ import SettingsPage from "./Components/SettingsPage/settingsPage";
 import { ThemeProvider } from "./Components/ThemeChange/UseTheme";
 import { FontProvider } from "./Components/FontChange/FontChange";
 import { UserProvider } from "./Components/UserContext/UserContext";
-import { userNameContext } from "./Components/setUserData";
+import { userNameContext } from "./Components/SetUserName";
 
 function App() {
   const [userData, setUserData] = useState(localStorage.getItem("userData"));

@@ -4,7 +4,7 @@ export const userNameContext = createContext();
 
 export const setUserData = () => useContext(userNameContext);
 
-export const userNameProvider = ({ userData, children }) => {
+export const UserNameProvider = ({ userData, children }) => {
   const [userName, setUserName] = useState();
 
   useEffect(() => {
