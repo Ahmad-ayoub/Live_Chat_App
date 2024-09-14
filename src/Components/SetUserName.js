@@ -14,7 +14,7 @@ export const UserNameProvider = ({ userData, children }) => {
   useEffect(() => {
     current_userName = localStorage.getItem(
       userData.username,
-      "current_username"
+      "current_userName"
     );
     if (current_userName) {
       setUserName(current_userName);
@@ -27,3 +27,5 @@ export const UserNameProvider = ({ userData, children }) => {
     </userNameContext.Provider>
   );
 };
+
+export default SetUserData;
