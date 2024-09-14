@@ -8,13 +8,13 @@ export const UserNameProvider = ({ userData, children }) => {
   const [userName, setUserName] = useState();
 
   useEffect(() => {
-    localStorage.setItem(userData.username, "current_userName");
+    localStorage.setItem("current_username", userData.username);
   });
 
   useEffect(() => {
     current_userName = localStorage.getItem(
       userData.username,
-      "current_userName"
+      "current_username"
     );
     if (current_userName) {
       setUserName(current_userName);
