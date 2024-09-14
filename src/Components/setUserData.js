@@ -27,5 +27,3 @@ export const userNameProvider = ({ userData, children }) => {
     </userNameContext.Provider>
   );
 };
-
-export default setUserData;
