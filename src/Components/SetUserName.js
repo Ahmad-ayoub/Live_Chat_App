@@ -7,14 +7,19 @@ console.log(userNameContext, "userNameContext");
 
 export const UserNameProvider = ({ userData, children }) => {
   const [userName, setUserName] = useState();
-  let current_userName = useRef("");
+  let current_userName = useRef(null);
+  current_userName.current = "current_username";
+
+  const KeepUserName = () => {
+    current_userName.current.focus();
+  };
 
   useEffect(() => {
+    KeepUserName();
     localStorage.setItem("current_username", userData.username);
   }, [current_userName]);
 
   useEffect(() => {
-    current_userName.current = "current_username";
     current_userName = localStorage.getItem(
       "current_username",
       userData.username
