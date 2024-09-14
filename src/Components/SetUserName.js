@@ -2,7 +2,7 @@ import { useEffect, useState, createContext, useContext } from "react";
 
 export const userNameContext = createContext();
 
-export const setUserData = () => useContext(userNameContext);
+export const SetUserData = () => useContext(userNameContext);
 
 export const UserNameProvider = ({ userData, children }) => {
   const [userName, setUserName] = useState();
