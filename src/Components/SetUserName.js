@@ -15,8 +15,8 @@ export const UserNameProvider = ({ userData, children }) => {
 
   useEffect(() => {
     current_userName = localStorage.getItem(
-      userData.username,
-      "current_username"
+      "current_username",
+      userData.username
     );
     current_userName.current = "current_username";
     if (current_userName) {

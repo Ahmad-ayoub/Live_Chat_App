@@ -10,7 +10,7 @@ import SettingsPage from "./Components/SettingsPage/settingsPage";
 import { ThemeProvider } from "./Components/ThemeChange/UseTheme";
 import { FontProvider } from "./Components/FontChange/FontChange";
 import { UserProvider } from "./Components/UserContext/UserContext";
-// import { userNameContext } from "./Components/SetUserName";
+import { userNameContext } from "./Components/SetUserName";
 
 function App() {
   const [userData, setUserData] = useState(localStorage.getItem("userData"));
@@ -21,31 +21,34 @@ function App() {
 
   return (
     <Router>
-      {/* <userNameContext> */}
-      <UserProvider>
-        <FontProvider>
-          <ThemeProvider>
-            <Routes>
-              <Route
-                path="/"
-                element={<AuthPage setUserData={setUserData} />}
-                index
-              />
-              <Route
-                path="/MainPage"
-                element={<MainPage userData={userData} />}
-              />
-              <Route
-                path="/SettingsPage"
-                element={
-                  <SettingsPage setUserData={setUserData} userData={userData} />
-                }
-              />
-            </Routes>
-          </ThemeProvider>
-        </FontProvider>
-      </UserProvider>
-      {/* </userNameContext> */}
+      <userNameContext>
+        <UserProvider>
+          <FontProvider>
+            <ThemeProvider>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<AuthPage setUserData={setUserData} />}
+                  index
+                />
+                <Route
+                  path="/MainPage"
+                  element={<MainPage userData={userData} />}
+                />
+                <Route
+                  path="/SettingsPage"
+                  element={
+                    <SettingsPage
+                      setUserData={setUserData}
+                      userData={userData}
+                    />
+                  }
+                />
+              </Routes>
+            </ThemeProvider>
+          </FontProvider>
+        </UserProvider>
+      </userNameContext>
     </Router>
   );
 }
