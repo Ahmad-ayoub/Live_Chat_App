@@ -7,7 +7,7 @@ console.log(userNameContext, "userNameContext");
 
 export const UserNameProvider = ({ userData, children }) => {
   const [userName, setUserName] = useState();
-  const current_userName = useRef("");
+  let current_userName = useRef("");
 
   useEffect(() => {
     localStorage.setItem("current_username", userData.username);
