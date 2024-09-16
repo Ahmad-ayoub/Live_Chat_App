@@ -23,8 +23,8 @@ function App() {
   }, [userData]);
 
   return (
-    <Router>
-      <userNameContext setUserName={setUserName} userName={userName}>
+    <userNameContext>
+      <Router>
         <UserProvider>
           <FontProvider>
             <ThemeProvider>
@@ -51,8 +51,8 @@ function App() {
             </ThemeProvider>
           </FontProvider>
         </UserProvider>
-      </userNameContext>
-    </Router>
+      </Router>
+    </userNameContext>
   );
 }
 
