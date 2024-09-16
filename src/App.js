@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Children } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Components/AuthPage/AuthPage.css";
 import "./Components/MainPage/MainPage.css";
@@ -14,6 +14,9 @@ import { userNameContext } from "./Components/SetUserName";
 
 function App() {
   const [userData, setUserData] = useState(localStorage.getItem("userData"));
+  const [userName, setUserName] = useState(
+    localStorage.getItem("current_username")
+  );
 
   useEffect(() => {
     if (userData !== "") setUserData(userData);
@@ -21,7 +24,7 @@ function App() {
 
   return (
     <Router>
-      <userNameContext>
+      <userNameContext setUserName={setUserName} userName={userName}>
         <UserProvider>
           <FontProvider>
             <ThemeProvider>
