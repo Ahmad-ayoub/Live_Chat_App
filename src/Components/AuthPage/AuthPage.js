@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { themeClasses } from "../ThemeChange/ThemeClasses";
 import { ThemeContext } from "../ThemeChange/UseTheme";
@@ -43,7 +43,6 @@ const AuthPage = ({ setUserData }) => {
     setBirthDate(e.target.value);
   };
 
-  const history = useHistory();
   const { setUsername } = useContext(userNameContext);
 
   const loginUser = (event) => {
@@ -63,7 +62,6 @@ const AuthPage = ({ setUserData }) => {
         localStorage.setItem("user_token", user_token);
         console.log("user_token", user_token);
         setUsername(username);
-        history.push("/MainPage");
         navigate("/MainPage");
       })
       .catch((error) => {
