@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Children } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Components/AuthPage/AuthPage.css";
 import "./Components/MainPage/MainPage.css";
@@ -10,20 +10,20 @@ import SettingsPage from "./Components/SettingsPage/settingsPage";
 import { ThemeProvider } from "./Components/ThemeChange/UseTheme";
 import { FontProvider } from "./Components/FontChange/FontChange";
 import { UserProvider } from "./Components/UserContext/UserContext";
-import { userNameContext } from "./Components/SetUserName";
+import { UserNameProvider } from "./Components/SetUserName";
 
 function App() {
   const [userData, setUserData] = useState(localStorage.getItem("userData"));
-  const [userName, setUserName] = useState(
-    localStorage.getItem("current_username")
-  );
+  // const [userName, setUserName] = useState(
+  //   localStorage.getItem("current_username")
+  // );
 
   useEffect(() => {
     if (userData !== "") setUserData(userData);
   }, [userData]);
 
   return (
-    <userNameContext>
+    <UserNameProvider>
       <Router>
         <UserProvider>
           <FontProvider>
@@ -52,7 +52,7 @@ function App() {
           </FontProvider>
         </UserProvider>
       </Router>
-    </userNameContext>
+    </UserNameProvider>
   );
 }
 
