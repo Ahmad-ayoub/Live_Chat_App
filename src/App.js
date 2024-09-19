@@ -9,7 +9,6 @@ import AuthPage from "./Components/AuthPage/AuthPage";
 import SettingsPage from "./Components/SettingsPage/settingsPage";
 import { ThemeProvider } from "./Components/ThemeChange/UseTheme";
 import { FontProvider } from "./Components/FontChange/FontChange";
-import { UserProvider } from "./Components/UserContext/UserContext";
 import { UserNameProvider } from "./Components/SetUserName";
 
 function App() {
@@ -25,32 +24,27 @@ function App() {
   return (
     <UserNameProvider>
       <Router>
-        <UserProvider>
-          <FontProvider>
-            <ThemeProvider>
-              <Routes>
-                <Route
-                  path="/"
-                  element={<AuthPage setUserData={setUserData} />}
-                  index
-                />
-                <Route
-                  path="/MainPage"
-                  element={<MainPage userData={userData} />}
-                />
-                <Route
-                  path="/SettingsPage"
-                  element={
-                    <SettingsPage
-                      setUserData={setUserData}
-                      userData={userData}
-                    />
-                  }
-                />
-              </Routes>
-            </ThemeProvider>
-          </FontProvider>
-        </UserProvider>
+        <FontProvider>
+          <ThemeProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={<AuthPage setUserData={setUserData} />}
+                index
+              />
+              <Route
+                path="/MainPage"
+                element={<MainPage userData={userData} />}
+              />
+              <Route
+                path="/SettingsPage"
+                element={
+                  <SettingsPage setUserData={setUserData} userData={userData} />
+                }
+              />
+            </Routes>
+          </ThemeProvider>
+        </FontProvider>
       </Router>
     </UserNameProvider>
   );
