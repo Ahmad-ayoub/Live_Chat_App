@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useHistory } from "react-router-dom";
 import axios from "axios";
 import { themeClasses } from "../ThemeChange/ThemeClasses";
 import { ThemeContext } from "../ThemeChange/UseTheme";
 import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import UserSafe from "../userSafe/userSafe";
+import { userNameContext } from "../SetUserName";
 
 const AuthPage = ({ setUserData }) => {
   const [name, setName] = useState();
@@ -42,6 +43,9 @@ const AuthPage = ({ setUserData }) => {
     setBirthDate(e.target.value);
   };
 
+  const history = useHistory();
+  const { setUsername } = useContext(userNameContext);
+
   const loginUser = (event) => {
     event.preventDefault();
     axios
@@ -58,6 +62,8 @@ const AuthPage = ({ setUserData }) => {
         const user_token = response.data.user_token;
         localStorage.setItem("user_token", user_token);
         console.log("user_token", user_token);
+        setUsername(username);
+        history.push("/MainPage");
         navigate("/MainPage");
       })
       .catch((error) => {

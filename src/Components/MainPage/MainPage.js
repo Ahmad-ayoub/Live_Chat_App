@@ -14,6 +14,7 @@ import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
+import { userNameContext } from "../SetUserName";
 
 const MainPage = ({ userData }) => {
   const roomNames = {
@@ -47,6 +48,7 @@ const MainPage = ({ userData }) => {
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
   const [userName, setUserName] = useState("Manyak");
+  const { username } = useContext(userNameContext);
   console.log("searchResults: ", searchResults);
 
   console.log("whole_new_chat", chat);
@@ -278,7 +280,7 @@ const MainPage = ({ userData }) => {
             icon={faUser}
             className="profile_box_image_mainUser"
           />
-          {userName && <p className="profile_box_text">{userName}</p>}
+          {username && <p className="profile_box_text">{username}</p>}
           <button className="settings_button" onClick={goToSettings}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>

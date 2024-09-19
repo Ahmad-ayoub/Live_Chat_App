@@ -1,36 +1,17 @@
-import { useEffect, useState, createContext, useContext, useRef } from "react";
+import { useState, createContext, useMemo } from "react";
 
-export const userNameContext = createContext();
+const userNameContext = createContext();
 
-export const SetUserData = () => useContext(userNameContext);
-console.log(userNameContext, "userNameContext");
+const UserNameProvider = ({ children }) => {
+  const [userName, setUserName] = useState("");
 
-export const UserNameProvider = ({ userData, children }) => {
-  const [userName, setUserName] = useState();
-  const saved_UserName = useRef("");
-
-  useEffect(() => {
-    current_userName = localStorage.getItem(
-      "current_username",
-      userData.username
-    );
-
-    if (current_userName) {
-      setUserName(current_userName);
-      saved_UserName.current = current_userName;
-    }
-  }, [current_userName]);
-
-  useEffect(() => {
-    localStorage.getItem("current_username", userData.username);
-    saved_UserName.current = userName;
-  }, [current_userName]);
+  const memoUserName = useMemo(() => ({ userName, setUserName }), [userName]);
 
   return (
-    <userNameContext.Provider value={{ userName, setUserName }}>
+    <userNameContext.Provider value={{ memoUserName }}>
       {children}
     </userNameContext.Provider>
   );
 };
 
-export default SetUserData;
+export { userNameContext, UserNameProvider };
