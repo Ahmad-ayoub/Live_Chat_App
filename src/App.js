@@ -35,7 +35,9 @@ function App() {
               />
               <Route
                 path="/MainPage"
-                element={<MainPage userName={userName} />}
+                element={
+                  <MainPage setUserName={setUserName} userName={userName} />
+                }
               />
               <Route
                 path="/SettingsPage"
