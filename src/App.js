@@ -12,7 +12,8 @@ import { FontProvider } from "./Components/FontChange/FontChange";
 import { UserNameProvider } from "./Components/SetUserName";
 
 function App() {
-  const [userData, setUserData] = useState(localStorage.getItem("userData"));
+  const [userName, setUserName] = useState("");
+  // const [userData, setUserData] = useState(localStorage.getItem("userData"));
   // const [userName, setUserName] = useState(
   //   localStorage.getItem("current_username")
   // );
@@ -34,7 +35,7 @@ function App() {
               />
               <Route
                 path="/MainPage"
-                element={<MainPage userData={userData} />}
+                element={<MainPage userName={userName} />}
               />
               <Route
                 path="/SettingsPage"

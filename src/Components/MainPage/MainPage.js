@@ -47,7 +47,7 @@ const MainPage = ({ userData }) => {
   const [searchTerm, setSearchTerm] = useState([]);
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
-  const [userName, setUserName] = useState("Manyak");
+  const { userName, setUserName } = useContext(userNameContext);
   const { username } = useContext(userNameContext);
   console.log("searchResults: ", searchResults);
 
@@ -67,18 +67,18 @@ const MainPage = ({ userData }) => {
     localStorage.setItem("selectedRoom", selectedRoom);
   }, [selectedRoom]);
 
-  useEffect(() => {
-    console.log("Setting userdata", userData);
-    localStorage.setItem("current_username", userData.username);
-  }, [userData]);
+  // useEffect(() => {
+  //   console.log("Setting userdata", userData);
+  //   localStorage.setItem("current_username", userData.username);
+  // }, [userData]);
 
-  useEffect(() => {
-    console.log("Getting userdata", localStorage.getItem);
-    const current_username = localStorage.getItem("current_username");
-    if (current_username) {
-      setUserName(current_username);
-    }
-  }, [userName]);
+  // useEffect(() => {
+  //   console.log("Getting userdata", localStorage.getItem);
+  //   const current_username = localStorage.getItem("current_username");
+  //   if (current_username) {
+  //     setUserName(current_username);
+  //   }
+  // }, [userName]);
 
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
