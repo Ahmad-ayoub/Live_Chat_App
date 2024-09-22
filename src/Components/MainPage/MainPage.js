@@ -47,7 +47,6 @@ const MainPage = ({ userData }) => {
   const [searchTerm, setSearchTerm] = useState([]);
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
-  const { userName, setUserName } = useContext(userNameContext);
   const { username } = useContext(userNameContext);
   console.log("searchResults: ", searchResults);
 
