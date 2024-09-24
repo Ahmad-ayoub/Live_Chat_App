@@ -9,21 +9,18 @@ import AuthPage from "./Components/AuthPage/AuthPage";
 import SettingsPage from "./Components/SettingsPage/settingsPage";
 import { ThemeProvider } from "./Components/ThemeChange/UseTheme";
 import { FontProvider } from "./Components/FontChange/FontChange";
-import { UserNameProvider } from "./Components/SetUserName";
+import { UserProvider } from "./Components/UserContext/UserContext";
 
 function App() {
   const [userName, setUserName] = useState("");
   const [userData, setUserData] = useState(localStorage.getItem("userData"));
-  // const [userName, setUserName] = useState(
-  //   localStorage.getItem("current_username")
-  // );
 
   useEffect(() => {
     if (userData !== "") setUserData(userData);
   }, [userData]);
 
   return (
-    <UserNameProvider>
+    <UserProvider>
       <Router>
         <FontProvider>
           <ThemeProvider>
@@ -49,7 +46,7 @@ function App() {
           </ThemeProvider>
         </FontProvider>
       </Router>
-    </UserNameProvider>
+    </UserProvider>
   );
 }
 
