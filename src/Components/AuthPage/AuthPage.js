@@ -6,8 +6,9 @@ import { ThemeContext } from "../ThemeChange/UseTheme";
 import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import UserSafe from "../userSafe/userSafe";
+import { UserContext } from "../UserContext/UserContext";
 
-const AuthPage = ({ updateUserData }) => {
+const AuthPage = () => {
   const [name, setName] = useState();
   const [username, setUserName] = useState();
   const [email, setEmail] = useState();
@@ -42,7 +43,7 @@ const AuthPage = ({ updateUserData }) => {
     setBirthDate(e.target.value);
   };
 
-  // const updateUserData = useContext({ updateUserData });
+  const { updateUserData } = useContext(UserContext);
 
   const loginUser = (event) => {
     event.preventDefault();
