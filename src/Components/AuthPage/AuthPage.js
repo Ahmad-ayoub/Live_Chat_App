@@ -7,14 +7,13 @@ import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import UserSafe from "../userSafe/userSafe";
 
-const AuthPage = () => {
+const AuthPage = ({ updateUserData }) => {
   const [name, setName] = useState();
   const [username, setUserName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [birthdate, setBirthDate] = useState();
   const [message, setMessage] = useState();
-  const {}
   const navigate = useNavigate();
 
   const getName = (e) => {
@@ -43,7 +42,7 @@ const AuthPage = () => {
     setBirthDate(e.target.value);
   };
 
-  const updateUserData = useContext({updateUserData})
+  // const updateUserData = useContext({ updateUserData });
 
   const loginUser = (event) => {
     event.preventDefault();
