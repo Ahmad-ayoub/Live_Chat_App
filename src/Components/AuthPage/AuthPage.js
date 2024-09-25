@@ -14,6 +14,7 @@ const AuthPage = () => {
   const [password, setPassword] = useState();
   const [birthdate, setBirthDate] = useState();
   const [message, setMessage] = useState();
+  const {}
   const navigate = useNavigate();
 
   const getName = (e) => {
@@ -41,6 +42,8 @@ const AuthPage = () => {
     console.log("Birthdate has been added", e.target.value);
     setBirthDate(e.target.value);
   };
+
+  const updateUserData = useContext({updateUserData})
 
   const loginUser = (event) => {
     event.preventDefault();
