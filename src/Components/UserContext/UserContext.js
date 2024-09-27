@@ -1,6 +1,8 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, axios } from "react";
 
 export const UserContext = createContext();
+
+const [message, setMessage] = useState();
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(
@@ -22,6 +24,7 @@ export const UserProvider = ({ children }) => {
       .catch((error) => {
         console.log(error);
         setMessage("Failed to log in. Please check your credentials.");
+        console.log(message);
       });
   };
 
