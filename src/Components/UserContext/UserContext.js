@@ -3,9 +3,8 @@ import axios from "axios";
 
 export const UserContext = createContext();
 
-const [message, setMessage] = useState();
-
 export const UserProvider = ({ children }) => {
+  const [message, setMessage] = useState();
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData")) || null
   );
