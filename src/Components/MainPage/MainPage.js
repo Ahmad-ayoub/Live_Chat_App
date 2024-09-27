@@ -14,7 +14,6 @@ import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
-import { userNameContext } from "../SetUserName";
 
 const MainPage = ({ userData }) => {
   const roomNames = {
@@ -47,7 +46,6 @@ const MainPage = ({ userData }) => {
   const [searchTerm, setSearchTerm] = useState([]);
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
-  const { username } = useContext(userNameContext);
   console.log("searchResults: ", searchResults);
 
   console.log("whole_new_chat", chat);
@@ -65,19 +63,6 @@ const MainPage = ({ userData }) => {
   useEffect(() => {
     localStorage.setItem("selectedRoom", selectedRoom);
   }, [selectedRoom]);
-
-  // useEffect(() => {
-  //   console.log("Setting userdata", userData);
-  //   localStorage.setItem("current_username", userData.username);
-  // }, [userData]);
-
-  // useEffect(() => {
-  //   console.log("Getting userdata", localStorage.getItem);
-  //   const current_username = localStorage.getItem("current_username");
-  //   if (current_username) {
-  //     setUserName(current_username);
-  //   }
-  // }, [userName]);
 
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
