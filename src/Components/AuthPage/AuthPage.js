@@ -43,15 +43,13 @@ const AuthPage = () => {
     setBirthDate(e.target.value);
   };
 
-  const { updateUserData } = useContext(UserContext);
+  const { loginUser } = useContext(UserContext);
 
-  const loginUser = (event) => {
+  const handleLogIn = (event) => {
     event.preventDefault();
-    axios
-      .post("/login", { username, password })
+    loginUser(username, password)
       .then((response) => {
-        updateUserData(response.data);
-        setMessage("You logged in!");
+        setMessage("You logged in!", response);
         navigate("/MainPage");
       })
       .catch((error) => {
@@ -117,7 +115,7 @@ const AuthPage = () => {
           />
           <button
             className="btn btn-primary mt-2 rounded-pill active"
-            onClick={loginUser}
+            onClick={handleLogIn}
           >
             Login
           </button>

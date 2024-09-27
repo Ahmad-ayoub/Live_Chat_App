@@ -12,8 +12,21 @@ export const UserProvider = ({ children }) => {
     setUserData(newUserData);
   };
 
+  const loginUser = ({ username, password }) => {
+    return axios
+      .post("/login", { username, password })
+      .then((response) => {
+        updateUserData(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        setMessage("Failed to log in. Please check your credentials.");
+      });
+  };
+
   return (
-    <UserContext.Provider value={{ userData, updateUserData }}>
+    <UserContext.Provider value={{ userData, updateUserData, loginUser }}>
       {children}
     </UserContext.Provider>
   );
