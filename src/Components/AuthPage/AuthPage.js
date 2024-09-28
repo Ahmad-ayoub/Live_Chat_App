@@ -51,6 +51,7 @@ const AuthPage = () => {
       .then((response) => {
         updateUserData(response.data);
         setMessage("You logged in!", response.data);
+        navigate("/MainPage");
       })
       .catch((error) => {
         console.log(error);
