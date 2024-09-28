@@ -15,7 +15,7 @@ import FontContext, { useFont } from "../FontChange/FontChange";
 import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
 
-const SettingsPage = ({ setUserData, userData }) => {
+const SettingsPage = () => {
   let navigate = useNavigate();
 
   function goToMain() {
