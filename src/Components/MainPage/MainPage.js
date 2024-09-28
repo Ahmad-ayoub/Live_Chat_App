@@ -109,7 +109,7 @@ const MainPage = () => {
             },
           }
         );
-        setChat(response.data);
+        setChat(response);
         console.log("group room number: msg/all ", selectedRoom);
       } catch (error) {
         console.error("Error fetching messages:", error);
