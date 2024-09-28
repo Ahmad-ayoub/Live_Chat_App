@@ -13,6 +13,7 @@ import { ThemeContext } from "../ThemeChange/UseTheme";
 import { FontClasses } from "../FontChange/FontClasses";
 import FontContext, { useFont } from "../FontChange/FontChange";
 import axios from "axios";
+import { UserContext } from "../UserContext/UserContext";
 
 const SettingsPage = ({ setUserData, userData }) => {
   let navigate = useNavigate();
@@ -25,6 +26,7 @@ const SettingsPage = ({ setUserData, userData }) => {
     navigate("/");
   }
 
+  const { userData } = useContext(UserContext);
   const [isThemeHovered, setIsThemeHovered] = useState(false);
   const [isFontHovered, setIsFontHovered] = useState(false);
   const { theme } = useContext(ThemeContext);
