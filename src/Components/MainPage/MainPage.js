@@ -34,7 +34,7 @@ const MainPage = () => {
   }
 
   const { userData } = useContext(UserContext);
-  console.log(userData); // { username: "andsterks" }
+  console.log("userData", userData);
   const { theme } = useContext(ThemeContext);
   const currentThemeClasses =
     themeClasses[theme] || themeClasses["defaultTheme"];
@@ -339,7 +339,7 @@ const MainPage = () => {
           <div className="chat-container">
             {selectedRoom && (
               <>
-                {chat.map((message, index) => (
+                {chat?.map((message, index) => (
                   <div
                     className={`message-container ${
                       message.is_current_user ? "" : "other-user"
