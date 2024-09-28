@@ -6,6 +6,7 @@ import { ThemeContext } from "../ThemeChange/UseTheme";
 import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import UserSafe from "../userSafe/userSafe";
+import { UserContext } from "../UserContext/UserContext";
 
 const AuthPage = () => {
   const [name, setName] = useState();
@@ -15,6 +16,8 @@ const AuthPage = () => {
   const [birthdate, setBirthDate] = useState();
   const [message, setMessage] = useState();
   const navigate = useNavigate();
+
+  const { updateUserData } = useContext(UserContext);
 
   const getName = (e) => {
     console.log("Name has been added", e.target.value);
