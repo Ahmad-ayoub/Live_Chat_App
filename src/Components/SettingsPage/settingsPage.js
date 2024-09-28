@@ -27,6 +27,7 @@ const SettingsPage = () => {
   }
 
   const { userData } = useContext(UserContext);
+  const { updateUserData } = useContext(UserContext);
   const [isThemeHovered, setIsThemeHovered] = useState(false);
   const [isFontHovered, setIsFontHovered] = useState(false);
   const { theme } = useContext(ThemeContext);
@@ -56,7 +57,7 @@ const SettingsPage = () => {
           password,
         });
         setIsEditing(false);
-        setUserData(response.data);
+        updateUserData(response.data);
         setName("");
         setUsername("");
         setEmail("");
