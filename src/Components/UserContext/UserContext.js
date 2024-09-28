@@ -14,18 +14,16 @@ export const UserProvider = ({ children }) => {
     setUserData(newUserData);
   };
 
-  const loginUser = ({ username, password }) => {
-    return axios
-      .post("/login", { username, password })
-      .then((response) => {
-        updateUserData(response.data);
-        return response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-        setMessage("Failed to log in. Please check your credentials.");
-        console.log(message);
-      });
+  const loginUser = async ({ username, password }) => {
+    try {
+      const response = await axios.post("/login", { username, password });
+      updateUserData(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      setMessage("Failed to log in. Please check your credentials.");
+      console.log(message);
+    }
   };
 
   return (

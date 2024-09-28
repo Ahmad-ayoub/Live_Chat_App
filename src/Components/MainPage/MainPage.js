@@ -264,7 +264,9 @@ const MainPage = ({ userData }) => {
             icon={faUser}
             className="profile_box_image_mainUser"
           />
-          {username && <p className="profile_box_text">{username}</p>}
+          {userData.username && (
+            <p className="profile_box_text">{userData.username}</p>
+          )}
           <button className="settings_button" onClick={goToSettings}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
