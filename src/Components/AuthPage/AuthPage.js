@@ -6,7 +6,6 @@ import { ThemeContext } from "../ThemeChange/UseTheme";
 import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import UserSafe from "../userSafe/userSafe";
-import { UserContext } from "../UserContext/UserContext";
 
 const AuthPage = () => {
   const [name, setName] = useState();
@@ -43,7 +42,17 @@ const AuthPage = () => {
     setBirthDate(e.target.value);
   };
 
-  const { loginUser } = useContext(UserContext);
+  const loginUser = async ({ username, password }) => {
+    try {
+      const response = await axios.post("/login", { username, password });
+      updateUserData(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      setMessage("Failed to log in. Please check your credentials.");
+      console.log(message);
+    }
+  };
 
   const handleLogIn = (event) => {
     event.preventDefault();

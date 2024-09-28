@@ -76,7 +76,7 @@ const MainPage = () => {
   };
 
   axios.interceptors.request.use(function (config) {
-    const userToken = localStorage.getItem("user_token");
+    const userToken = userData.user_token;
     const selectedRoom = localStorage.getItem("group_room_number");
 
     if (userToken) {
@@ -96,7 +96,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const userToken = localStorage.getItem("user_token");
+        const userToken = userData.user_token;
         const group_room_number = localStorage.getItem("group_room_number");
         const response = await axios.get(
           `https://live-chat-app-doaz.onrender.com/messages/all`,
@@ -127,7 +127,7 @@ const MainPage = () => {
       socket.emit("chat message", message);
 
       try {
-        const userToken = localStorage.getItem("user_token");
+        const userToken = userData.user_token;
         const selectedRoom = localStorage.getItem("group_room_number");
         const sendResponse = await axios.post(
           `https://live-chat-app-doaz.onrender.com/messages/send`,
@@ -177,7 +177,7 @@ const MainPage = () => {
         `https://live-chat-app-doaz.onrender.com/search?term=${searchTerm}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            Authorization: `Bearer ${userData.user_token}`,
           },
           params: {
             group_room_number: selectedRoom,
