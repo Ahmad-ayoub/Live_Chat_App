@@ -45,8 +45,8 @@ const AuthPage = () => {
     setBirthDate(e.target.value);
   };
 
-  const loginUser = async ({ username, password }) => {
-    await axios
+  const loginUser = () => {
+    axios
       .post("/login", { username, password })
       .then((response) => {
         updateUserData(response.data);
