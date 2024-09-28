@@ -14,8 +14,9 @@ import { FontClasses } from "../FontChange/FontClasses";
 import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
+import { UserContext } from "../UserContext/UserContext";
 
-const MainPage = ({ userData }) => {
+const MainPage = () => {
   const roomNames = {
     Group1: "Just Chatting",
     Group2: "Video Games",
@@ -32,6 +33,8 @@ const MainPage = ({ userData }) => {
     navigate("/");
   }
 
+  const { userData } = useContext(UserContext);
+  console.log(userData); // { username: "andsterks" }
   const { theme } = useContext(ThemeContext);
   const currentThemeClasses =
     themeClasses[theme] || themeClasses["defaultTheme"];
@@ -264,9 +267,8 @@ const MainPage = ({ userData }) => {
             icon={faUser}
             className="profile_box_image_mainUser"
           />
-          {userData.username && (
-            <p className="profile_box_text">{userData.username}</p>
-          )}
+          {/* userData is truthy (userData !== undefined || userData !== null) */}
+          {userData && <p className="profile_box_text">{userData.username}</p>}
           <button className="settings_button" onClick={goToSettings}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Components/AuthPage/AuthPage.css";
 import "./Components/MainPage/MainPage.css";
@@ -12,36 +12,15 @@ import { FontProvider } from "./Components/FontChange/FontChange";
 import { UserProvider } from "./Components/UserContext/UserContext";
 
 function App() {
-  const [userName, setUserName] = useState("");
-  const [userData, setUserData] = useState(localStorage.getItem("userData"));
-
-  useEffect(() => {
-    if (userData !== "") setUserData(userData);
-  }, [userData]);
-
   return (
     <UserProvider>
       <Router>
         <FontProvider>
           <ThemeProvider>
             <Routes>
-              <Route
-                path="/"
-                element={<AuthPage setUserData={setUserData} />}
-                index
-              />
-              <Route
-                path="/MainPage"
-                element={
-                  <MainPage setUserName={setUserName} userName={userName} />
-                }
-              />
-              <Route
-                path="/SettingsPage"
-                element={
-                  <SettingsPage setUserData={setUserData} userData={userData} />
-                }
-              />
+              <Route path="/" element={<AuthPage />} index />
+              <Route path="/MainPage" element={<MainPage />} />
+              <Route path="/SettingsPage" element={<SettingsPage />} />
             </Routes>
           </ThemeProvider>
         </FontProvider>
