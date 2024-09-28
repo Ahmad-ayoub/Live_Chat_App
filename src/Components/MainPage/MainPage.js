@@ -117,7 +117,7 @@ const MainPage = () => {
     };
 
     fetchMessages();
-  }, [selectedRoom]);
+  }, [selectedRoom, userData.user_token]);
 
   const handleText = async (e) => {
     e.preventDefault();
