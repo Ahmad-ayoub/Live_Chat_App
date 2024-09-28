@@ -46,27 +46,16 @@ const AuthPage = () => {
   };
 
   const loginUser = async ({ username, password }) => {
-    try {
-      const response = await axios.post("/login", { username, password });
-      updateUserData(response.data);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      setMessage("Failed to log in. Please check your credentials.");
-      console.log(message);
-    }
-  };
-
-  const handleLogIn = (event) => {
-    event.preventDefault();
-    loginUser(username, password)
+    await axios
+      .post("/login", { username, password })
       .then((response) => {
-        setMessage("You logged in!", response);
-        navigate("/MainPage");
+        updateUserData(response.data);
+        setMessage("You logged in!", response.data);
       })
       .catch((error) => {
         console.log(error);
         setMessage("Failed to log in. Please check your credentials.");
+        console.log(message);
       });
   };
 
@@ -127,7 +116,7 @@ const AuthPage = () => {
           />
           <button
             className="btn btn-primary mt-2 rounded-pill active"
-            onClick={handleLogIn}
+            onClick={loginUser}
           >
             Login
           </button>
