@@ -217,6 +217,7 @@ const MainPage = () => {
   };
 
   useEffect(() => {
+    console.log("useEffect socket");
     socket.on("chat message", (newMessage) => {
       setChat((prevChat) => [...prevChat, newMessage]);
     });
@@ -248,6 +249,7 @@ const MainPage = () => {
   socket.emit("frontend_to_backend", "Hello from the frontend");
 
   useEffect(() => {
+    console.log("useEffect socket on");
     socket.on("backend_to_frontend", (message) => {
       console.log("Received message from backend:", message);
     });
