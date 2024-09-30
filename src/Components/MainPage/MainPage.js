@@ -339,7 +339,7 @@ const MainPage = () => {
           <div className="chat-container">
             {selectedRoom && (
               <>
-                {chat.data.map((message, index) => (
+                {chat.map((message, index) => (
                   <div
                     className={`message-container ${
                       message.is_current_user ? "" : "other-user"
