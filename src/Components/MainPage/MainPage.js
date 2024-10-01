@@ -52,6 +52,12 @@ const MainPage = () => {
   console.log("searchResults: ", searchResults);
 
   console.log("whole_new_chat", chat);
+
+  chat.data.array.forEach(message, (index) => {
+    console.log(`Message in Array ${index}:`, message);
+  });
+
+  console.log();
   useEffect(() => {
     const storedRoom = localStorage.getItem("group_room_number");
     const storedRoomName = localStorage.getItem("group_room_name");
