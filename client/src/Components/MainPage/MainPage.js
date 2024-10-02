@@ -57,7 +57,7 @@ const MainPage = () => {
   //   console.log(`Message in Array ${index}:`, message);
   // });
 
-  console.log("chatMessages", chatMessages);
+  // console.log("chatMessages", chatMessages);
 
   console.log();
   useEffect(() => {
