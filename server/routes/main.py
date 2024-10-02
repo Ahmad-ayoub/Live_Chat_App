@@ -10,7 +10,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
-from .token_keys_list import (
+from token_keys_list import (
     login_key,
     user_id_key,
     group_id_key,
@@ -538,4 +538,4 @@ def catch_all(path):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=False, port=os.environ.get("PORT"))
+    app.run(debug=True, port=os.environ.get("PORT"))
