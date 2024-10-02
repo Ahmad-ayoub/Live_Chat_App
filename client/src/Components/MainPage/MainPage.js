@@ -53,9 +53,9 @@ const MainPage = () => {
 
   console.log("whole_new_chat", chat);
 
-  const chatMessages = chat.data.array.forEach(message, (index) => {
-    console.log(`Message in Array ${index}:`, message);
-  });
+  // const chatMessages = chat.data.array.forEach(message, (index) => {
+  //   console.log(`Message in Array ${index}:`, message);
+  // });
 
   console.log("chatMessages", chatMessages);
 
