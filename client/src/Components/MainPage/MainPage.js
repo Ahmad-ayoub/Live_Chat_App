@@ -52,6 +52,14 @@ const MainPage = () => {
   console.log("searchResults: ", searchResults);
 
   console.log("whole_new_chat", chat);
+
+  const chatMessages = chat.data.array.forEach(message, (index) => {
+    console.log(`Message in Array ${index}:`, message);
+  });
+
+  console.log("chatMessages", chatMessages);
+
+  console.log();
   useEffect(() => {
     const storedRoom = localStorage.getItem("group_room_number");
     const storedRoomName = localStorage.getItem("group_room_name");
@@ -341,7 +349,7 @@ const MainPage = () => {
           <div className="chat-container">
             {selectedRoom && (
               <>
-                {chat?.map((message, index) => (
+                {chat.map((message, index) => (
                   <div
                     className={`message-container ${
                       message.is_current_user ? "" : "other-user"
