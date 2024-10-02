@@ -27,4 +27,4 @@ yarn-error.log*
 
 # python
 app.log
-__pycache__
+**/__pycache__*
