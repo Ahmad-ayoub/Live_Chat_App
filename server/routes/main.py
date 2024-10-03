@@ -20,8 +20,9 @@ from .token_keys_list import (
 from datetime import datetime, timedelta
 
 load_dotenv()
+#  static_folder="../../../build/static", static_url_path="/static"
 
-app = Flask(__name__, static_folder="../../../build/static", static_url_path="/static")
+app = Flask(__name__)
 socketio = SocketIO(app)
 CORS(app)
 app.secret_key = flask_app_key
