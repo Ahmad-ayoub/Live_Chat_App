@@ -24,12 +24,13 @@ load_dotenv()
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 app.secret_key = flask_app_key
 print("app.secret_key", app.secret_key)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
