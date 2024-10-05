@@ -1,0 +1,9 @@
+db = SQLAlchemy(app)
+# migrate = Migrate(app, db)
+
+# DATABASE_URL = os.environ.get("DATABASE_URL")
+# print("DATABASE_URL: ", DATABASE_URL)
+# DB_USER = os.environ.get("DB_USER")
+# print("DB_USER: ", DB_USER)
+# DB_PASSWORD = os.environ.get("DB_PASSWORD")
+# print("DB_PASSWORD: ", DB_PASSWORD)

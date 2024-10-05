@@ -15,6 +15,7 @@ import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
+import { isArray } from "lodash";
 
 const MainPage = () => {
   const roomNames = {
@@ -52,12 +53,6 @@ const MainPage = () => {
   console.log("searchResults: ", searchResults);
 
   console.log("whole_new_chat", chat);
-
-  // const chatMessages = chat.data.array.forEach(message, (index) => {
-  //   console.log(`Message in Array ${index}:`, message);
-  // });
-
-  // console.log("chatMessages", chatMessages);
 
   console.log();
   useEffect(() => {
@@ -109,6 +104,7 @@ const MainPage = () => {
         const response = await axios.get(`http://localhost:5000/messages/all`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
+            "Access-Control-Allow-Origin": "*",
           },
           params: {
             group_room_number,

@@ -23,14 +23,13 @@ load_dotenv()
 #  static_folder="../../../build/static", static_url_path="/static"
 
 app = Flask(__name__)
-socketio = SocketIO(app)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-app.secret_key = flask_app_key
-print("app.secret_key", app.secret_key)
+CORS(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
+
+socketio = SocketIO(app)
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -43,10 +42,24 @@ DB_PASSWORD = os.environ.get("DB_PASSWORD")
 print("DB_PASSWORD: ", DB_PASSWORD)
 
 
+# @cross_origin()
+# @app.before_request
+# def log_request_info():
+#     app.process_response(CORS(app, resources={r"/*": {"origins": "*"}}))
+#     app.logger.debug("Headers: %s", request.headers)
+#     app.logger.debug("Origin: %s", request.headers.get("Origin"))
+
+
+CORS(app, resources={r"/*": {"origins": "*"}})
+app.secret_key = flask_app_key
+print("app.secret_key", app.secret_key)
+
+
 @app.after_request
 def after_request(response):
     response.headers.add(
-        "Access-Control-Allow-Headers", "Content-Type, Authorization, application/json"
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization, application/json",
     ),
     print("reponse:", response)
     return response

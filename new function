@@ -1,0 +1,27 @@
+function findArrayInObject(obj) {
+  for (let key in obj) {
+    if (Array.isArray(obj[key])) {
+      return obj[key]; // Found an array, return it
+    } else if (typeof obj[key] === "object") {
+      const result = findArrayInObject(obj[key]); // Recursively search nested objects
+      if (result) return result;
+    }
+  }
+  return null; // No array found
+}
+
+function findArrayInChat(chat) {
+  if (Array.isArray(chat)) {
+    return chat; // If chat itself is an array, return it
+  }
+
+  for (let key in chat) {
+    if (Array.isArray(chat[key])) {
+      return chat[key]; // Found an array, return it
+    } else if (typeof chat[key] === "object" && chat[key] !== null) {
+      const result = findArrayInChat(chat[key]); // Recursively search nested objects
+      if (result) return result;
+    }
+  }
+  return null; // No array found
+}
