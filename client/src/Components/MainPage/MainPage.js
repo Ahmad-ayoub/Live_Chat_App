@@ -15,7 +15,6 @@ import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
-import { isArray } from "lodash";
 
 const MainPage = () => {
   const roomNames = {
@@ -42,7 +41,7 @@ const MainPage = () => {
   const { fontSize } = useContext(FontContext);
   const currentFontClasses =
     FontClasses[fontSize] || FontClasses["fontDefault"];
-  const socket = io("http://localhost:5000");
+  const socket = io("");
   const [message, setMessage] = useState([]);
   const [chat, setChat] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState("Group1");
@@ -51,7 +50,6 @@ const MainPage = () => {
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
   console.log("searchResults: ", searchResults);
-
   console.log("whole_new_chat", chat);
 
   console.log();
@@ -101,10 +99,9 @@ const MainPage = () => {
       try {
         const userToken = userData.user_token;
         const group_room_number = localStorage.getItem("group_room_number");
-        const response = await axios.get(`http://localhost:5000/messages/all`, {
+        const response = await axios.get(`messages/all`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
-            "Access-Control-Allow-Origin": "*",
           },
           params: {
             group_room_number,
@@ -131,7 +128,7 @@ const MainPage = () => {
         const userToken = userData.user_token;
         const selectedRoom = localStorage.getItem("group_room_number");
         const sendResponse = await axios.post(
-          `http://localhost:5000/messages/send`,
+          `messages/send`,
           {
             text: message,
             user_token: userToken,
@@ -147,7 +144,7 @@ const MainPage = () => {
         console.log("Send Response", sendResponse);
 
         if (sendResponse.status === 200 || sendResponse.status === 201) {
-          const response = await axios.get(`http://localhost:5000/messages`, {
+          const response = await axios.get(`messages`, {
             params: {
               text: message,
               user_token: userToken,
@@ -171,18 +168,15 @@ const MainPage = () => {
   const handleSearch = async () => {
     try {
       const selectedRoom = localStorage.getItem("group_room_number");
-      const response = await axios.get(
-        `http://localhost:5000/search?term=${searchTerm}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userData.user_token}`,
-          },
-          params: {
-            group_room_number: selectedRoom,
-            searchTerm: searchTerm,
-          },
-        }
-      );
+      const response = await axios.get(`search?term=${searchTerm}`, {
+        headers: {
+          Authorization: `Bearer ${userData.user_token}`,
+        },
+        params: {
+          group_room_number: selectedRoom,
+          searchTerm: searchTerm,
+        },
+      });
       setSearchResults(response.data);
       console.log("response.data search results: ", response.data);
     } catch (error) {
@@ -267,7 +261,6 @@ const MainPage = () => {
             icon={faUser}
             className="profile_box_image_mainUser"
           />
-          {/* userData is truthy (userData !== undefined || userData !== null) */}
           {userData && <p className="profile_box_text">{userData.username}</p>}
           <button className="settings_button" onClick={goToSettings}>
             <FontAwesomeIcon icon={faEllipsisV} />
