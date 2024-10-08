@@ -20,7 +20,7 @@ from .token_keys_list import (
 from datetime import datetime, timedelta
 
 load_dotenv()
-#  static_folder="../../../build/static", static_url_path="/static"
+static_folder="../../../build/static", static_url_path="/static"
 
 app = Flask(__name__)
 CORS(app)
@@ -40,15 +40,6 @@ DB_USER = os.environ.get("DB_USER")
 print("DB_USER: ", DB_USER)
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 print("DB_PASSWORD: ", DB_PASSWORD)
-
-
-# @cross_origin()
-# @app.before_request
-# def log_request_info():
-#     app.process_response(CORS(app, resources={r"/*": {"origins": "*"}}))
-#     app.logger.debug("Headers: %s", request.headers)
-#     app.logger.debug("Origin: %s", request.headers.get("Origin"))
-
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.secret_key = flask_app_key
@@ -553,6 +544,7 @@ def catch_all(path):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)
 
     # os.environ.get("PORT")
+    # port=5000
