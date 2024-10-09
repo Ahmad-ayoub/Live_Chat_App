@@ -4,7 +4,7 @@ from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import jwt
 import logging
 from datetime import datetime
@@ -19,15 +19,19 @@ from .token_keys_list import (
 )
 from datetime import datetime, timedelta
 
-load_dotenv()
-static_folder="../../../build/static", static_url_path="/static"
+current_env = os.getenv("ENV", "development")
+
+env_file = f".env.{current_env}
+
+load_env(env_file)
+
+# static_folder="../../../build/static", static_url_path="/static"
 
 app = Flask(__name__)
 CORS(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-
 
 socketio = SocketIO(app)
 
