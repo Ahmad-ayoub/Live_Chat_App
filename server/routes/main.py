@@ -19,16 +19,14 @@ from .token_keys_list import (
 )
 from datetime import datetime, timedelta
 
-current_env = os.getenv("ENV", "development")
-
-env_file = f".env.{current_env}
-
-load_env(env_file)
-
-# static_folder="../../../build/static", static_url_path="/static"
-
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../../../build/static", static_url_path="/static")
 CORS(app)
+
+# current_env = os.getenv("ENV", "development")
+
+# env_file = f".env.{current_env}
+
+# load_env(env_file)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
