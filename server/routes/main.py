@@ -546,7 +546,4 @@ def catch_all(path):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=False, port=5000)
-
-    # os.environ.get("PORT")
-    # port=5000
+    app.run(debug=False, port=os.environ.get("PORT"))
