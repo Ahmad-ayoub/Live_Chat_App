@@ -524,6 +524,7 @@ def get_all_messages():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
+    print("OS.path", os.path)
     build_dir = os.path.abspath(os.path.join(app.root_path, "..", "..", "..", "build"))
     doesFilePathExist = os.path.exists(os.path.abspath(os.path.join(build_dir, path)))
 
