@@ -528,6 +528,8 @@ def catch_all(path):
     print("OS.path", os.path)
     print("Build_dir", build_dir)
     print("doesFilePathExist", doesFilePathExist)
+    find_dir = (app.root_path, "..", "..", "..", "build")
+    print("find_dir", find_dir)
     build_dir = os.path.abspath(os.path.join(app.root_path, "..", "..", "..", "build"))
     doesFilePathExist = os.path.exists(os.path.abspath(os.path.join(build_dir, path)))
 
