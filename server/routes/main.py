@@ -29,7 +29,9 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 socketio = SocketIO(app)
 
 db = SQLAlchemy(app)
+print("db", db)
 migrate = Migrate(app, db)
+print("migrate", migrate)
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 print("DATABASE_URL: ", DATABASE_URL)
@@ -545,4 +547,4 @@ def get_all_messages():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=False, port=os.environ.get("PORT"))
+    app.run(debug=True, port=os.environ.get("PORT"))
