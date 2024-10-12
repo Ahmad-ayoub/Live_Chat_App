@@ -23,7 +23,7 @@ app = Flask(__name__, static_folder="../../../build/static", static_url_path="/s
 print("app", app)
 CORS(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+app.config["DATABASE_URL"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
 socketio = SocketIO(app)
@@ -80,7 +80,7 @@ logging.basicConfig(
 
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
 
-print("SQLALCHEMY_DATABASE_URI", app.config["SQLALCHEMY_DATABASE_URI"])
+# print("SQLALCHEMY_DATABASE_URI", app.config["SQLALCHEMY_DATABASE_URI"])
 
 print("DATABASE_URL", os.environ.get("DATABASE_URL"))
 app.config["app_config_key"] = app_config_key
