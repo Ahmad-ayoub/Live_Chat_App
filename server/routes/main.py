@@ -20,6 +20,7 @@ from .token_keys_list import (
 from datetime import datetime, timedelta
 
 app = Flask(__name__, static_folder="../../../build/static", static_url_path="/static")
+print("app", app)
 CORS(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
