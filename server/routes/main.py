@@ -19,6 +19,7 @@ from .token_keys_list import (
 )
 from datetime import datetime, timedelta
 
+load_dotenv()
 app = Flask(__name__, static_folder="../../../build/static", static_url_path="/static")
 print("app", app)
 CORS(app)
