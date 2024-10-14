@@ -524,24 +524,24 @@ def get_all_messages():
     return jsonify(message_data), 200
 
 
-# @app.route("/", defaults={"path": ""})
-# @app.route("/<path:path>")
-# def catch_all(path):
-#     print("OS.path", os.path)
-#     print("Build_dir", build_dir)
-#     print("doesFilePathExist", doesFilePathExist)
-#     find_dir = (app.root_path, "..", "..", "..", "build")
-#     print("find_dir", find_dir)
-#     build_dir = os.path.abspath(os.path.join(app.root_path, "..", "..", "..", "build"))
-#     doesFilePathExist = os.path.exists(os.path.abspath(os.path.join(build_dir, path)))
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def catch_all(path):
+    print("OS.path", os.path)
+    print("Build_dir", build_dir)
+    print("doesFilePathExist", doesFilePathExist)
+    find_dir = (app.root_path, "..", "..", "..", "build")
+    print("find_dir", find_dir)
+    build_dir = os.path.abspath(os.path.join(app.root_path, "..", "..", "..", "build"))
+    doesFilePathExist = os.path.exists(os.path.abspath(os.path.join(build_dir, path)))
 
-#     if path != "" and doesFilePathExist:
-#         return send_from_directory(build_dir, path)
-#     else:
-#         try:
-#             return send_from_directory(build_dir, "index.html")
-#         except Exception as e:
-#             return f"An error occurred: {str(e)}", 500
+    if path != "" and doesFilePathExist:
+        return send_from_directory(build_dir, path)
+    else:
+        try:
+            return send_from_directory(build_dir, "index.html")
+        except Exception as e:
+            return f"An error occurred: {str(e)}", 500
 
 
 if __name__ == "__main__":
