@@ -24,6 +24,12 @@ app = Flask(__name__, static_folder="../../../build/static", static_url_path="/s
 print("app", app)
 CORS(app)
 
+
+def select_Enviroment():
+
+    return ""
+
+
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
