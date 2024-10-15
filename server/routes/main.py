@@ -534,11 +534,7 @@ def get_all_messages():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
-    print("OS.path", os.path)
-    print("Build_dir", build_dir)
-    print("doesFilePathExist", doesFilePathExist)
     find_dir = (app.root_path, "..", "..", "..", "build")
-    print("find_dir", find_dir)
     build_dir = os.path.abspath(os.path.join(app.root_path, "..", "..", "..", "build"))
     doesFilePathExist = os.path.exists(os.path.abspath(os.path.join(build_dir, path)))
 
@@ -554,4 +550,4 @@ def catch_all(path):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=os.environ.get("PORT"))
+    app.run(debug=False, port=os.environ.get("PORT"))
