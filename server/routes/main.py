@@ -10,7 +10,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
-from .token_keys_list import (
+from token_keys_list import (
     login_key,
     user_id_key,
     group_id_key,
@@ -25,11 +25,6 @@ app = Flask(
 )
 print("app", app)
 CORS(app)
-
-
-def select_Enviroment():
-
-    return ""
 
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
@@ -57,9 +52,9 @@ print("app.secret_key", app.secret_key)
 @app.after_request
 def after_request(response):
     response.headers.add(
-        "Content-Type, Authorization, application/json",
+        {"Content-Type": "application/json", "Authorization": "Bearer ${login_token}"}
     ),
-    print("reponse:", response)
+    print("app.after_request reponse:", response)
     return response
 
 
@@ -534,13 +529,13 @@ def get_all_messages():
 
 
 def catch_all(path):
-    print("OS.path", os.path)
-    print("find_dir", find_dir)
     find_dir = (app.root_path, "..", "..", "client", "build")
     build_dir = os.path.abspath(
         os.path.join(app.root_path, "..", "..", "client", "build")
     )
     print("Build_dir", build_dir)
+    print("OS.path", os.path)
+    print("find_dir", find_dir)
     doesFilePathExist = os.path.exists(os.path.abspath(os.path.join(build_dir, path)))
     print("doesFilePathExist", doesFilePathExist)
 
@@ -556,4 +551,4 @@ def catch_all(path):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=False, port=os.environ.get("PORT"))
+    app.run(debug=True, port=os.environ.get("PORT"))
