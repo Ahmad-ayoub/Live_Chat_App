@@ -10,7 +10,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
-from token_keys_list import (
+from .token_keys_list import (
     login_key,
     user_id_key,
     group_id_key,
@@ -51,9 +51,8 @@ print("app.secret_key", app.secret_key)
 
 @app.after_request
 def after_request(response):
-    response.headers.add(
-        {"Content-Type": "application/json", "Authorization": "Bearer ${login_token}"}
-    ),
+    print("response", response)
+    response.headers.add(["Content-Type", "text/plain"]),
     print("app.after_request reponse:", response)
     return response
 
