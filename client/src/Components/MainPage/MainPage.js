@@ -51,6 +51,7 @@ const MainPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   console.log("searchResults: ", searchResults);
   console.log("whole_new_chat", chat);
+  console.log("whole_new_chat", chat.data);
 
   console.log();
   useEffect(() => {
@@ -107,8 +108,9 @@ const MainPage = () => {
             group_room_number,
           },
         });
-        setChat(response);
+        setChat(response.data);
         console.log("group room number: msg/all ", selectedRoom);
+        console.log("response", response.data);
       } catch (error) {
         console.error("Error fetching messages:", error);
       }

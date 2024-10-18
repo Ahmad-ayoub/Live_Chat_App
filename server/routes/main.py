@@ -52,7 +52,7 @@ print("app.secret_key", app.secret_key)
 @app.after_request
 def after_request(response):
     print("response", response)
-    response.headers.add(["Content-Type", "text/plain"]),
+    response.headers.add("Content-Type", "text/plain"),
     print("app.after_request reponse:", response)
     return response
 
@@ -527,6 +527,8 @@ def get_all_messages():
     return jsonify(message_data), 200
 
 
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
 def catch_all(path):
     find_dir = (app.root_path, "..", "..", "client", "build")
     build_dir = os.path.abspath(
