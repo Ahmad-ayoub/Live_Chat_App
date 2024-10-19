@@ -477,7 +477,6 @@ def filter_search_terms():
                 }
                 for result in search_Term_Results
             ]
-
             return jsonify(search_Term_Results_Data), 200
         else:
             return jsonify({"search_term_results": "no results found"}), 200
@@ -538,6 +537,8 @@ def catch_all(path):
     print("OS.path", os.path)
     print("find_dir", find_dir)
     doesFilePathExist = os.path.exists(os.path.abspath(os.path.join(build_dir, path)))
+    print("Directory exists build_dir:", os.path.isdir(build_dir))
+    print("Is file:", os.path.isfile(build_dir))
     print("doesFilePathExist", doesFilePathExist)
 
     if path != "" and doesFilePathExist:
