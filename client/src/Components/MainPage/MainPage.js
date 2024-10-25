@@ -33,6 +33,8 @@ const MainPage = () => {
     navigate("/");
   }
 
+  const { XMLHttpRequest } = require("xmlhttprequest");
+  const xhr = new XMLHttpRequest();
   const { userData } = useContext(UserContext);
   console.log("userData", userData);
   const { theme } = useContext(ThemeContext);
@@ -238,7 +240,29 @@ const MainPage = () => {
 
   socket.on("connect_error", (error) => {
     console.error("Socket.io connection error:", error);
+    console.log(error.message);
+    console.log(error.description);
+    console.log(error.context);
   });
+
+  xhr.onerror = function () {
+    console.log("Network Error");
+  };
+
+  xhr.onload = function () {
+    if (xhr.status != 200) {
+      console.log(`Error ${xhr.status}: ${xhr.statusText}`);
+    } else {
+      console.log(`Done, got ${xhr.response.length} bytes`);
+    }
+  };
+
+  // io.engine.on("connection_error", (err) => {
+  //   console.log(err.req);
+  //   console.log(err.code);
+  //   console.log(err.message);
+  //   console.log(err.context);
+  // });
 
   socket.emit("frontend_to_backend", "Hello from the frontend");
 
