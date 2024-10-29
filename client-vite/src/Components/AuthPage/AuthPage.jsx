@@ -49,6 +49,7 @@ const AuthPage = () => {
     axios
       .post("/login", { username, password })
       .then((response) => {
+        console.log("response login", response)
         updateUserData(response.data);
         console.log("response.data", response.data)
         setMessage("You logged in!", response.data);
