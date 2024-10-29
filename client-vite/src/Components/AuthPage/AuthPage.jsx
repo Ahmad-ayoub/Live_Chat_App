@@ -50,6 +50,7 @@ const AuthPage = () => {
       .post("/login", { username, password })
       .then((response) => {
         updateUserData(response.data);
+        console.log("response.data", response.data)
         setMessage("You logged in!", response.data);
         navigate("/MainPage");
       })
