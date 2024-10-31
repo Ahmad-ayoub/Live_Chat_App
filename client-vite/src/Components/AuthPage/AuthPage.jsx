@@ -58,6 +58,7 @@ const AuthPage = () => {
       .catch((error) => {
         console.log(error);
         setMessage("Failed to log in. Please check your credentials.");
+        console.log("response login", response)
         console.log(message);
       });
   };
