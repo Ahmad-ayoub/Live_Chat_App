@@ -10,7 +10,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
-from token_keys_list import (
+from server.routes.token_keys.token_keys_list import (
     login_key,
     user_id_key,
     group_id_key,
@@ -483,7 +483,7 @@ def filter_search_terms():
             return jsonify({"search_term_results": "no results found"}), 200
 
 
-@app.route("/messages/all", methods=["GET"])
+@app.route("/api/messages/all", methods=["GET"])
 def get_all_messages():
     user_token = request.headers.get("Authorization")
     if user_token:
@@ -552,4 +552,6 @@ def catch_all(path):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=os.environ.get("PORT"))
+    app.run(debug=True, port=5000)
+
+    # os.environ.get("PORT")
