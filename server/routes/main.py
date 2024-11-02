@@ -21,7 +21,7 @@ from datetime import datetime, timedelta
 
 load_dotenv()
 app = Flask(
-    __name__, static_folder="../../client/build/static", static_url_path="/static"
+    __name__, static_folder="../../client-vite/build/static", static_url_path="/static"
 )
 print("app", app)
 CORS(app)
@@ -52,7 +52,7 @@ print("app.secret_key", app.secret_key)
 @app.after_request
 def after_request(response):
     print("response", response)
-    response.headers.add("Content-Type", "application/json"),
+    # response.headers.add("Content-Type", "application/json"),
     print("app.after_request reponse:", response)
     return response
 
@@ -530,9 +530,9 @@ def get_all_messages():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
-    find_dir = (app.root_path, "..", "..", "client", "build")
+    find_dir = (app.root_path, "..", "..", "client-vite", "build")
     build_dir = os.path.abspath(
-        os.path.join(app.root_path, "..", "..", "client", "build")
+        os.path.join(app.root_path, "..", "..", "client-vite", "build")
     )
     print("Build_dir", build_dir)
     print("OS.path", os.path)
