@@ -1,0 +1,5 @@
+setup.py
+LIVE_CHAT_APP.egg-info/PKG-INFO
+LIVE_CHAT_APP.egg-info/SOURCES.txt
+LIVE_CHAT_APP.egg-info/dependency_links.txt
+LIVE_CHAT_APP.egg-info/top_level.txt

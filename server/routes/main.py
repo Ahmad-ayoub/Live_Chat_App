@@ -1,4 +1,5 @@
 import os
+import sys
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
@@ -10,7 +11,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
-from routes.token_keys_list import (
+from token_keys.token_keys_list import (
     login_key,
     user_id_key,
     group_id_key,
@@ -19,6 +20,9 @@ from routes.token_keys_list import (
 )
 from datetime import datetime, timedelta
 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+print(sys.path)
+print(os.getcwd())
 load_dotenv()
 app = Flask(
     __name__, static_folder="../../client-vite/build/static", static_url_path="/static"
@@ -26,7 +30,7 @@ app = Flask(
 print("app", app)
 CORS(app)
 
-
+# print("Current working directory:", os.getccwd())
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
