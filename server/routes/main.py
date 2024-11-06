@@ -30,7 +30,6 @@ app = Flask(
 print("app", app)
 CORS(app)
 
-# print("Current working directory:", os.getccwd())
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
@@ -144,7 +143,7 @@ def register():
         db.session.close()
 
 
-@app.route("/api/login", methods=["GET, POST"])
+@app.route("/api/login", methods=["GET", "POST"])
 def login():
     data = request.json
     user_name_or_email = data.get("username") or data.get("email")
