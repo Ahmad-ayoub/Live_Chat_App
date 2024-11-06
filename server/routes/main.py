@@ -144,7 +144,7 @@ def register():
         db.session.close()
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/api/login", methods=["POST"])
 def login():
     data = request.json
     user_name_or_email = data.get("username") or data.get("email")
