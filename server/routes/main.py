@@ -56,7 +56,7 @@ print("app.secret_key", app.secret_key)
 @app.after_request
 def after_request(response):
     print("response", response)
-    # response.headers.add("Content-Type", "application/json"),
+    response.headers.add("Content-Type", "application/json"),
     print("app.after_request reponse:", response)
     return response
 
