@@ -100,7 +100,7 @@ const MainPage = () => {
       try {
         const userToken = userData.user_token;
         const group_room_number = localStorage.getItem("group_room_number");
-        const response = await axios.get(`messages/all`, {
+        const response = await axios.get(`/api/messages/all`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },

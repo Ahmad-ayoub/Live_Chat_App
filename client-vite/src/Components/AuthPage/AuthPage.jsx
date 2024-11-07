@@ -47,7 +47,7 @@ const AuthPage = () => {
 
   const loginUser = () => {
     axios
-      .post("/api/login", { username, password })
+      .post("/api/login", { username, email, password })
       .then((response) => {
         console.log("response login", response)
         updateUserData(response.data);
@@ -56,16 +56,16 @@ const AuthPage = () => {
         navigate("/MainPage");
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error", error);
         setMessage("Failed to log in. Please check your credentials.");
-        console.log(message);
+        console.log("message", message);
       });
   };
 
   const registerUser = (event) => {
     event.preventDefault();
     axios
-      .post("/register", {
+      .post("/api/register", {
         name,
         username,
         email,

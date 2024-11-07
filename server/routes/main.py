@@ -47,7 +47,7 @@ print("DB_USER: ", DB_USER)
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 print("DB_PASSWORD: ", DB_PASSWORD)
 
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 app.secret_key = flask_app_key
 print("app.secret_key", app.secret_key)
 
@@ -116,7 +116,7 @@ class Message(db.Model):
     user = db.relationship("User", backref=db.backref("messages", lazy=True))
 
 
-@app.route("/register", methods=["POST"])
+@app.route("/api/register", methods=["POST"])
 def register():
     data = request.json
     hashed_password = generate_password_hash(data["password"], method="pbkdf2:sha1")
@@ -143,8 +143,10 @@ def register():
         db.session.close()
 
 
-@app.route("/api/login", methods=["GET", "POST"])
+@app.route("/api/login", methods=["POST", "OPTIONS"])
 def login():
+    if request.method == "OPTIONS":
+        return "", 200
     data = request.json
     user_name_or_email = data.get("username") or data.get("email")
     password = data.get("password")
