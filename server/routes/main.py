@@ -64,7 +64,10 @@ print("app.secret_key", app.secret_key)
 def after_request(response):
     print("response", response)
     response.headers.add("Content-Type", "application/json"),
-    print("app.after_request reponse:", response)
+    response.headers.add("Access-Control-Allow-Origin", "http://localhost:5173"),
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization"),
+    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS"),
+    print("app.after_request reponse:", response),
     return response
 
 
