@@ -47,7 +47,15 @@ print("DB_USER: ", DB_USER)
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 print("DB_PASSWORD: ", DB_PASSWORD)
 
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+CORS(
+    app,
+    resources={
+        r"/api/*": {
+            "origins": "http://localhost:5173",
+            "methods": ["GET", "POST", "OPTIONS"],
+        }
+    },
+)
 app.secret_key = flask_app_key
 print("app.secret_key", app.secret_key)
 
@@ -143,7 +151,7 @@ def register():
         db.session.close()
 
 
-@app.route("/api/login", methods=["POST", "OPTIONS"])
+@app.route("/api/login", methods=["POST"])
 def login():
     if request.method == "OPTIONS":
         return "", 200

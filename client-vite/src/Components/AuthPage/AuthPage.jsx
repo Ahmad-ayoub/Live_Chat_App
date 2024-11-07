@@ -46,8 +46,7 @@ const AuthPage = () => {
   };
 
   const loginUser = () => {
-    axios
-      .post("/api/login", { username, email, password })
+    axios.post("/api/login", { username, email, password })
       .then((response) => {
         console.log("response login", response)
         updateUserData(response.data);
