@@ -67,7 +67,7 @@ def after_request(response):
     response.headers.add("Access-Control-Allow-Origin", "http://localhost:5173"),
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization"),
     response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS"),
-    response.Content.Headers.Add("Allow", "POST"),
+    response.headers.add("Allow", "POST"),
     print("app.after_request reponse:", response),
     return response
 
