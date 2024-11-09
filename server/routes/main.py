@@ -25,7 +25,7 @@ print(sys.path)
 print(os.getcwd())
 load_dotenv()
 app = Flask(
-    __name__, static_folder="../../client-vite/build/static", static_url_path="/static"
+    __name__, static_folder="../../client-vite/dist/assets", static_url_path="/assets"
 )
 print("app", app)
 CORS(app)
@@ -47,15 +47,15 @@ print("DB_USER: ", DB_USER)
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 print("DB_PASSWORD: ", DB_PASSWORD)
 
-CORS(
-    app,
-    resources={
-        r"/api/*": {
-            "origins": "http://localhost:5173",
-            "methods": ["GET", "POST", "OPTIONS"],
-        }
-    },
-)
+# CORS(
+#     app,
+#     resources={
+#         r"/api/*": {
+#             "origins": "http://localhost:5173",
+#             "methods": ["GET", "POST", "OPTIONS"],
+#         }
+#     },
+# )
 app.secret_key = flask_app_key
 print("app.secret_key", app.secret_key)
 
@@ -63,12 +63,11 @@ print("app.secret_key", app.secret_key)
 @app.after_request
 def after_request(response):
     print("response", response)
-    response.headers.add("Content-Type", "application/json"),
-    response.headers.add("Access-Control-Allow-Origin", "http://localhost:5173"),
-    response.headers.add("Access-Control-Allow-Origin", "http://localhost:5173/"),
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization"),
-    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS"),
-    response.headers.add("Allow", "POST"),
+    # response.headers.add("Content-Type", "application/json"),
+    # response.headers.add("Access-Control-Allow-Origin", "http://localhost:5173/"),
+    # response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization"),
+    # response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS"),
+    # response.headers.add("Allow", "POST"),
     print("app.after_request reponse:", response),
     return response
 
@@ -548,9 +547,9 @@ def get_all_messages():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
-    find_dir = (app.root_path, "..", "..", "client-vite", "build")
+    find_dir = (app.root_path, "..", "..", "client-vite", "dist")
     build_dir = os.path.abspath(
-        os.path.join(app.root_path, "..", "..", "client-vite", "build")
+        os.path.join(app.root_path, "..", "..", "client-vite", "dist")
     )
     print("Build_dir", build_dir)
     print("OS.path", os.path)

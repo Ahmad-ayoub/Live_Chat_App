@@ -31,6 +31,7 @@ const MainPage = () => {
 
   function goToAuthPage() {
     navigate("/");
+    localStorage.clear();
   }
 
   const { userData } = useContext(UserContext);
