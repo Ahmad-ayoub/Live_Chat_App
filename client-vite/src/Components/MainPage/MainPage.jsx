@@ -15,6 +15,7 @@ import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
+import { UserLogout } from "../UserLogout/UserLogout";
 
 const MainPage = () => {
   const roomNames = {
@@ -29,10 +30,8 @@ const MainPage = () => {
     navigate("/SettingsPage");
   }
 
-  function logout() {    
-  }
-
-  const { userData, logout, state } = useContext(UserContext);
+  const { userData, state } = useContext(UserContext);
+  const {logout} = useContext(UserLogout);
   console.log("userData", userData);
   const { theme } = useContext(ThemeContext);
   const currentThemeClasses =

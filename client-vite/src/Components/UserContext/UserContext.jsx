@@ -1,9 +1,10 @@
 import React, { createContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [state, setState] = useState(0)
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData")) || null
   );
@@ -13,13 +14,7 @@ export const UserProvider = ({ children }) => {
     setUserData(newUserData);
   };
 
-  const logout = () => {
-    navigate("/");
-    setUserData(localStorage.clear())
-    setUserData(null)
-    setState(prevKey => prevKey + 1)
-  }
-
+ 
   return (
     <UserContext.Provider value={{ userData, updateUserData, logout, state}}>
       {children}
