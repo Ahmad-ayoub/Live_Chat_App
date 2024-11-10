@@ -29,12 +29,10 @@ const MainPage = () => {
     navigate("/SettingsPage");
   }
 
-  function goToAuthPage() {
-    navigate("/");
-    localStorage.clear();
+  function logout() {    
   }
 
-  const { userData } = useContext(UserContext);
+  const { userData, logout, state } = useContext(UserContext);
   console.log("userData", userData);
   const { theme } = useContext(ThemeContext);
   const currentThemeClasses =
@@ -54,7 +52,7 @@ const MainPage = () => {
   console.log("whole_new_chat", chat);
   console.log("whole_new_chat", chat.data);
 
-  console.log();
+  console.log("state", state);
   useEffect(() => {
     const storedRoom = localStorage.getItem("group_room_number");
     const storedRoomName = localStorage.getItem("group_room_name");
@@ -255,7 +253,7 @@ const MainPage = () => {
   });
 
   return (
-    <div className="profile_and_group_box">
+    <div key={state} className="profile_and_group_box">
       <div
         className={`group_chat_list ${currentThemeClasses.mainColor} ${currentFontClasses}`}
       >
@@ -321,7 +319,7 @@ const MainPage = () => {
           </button>
         </div>
         <div className="chat_list_box logout_button_box ">
-          <button className="logout_button" onClick={goToAuthPage}>
+          <button className="logout_button" onClick={logout}>
             <p className="logout_text">Log Out</p>
           </button>
         </div>
