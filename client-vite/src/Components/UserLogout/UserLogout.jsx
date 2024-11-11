@@ -1,26 +1,24 @@
-import React, {createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { createContext, useContext, useState } from "react";
 
 export const UserLogout = createContext();
 
 export const userLogout = ({children}) => {
-    const [userData, setUserData] = useState()
-    const [state, setState] = useState(0)
+  const [userData, setUserData] = useState()
+  const [state, setState] = useState(0)
+  
 
-    let navigate = useNavigate();
-
-    const logout = () => {
-        navigate("/");
-        setUserData(localStorage.clear())
-        setUserData(null)
-        setState(prevKey => prevKey + 1)
-      }
+  const logout = (navigate) => {
+    navigate("/")
+    setUserData(localStorage.clear())
+    setUserData(null)
+    setState(prevKey => prevKey + 1)
+  }
 
 
-      return (
-        <UserContext.Provider value={{ userData, logout, state}}>
-          {children}
-        </UserContext.Provider>
-      );
+ return (
+   <userLogout.Provider value={{ userData, logout, state }}>
+     {children}
+   </userLogout.Provider>
+   );
 
 }

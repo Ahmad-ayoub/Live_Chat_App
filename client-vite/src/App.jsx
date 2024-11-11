@@ -10,12 +10,10 @@ import SettingsPage from "./Components/SettingsPage/settingsPage";
 import { ThemeProvider } from "./Components/ThemeChange/UseTheme";
 import { FontProvider } from "./Components/FontChange/FontChange";
 import { UserProvider } from "./Components/UserContext/UserContext";
-import { UserLogout } from "./Components/UserLogout/UserLogout";
 
 function App() {
   return (
     <UserProvider>
-      <UserLogout>
       <Router>
         <FontProvider>
           <ThemeProvider>
@@ -27,7 +25,6 @@ function App() {
           </ThemeProvider>
         </FontProvider>
       </Router>
-      </UserLogout>
     </UserProvider>
   );
 }

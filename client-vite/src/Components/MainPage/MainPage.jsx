@@ -8,6 +8,7 @@ import {
   faUser,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import { themeClasses } from "../ThemeChange/ThemeClasses";
 import { ThemeContext } from "../ThemeChange/UseTheme";
 import { FontClasses } from "../FontChange/FontClasses";
@@ -15,7 +16,7 @@ import FontContext from "../FontChange/FontChange";
 import io from "socket.io-client";
 import axios from "axios";
 import { UserContext } from "../UserContext/UserContext";
-import { UserLogout } from "../UserLogout/UserLogout";
+
 
 const MainPage = () => {
   const roomNames = {
@@ -30,9 +31,16 @@ const MainPage = () => {
     navigate("/SettingsPage");
   }
 
-  const { userData, state } = useContext(UserContext);
-  const {logout} = useContext(UserLogout);
-  console.log("userData", userData);
+  function userLogout() {
+      navigate("/")
+      localStorage.clear
+      setUserData(null)
+      // setState(prevKey => prevKey + 1)
+    
+  }
+
+  const { userData } = useContext(UserContext);
+  // const { logout, state } = useContext(UserLogout);
   const { theme } = useContext(ThemeContext);
   const currentThemeClasses =
     themeClasses[theme] || themeClasses["defaultTheme"];
@@ -45,13 +53,14 @@ const MainPage = () => {
   const [selectedRoom, setSelectedRoom] = useState("Group1");
   const [selectedRoomName, setSelectedRoomName] = useState("Just Chatting");
   const [searchTerm, setSearchTerm] = useState([]);
+  const [isMounted, setIsMounted] = useState(true)
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
   console.log("searchResults: ", searchResults);
   console.log("whole_new_chat", chat);
   console.log("whole_new_chat", chat.data);
 
-  console.log("state", state);
+  // console.log("state", state);
   useEffect(() => {
     const storedRoom = localStorage.getItem("group_room_number");
     const storedRoomName = localStorage.getItem("group_room_name");
@@ -66,6 +75,15 @@ const MainPage = () => {
   useEffect(() => {
     localStorage.setItem("selectedRoom", selectedRoom);
   }, [selectedRoom]);
+
+  useEffect(() => {
+    console.log("Component Mounted");
+
+    return () => {
+      console.log("Component Unmounted");
+      setIsMounted(false)
+    };
+  }, []);
 
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
@@ -252,7 +270,8 @@ const MainPage = () => {
   });
 
   return (
-    <div key={state} className="profile_and_group_box">
+    <div className="profile_and_group_box">
+      {isMounted ? "Component is mounted" : "Component is unmounted"}
       <div
         className={`group_chat_list ${currentThemeClasses.mainColor} ${currentFontClasses}`}
       >
@@ -318,7 +337,7 @@ const MainPage = () => {
           </button>
         </div>
         <div className="chat_list_box logout_button_box ">
-          <button className="logout_button" onClick={logout}>
+          <button className="logout_button" onClick={userLogout}>
             <p className="logout_text">Log Out</p>
           </button>
         </div>
