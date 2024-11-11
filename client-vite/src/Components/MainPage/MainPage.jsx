@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import {
@@ -8,7 +8,6 @@ import {
   faUser,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 import { themeClasses } from "../ThemeChange/ThemeClasses";
 import { ThemeContext } from "../ThemeChange/UseTheme";
 import { FontClasses } from "../FontChange/FontClasses";
@@ -34,16 +33,15 @@ const MainPage = () => {
   function userLogout() {
       navigate("/")
       localStorage.clear
-      setUserData(null)
-      // setState(prevKey => prevKey + 1)
+      localStorage.removeItem('user');
     
   }
 
   const { userData } = useContext(UserContext);
-  // const { logout, state } = useContext(UserLogout);
   const { theme } = useContext(ThemeContext);
   const currentThemeClasses =
     themeClasses[theme] || themeClasses["defaultTheme"];
+  const mountedRef = useRef(false);
   const { fontSize } = useContext(FontContext);
   const currentFontClasses =
     FontClasses[fontSize] || FontClasses["fontDefault"];
@@ -77,13 +75,15 @@ const MainPage = () => {
   }, [selectedRoom]);
 
   useEffect(() => {
-    console.log("Component Mounted");
-
+    mountedRef.current = true;
+    console.log("Component mounted", { mountedRef: mountedRef.current });
+  
     return () => {
-      console.log("Component Unmounted");
-      setIsMounted(false)
+      mountedRef.current = false;
+      console.log("Component unmounted", { mountedRef: mountedRef.current });
     };
   }, []);
+  
 
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
@@ -271,7 +271,7 @@ const MainPage = () => {
 
   return (
     <div className="profile_and_group_box">
-      {isMounted ? "Component is mounted" : "Component is unmounted"}
+      {/* {isMounted ? "Component is mounted" : "Component is unmounted"} */}
       <div
         className={`group_chat_list ${currentThemeClasses.mainColor} ${currentFontClasses}`}
       >
