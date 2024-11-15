@@ -13,9 +13,14 @@ export const UserProvider = ({ children }) => {
     setUserData(newUserData);
   };
 
+  const logOut = (logoutInfo) => {
+    setUserData(logoutInfo)
+    console.log("received data", logoutInfo)
+  }
+
  
   return (
-    <UserContext.Provider value={{ userData, updateUserData }}>
+    <UserContext.Provider value={{ userData, updateUserData, logOut }}>
       {children}
     </UserContext.Provider>
   );

@@ -30,14 +30,7 @@ const MainPage = () => {
     navigate("/SettingsPage");
   }
 
-  function userLogout() {
-      navigate("/")
-      localStorage.clear
-      localStorage.removeItem('user');
-    
-  }
-
-  const { userData } = useContext(UserContext);
+  const { userData, logOut } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
   const currentThemeClasses =
     themeClasses[theme] || themeClasses["defaultTheme"];
@@ -51,14 +44,18 @@ const MainPage = () => {
   const [selectedRoom, setSelectedRoom] = useState("Group1");
   const [selectedRoomName, setSelectedRoomName] = useState("Just Chatting");
   const [searchTerm, setSearchTerm] = useState([]);
-  const [isMounted, setIsMounted] = useState(true)
   console.log("searchTerm: ", searchTerm);
   const [searchResults, setSearchResults] = useState([]);
   console.log("searchResults: ", searchResults);
   console.log("whole_new_chat", chat);
   console.log("whole_new_chat", chat.data);
 
-  // console.log("state", state);
+  function userLogout() {
+    navigate("/")
+    const logoutCreds = window.location.reload();
+    logOut(logoutCreds)
+  }
+
   useEffect(() => {
     const storedRoom = localStorage.getItem("group_room_number");
     const storedRoomName = localStorage.getItem("group_room_name");
@@ -347,7 +344,7 @@ const MainPage = () => {
           <FontAwesomeIcon icon={faUserGroup} className="profile_box_image" />
           <p className="profile_box_text">{selectedRoomName}</p>
         </div>
-        <div className="chat-wrapper">
+        <div className="chat-wrapper" key={userData.user_id}>
           <div className="chat-container">
             {selectedRoom && (
               <>
