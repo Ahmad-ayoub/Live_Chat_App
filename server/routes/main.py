@@ -148,7 +148,7 @@ def login():
     if request.method == "OPTIONS":
         return "", 200
     data = request.json
-    user_name_or_email = data.get("username") or data.get("email")
+    user_name_or_email = data.get("username") and data.get("email")
     password = data.get("password")
 
     user = User.query.filter(
