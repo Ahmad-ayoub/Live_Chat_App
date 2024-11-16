@@ -448,7 +448,7 @@ def get_messages():
         return jsonify({"message": "No messages found"}), 200
 
 
-@app.route("/search", methods=["GET"])
+@app.route("/api/search", methods=["GET"])
 def filter_search_terms():
     user_token = request.headers.get("Authorization")
     group_room_number = request.args.get("group_room_number")

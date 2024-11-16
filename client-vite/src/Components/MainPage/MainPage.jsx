@@ -183,7 +183,7 @@ const MainPage = () => {
   const handleSearch = async () => {
     try {
       const selectedRoom = localStorage.getItem("group_room_number");
-      const response = await axios.get(`search?term=${searchTerm}`, {
+      const response = await axios.get(`/api/search?term=${searchTerm}`, {
         headers: {
           Authorization: `Bearer ${userData.user_token}`,
         },
@@ -192,6 +192,7 @@ const MainPage = () => {
           searchTerm: searchTerm,
         },
       });
+      console.log("searchTerm: ", searchTerm)
       setSearchResults(response.data);
       console.log("response.data search results: ", response.data);
     } catch (error) {
