@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
@@ -21,7 +22,7 @@ from token_keys.token_keys_list import (
 from datetime import datetime, timedelta
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-print(sys.path)
+print("sys.path ", sys.path)
 print(os.getcwd())
 load_dotenv()
 app = Flask(
@@ -32,6 +33,7 @@ CORS(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+
 
 socketio = SocketIO(app)
 
@@ -47,15 +49,6 @@ print("DB_USER: ", DB_USER)
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 print("DB_PASSWORD: ", DB_PASSWORD)
 
-# CORS(
-#     app,
-#     resources={
-#         r"/api/*": {
-#             "origins": "http://localhost:5173",
-#             "methods": ["GET", "POST", "OPTIONS"],
-#         }
-#     },
-# )
 app.secret_key = flask_app_key
 print("app.secret_key", app.secret_key)
 
@@ -63,11 +56,6 @@ print("app.secret_key", app.secret_key)
 @app.after_request
 def after_request(response):
     print("response", response)
-    # response.headers.add("Content-Type", "application/json"),
-    # response.headers.add("Access-Control-Allow-Origin", "http://localhost:5173/"),
-    # response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization"),
-    # response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS"),
-    # response.headers.add("Allow", "POST"),
     print("app.after_request reponse:", response),
     return response
 
@@ -569,5 +557,6 @@ def catch_all(path):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
+    app.run(debug=True, port=5000)
 
     # os.environ.get("PORT")
