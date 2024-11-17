@@ -185,9 +185,9 @@ const MainPage = () => {
       const selectedRoom = localStorage.getItem("group_room_number");
       const user_token = userData.userToken
       const response = await axios.get(`/api/search?term=${searchTerm}`, {
-        // headers: {
-        //   Authorization: `Bearer ${userData.user_token}`,
-        // },
+         headers: {
+           Authorization: `${userData.user_token}`,
+        },
         params: {
           user_token: user_token,
           group_room_number: selectedRoom,
