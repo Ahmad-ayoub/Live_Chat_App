@@ -182,12 +182,14 @@ const MainPage = () => {
 
   const handleSearch = async () => {
     try {
-      const selectedRoom = localStorage.getItem("group_room_number");
+      const selectedRoom = selectedRoom
+      const user_token = localStorage.getItem(userData.userToken)
       const response = await axios.get(`/api/search?term=${searchTerm}`, {
-        headers: {
-          Authorization: `Bearer ${userData.user_token}`,
-        },
+        // headers: {
+        //   Authorization: `Bearer ${userData.user_token}`,
+        // },
         params: {
+          user_token: user_token,
           group_room_number: selectedRoom,
           searchTerm: searchTerm,
         },
@@ -269,7 +271,6 @@ const MainPage = () => {
 
   return (
     <div className="profile_and_group_box">
-      {/* {isMounted ? "Component is mounted" : "Component is unmounted"} */}
       <div
         className={`group_chat_list ${currentThemeClasses.mainColor} ${currentFontClasses}`}
       >
