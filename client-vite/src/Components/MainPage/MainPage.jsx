@@ -182,8 +182,8 @@ const MainPage = () => {
 
   const handleSearch = async () => {
     try {
-      const selectedRoom = selectedRoom
-      const user_token = localStorage.getItem(userData.userToken)
+      const selectedRoom = localStorage.getItem("group_room_number");
+      const user_token = userData.userToken
       const response = await axios.get(`/api/search?term=${searchTerm}`, {
         // headers: {
         //   Authorization: `Bearer ${userData.user_token}`,
