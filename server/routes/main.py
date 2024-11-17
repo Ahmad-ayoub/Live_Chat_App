@@ -34,6 +34,10 @@ CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
+if app.debug:
+    print("flask debug mode is on")
+else:
+    print("Flask debug mode is off")
 
 socketio = SocketIO(app)
 
