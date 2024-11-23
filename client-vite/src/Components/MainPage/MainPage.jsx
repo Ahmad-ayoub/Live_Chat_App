@@ -72,6 +72,10 @@ const MainPage = () => {
   }, [selectedRoom]);
 
   useEffect(() => {
+    localStorage.setItem("selectedRoomName", selectedRoomName);
+  }, [selectedRoomName]);
+
+  useEffect(() => {
     mountedRef.current = true;
     console.log("Component mounted", { mountedRef: mountedRef.current });
   
