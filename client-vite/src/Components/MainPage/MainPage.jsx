@@ -207,6 +207,7 @@ const MainPage = () => {
         console.log("Data: ", error.response.data);
         console.log("status", error.response.status);
         console.log("Headers", error.response.headers);
+        console.log("Token", userData.user_token);
       } else if (error.request) {
         console.error("No Response received: ", error.request);
       } else {
