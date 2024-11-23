@@ -187,6 +187,7 @@ const MainPage = () => {
   const handleSearch = async () => {
     try {
       const selectedRoom = localStorage.getItem("group_room_number");
+      console.log("selectedRoom: search feat ", selectedRoom);
       const user_token = userData.userToken
       const response = await axios.get(`/api/search?term=${searchTerm}`, {
          headers: {
@@ -288,7 +289,7 @@ const MainPage = () => {
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
         </div>
-        <form className="search-container">
+        <form className="search-container" onSubmit={handleSearch}>
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             className="search-icon"
@@ -300,12 +301,17 @@ const MainPage = () => {
             onChange={(e) => {
               setSearchTerm(e.target.value);
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter"){
+                handleSearch();
+              }
+            }}
             placeholder="Search"
             aria-label="Search"
+            name="search"
             className="input-box"
           />
         </form>
-
         <div className="chat_list_box">
           <button
             className="chat_list_buttons"
