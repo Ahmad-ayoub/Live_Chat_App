@@ -301,7 +301,7 @@ const MainPage = () => {
           <input
             type="text"
             value={searchTerm}
-            onChange={(e) => {
+            onInput={(e) => {
               setSearchTerm(e.target.value);
             }}
             onKeyDown={(e) => {
