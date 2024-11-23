@@ -49,6 +49,7 @@ const MainPage = () => {
   console.log("searchResults: ", searchResults);
   console.log("whole_new_chat", chat);
   console.log("whole_new_chat", chat.data);
+  console.log("its in dev mode", import.meta.env);
 
   function userLogout() {
     navigate("/")
