@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
-import jwt
+from jwt import encode
 import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
