@@ -185,6 +185,7 @@ const MainPage = () => {
   };
 
   const handleSearch = async () => {
+    console.log("handlesearch started")
     try {
       const selectedRoom = localStorage.getItem("group_room_number");
       console.log("selectedRoom: search feat ", selectedRoom);
@@ -208,6 +209,7 @@ const MainPage = () => {
         console.log("status", error.response.status);
         console.log("Headers", error.response.headers);
         console.log("Token", userData.user_token);
+        console.error('Error in handleSearch:', error);
       } else if (error.request) {
         console.error("No Response received: ", error.request);
       } else {
