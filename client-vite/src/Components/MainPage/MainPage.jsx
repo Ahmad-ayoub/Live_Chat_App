@@ -138,9 +138,8 @@ const MainPage = () => {
     fetchMessages();
   }, [selectedRoom, userData.user_token]);
 
-  const handleText = async (e) => {
-    // e.preventDefault();
-
+  const handleText = async () => {
+    
     if (message) {
       console.log("Message:", message);
       socket.emit("chat message", message);
