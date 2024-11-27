@@ -185,7 +185,8 @@ const MainPage = () => {
     }
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault();
     console.log("handlesearch started")
     try {
       const selectedRoom = localStorage.getItem("group_room_number");
@@ -218,6 +219,9 @@ const MainPage = () => {
       }
     }
   };
+
+  document.getElementById('search-button').addEventListener('click', handleSearch);
+
 
   const highlightText = (text, searchTerm) => {
     if (!searchTerm.trim()) return text;

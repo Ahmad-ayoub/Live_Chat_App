@@ -12,6 +12,7 @@ import logging
 from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
+from sqlalchemy.exc import SQLAlchemyError
 from token_keys.token_keys_list import (
     login_key,
     user_id_key,
@@ -450,44 +451,62 @@ def get_messages():
 
 @app.route("/api/search", methods=["GET"])
 def filter_search_terms():
-    print("app.route /api/search")
-    user_token = request.headers.get("Authorization")
-    print("user_token_search", user_token)
-    group_room_number = request.args.get("group_room_number")
-    user_token_only = str(user_token).replace("Bearer ", "").strip()
-    print("user_token_only: ", user_token_only)
-    if user_token_only:
-        print("searchTerm groupRoomNumber: ", group_room_number)
-        search_term = request.args.get("term")
-        print("search_term: ", search_term)
+    try:
+        print("app.route /api/search")
+        user_token = request.headers.get("Authorization")
+        print("user_token_search", user_token)
 
-        search_Term_Results = (
-            (
+        group_room_number = request.args.get("group_room_number")
+        search_term = request.args.get("term")
+
+        if not group_room_number or not search_term:
+            return jsonify({"error": "Missing required parameters"}), 400
+
+        user_token_only = str(user_token).replace("Bearer ", "").strip()
+        print("user_token_only: ", user_token_only)
+
+        if not user_token_only:
+            return jsonify({"error": "No token provided"}), 401
+
+        print(f"searchTerm groupRoomNumber: {group_room_number}")
+        print(f"search_term: {search_term}")
+
+        try:
+            search_Term_Results = (
                 Message.query.filter(
                     Message.group_room_number == group_room_number,
                     Message.text.ilike(f"%{search_term}%"),
                 )
+                .order_by(Message.timestamp.desc())
+                .all()
             )
-            .order_by(Message.timestamp.desc())
-            .all()
-        )
 
-        print("search_Term_Results: ", search_Term_Results)
+            print("search_Term_Results: ", search_Term_Results)
 
-        if search_Term_Results:
-            search_Term_Results_Data = [
-                {
-                    "id": result.id,
-                    "group_room_number": result.group_room_number,
-                    "text": result.text,
-                    "timestamp": result.timestamp,
-                }
-                for result in search_Term_Results
-            ]
+            if search_Term_Results:
+                search_Term_Results_Data = [
+                    {
+                        "id": result.id,
+                        "group_room_number": result.group_room_number,
+                        "text": result.text,
+                        "timestamp": result.timestamp,
+                    }
+                    for result in search_Term_Results
+                ]
 
-            return jsonify(search_Term_Results_Data), 200
-        else:
-            return jsonify({"search_term_results": "no results found"}), 200
+                response = jsonify(search_Term_Results_Data)
+                response.headers.add("Access-Control-Allow-Origin", "*")
+                return response, 200
+            else:
+                return jsonify({"search_term_results": "no results found"}), 200
+
+        except SQLAlchemyError as db_error:
+            print(f"Database error: {str(db_error)}")
+            return jsonify({"error": "Database error occurred"}), 500
+
+    except Exception as e:
+        print(f"Unexpected error in filter_search_terms: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
 
 
 @app.route("/api/messages/all", methods=["GET"])
