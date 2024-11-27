@@ -59,17 +59,6 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-    const searchButton = document.getElementById('search-button');
-    if (searchButton){
-      searchButton.addEventListener('click', handleSearch)
-
-      return () => {
-        searchButton.removeEventListener('click', handleSearch)
-      }
-    }
-  }, [handleSearch])
-
-  useEffect(() => {
     const storedRoom = localStorage.getItem("group_room_number");
     const storedRoomName = localStorage.getItem("group_room_name");
 
@@ -99,8 +88,6 @@ const MainPage = () => {
   }, []);
 
   
-  
-
   const handleRoomClick = (currentRoom) => {
     setSelectedRoom(currentRoom);
     setSelectedRoomName(roomNames[currentRoom]);
@@ -152,7 +139,7 @@ const MainPage = () => {
   }, [selectedRoom, userData.user_token]);
 
   const handleText = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     if (message) {
       console.log("Message:", message);
