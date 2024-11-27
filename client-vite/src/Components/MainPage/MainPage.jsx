@@ -35,6 +35,7 @@ const MainPage = () => {
   const currentThemeClasses =
     themeClasses[theme] || themeClasses["defaultTheme"];
   const mountedRef = useRef(false);
+  const searchButton = document.getElementById('search-button');
   const { fontSize } = useContext(FontContext);
   const currentFontClasses =
     FontClasses[fontSize] || FontClasses["fontDefault"];
@@ -56,6 +57,17 @@ const MainPage = () => {
     const logoutCreds = window.location.reload();
     logOut(logoutCreds)
   }
+
+  useEffect(() => {
+    const searchButton = document.getElementById('search-button');
+    if (searchButton){
+      searchButton.addEventListener('click', handleSearch)
+
+      return () => {
+        searchButton.removeEventListener('click', handleSearch)
+      }
+    }
+  }, [handleSearch])
 
   useEffect(() => {
     const storedRoom = localStorage.getItem("group_room_number");
@@ -85,6 +97,8 @@ const MainPage = () => {
       console.log("Component unmounted", { mountedRef: mountedRef.current });
     };
   }, []);
+
+  
   
 
   const handleRoomClick = (currentRoom) => {
@@ -219,9 +233,6 @@ const MainPage = () => {
       }
     }
   };
-
-  document.getElementById('search-button').addEventListener('click', handleSearch);
-
 
   const highlightText = (text, searchTerm) => {
     if (!searchTerm.trim()) return text;
