@@ -306,11 +306,11 @@ const MainPage = () => {
             onInput={(e) => {
               setSearchTerm(e.target.value);
             }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter"){
-                handleSearch();
-              }
-            }}
+            // onKeyDown={(e) => {
+            //   if (e.key === "Enter"){
+            //     handleSearch();
+            //   }
+            // }}
             placeholder="Search"
             aria-label="Search"
             name="search"
