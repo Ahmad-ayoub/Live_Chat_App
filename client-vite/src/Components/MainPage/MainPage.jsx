@@ -294,11 +294,10 @@ const MainPage = () => {
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
         </div>
-        <form className="search-container" onSubmit={handleSearch}>
+        <form className="search-container" onInput={handleSearch}>
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             className="search-icon"
-            onClick={handleSearch}
           />
           <input
             type="text"
@@ -306,11 +305,6 @@ const MainPage = () => {
             onInput={(e) => {
               setSearchTerm(e.target.value);
             }}
-            // onKeyDown={(e) => {
-            //   if (e.key === "Enter"){
-            //     handleSearch();
-            //   }
-            // }}
             placeholder="Search"
             aria-label="Search"
             name="search"
