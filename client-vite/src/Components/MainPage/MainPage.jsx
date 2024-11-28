@@ -178,10 +178,17 @@ const MainPage = () => {
         } else {
           console.error("Error sending message:", sendResponse.status);
         }
+        setMessage("");
       } catch (error) {
-        console.error("Error sending message to the backend:", error);
+        if (error.message.includes("Error sending message to backend")) {
+          console.error("Error sending message to backend:", error);
+        } else if (error.message.includes("NS_BINDING_ABORTED")) {
+          console.error("NS_BINDING_ABORTED:", error);
+        } else {
+          console.error("Error sending message:", error);
+        }
+      } 
       }
-      setMessage("");
     }
   };
 
