@@ -189,8 +189,7 @@ const MainPage = () => {
         }
       } 
       }
-    }
-  };
+    };
 
   const handleSearch = async (e) => {
     e.preventDefault();
