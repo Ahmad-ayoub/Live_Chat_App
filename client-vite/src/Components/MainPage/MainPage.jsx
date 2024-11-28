@@ -138,8 +138,8 @@ const MainPage = () => {
     fetchMessages();
   }, [selectedRoom, userData.user_token]);
 
-  const handleText = async () => {
-    
+  const handleText = async (e) => {
+    e.preventDefault();
     if (message) {
       console.log("Message:", message);
       socket.emit("chat message", message);
@@ -412,7 +412,7 @@ const MainPage = () => {
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type here..."
           />
-          <button type="submit" className="input_message_button">
+          <button type="button" className="input_message_button">
             <FontAwesomeIcon icon={faArrowAltCircleRight} />
           </button>
         </form>
