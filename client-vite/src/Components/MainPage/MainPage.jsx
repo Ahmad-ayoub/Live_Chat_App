@@ -148,7 +148,7 @@ const MainPage = () => {
         const userToken = userData.user_token;
         const selectedRoom = localStorage.getItem("group_room_number");
         const sendResponse = await axios.post(
-          `messages/send`,
+          `/api/messages/send`,
           {
             text: message,
             user_token: userToken,

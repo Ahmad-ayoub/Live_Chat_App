@@ -367,7 +367,7 @@ def edit_profile():
         return jsonify({"error": "An error occurred"}), 500
 
 
-@app.route("/messages/send", methods=["POST"])
+@app.route("/api/messages/send", methods=["POST"])
 def send_message():
     try:
         data = request.json
