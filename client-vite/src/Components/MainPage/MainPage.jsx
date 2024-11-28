@@ -402,6 +402,7 @@ const MainPage = () => {
         </div>
         <form
           onSubmit={handleText}
+          onsubmit={"return false"}
           enctype="application/json"
           className="text_box"
         >
