@@ -6,6 +6,12 @@ export default defineConfig({
   plugins: [react(), commonjs()],
   build: {
     sourcemap: true,
+    assets: [
+      {
+        src: "node_modules/bootstrap/dist/css/bootstrap.min.css",
+        dest: "public/assets/css",
+      },
+    ],
   },
   server: {
     proxy: {
