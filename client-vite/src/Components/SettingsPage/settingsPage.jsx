@@ -50,7 +50,7 @@ const SettingsPage = () => {
     const errors = validateForm(name, username, email, password);
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await axios.post("/edit", {
+        const response = await axios.post("/api/edit", {
           name,
           username,
           email,
@@ -271,8 +271,7 @@ const SettingsPage = () => {
           </div>
         )}
         {isEditing ? (
-          <form onSubmit={handleSubmit} className="editingStyle">
-            {/* Name Input */}
+          <form onSubmit={handleSubmit} onsubmit={"return false"} className="editingStyle">
             <div>
               <label htmlFor="name" className="nameSpacing">
                 Name:

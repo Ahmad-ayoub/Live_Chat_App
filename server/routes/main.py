@@ -284,6 +284,11 @@ def get_current_user_id(user_token):
     print("user_token: get_cur_tok", user_token)
     if user_token:
         try:
+            if user_token.startswith("Bearer "):
+                user_token = user_token.replace("Bearer ", "")
+            elif user_token.startswith("axios "):
+                user_token = user_token.replace("axios ", "")
+
             data = jwt.decode(user_token, user_id_key, algorithms=["HS256"])
             print("data: ", data)
             print("user_id_key: ", user_id_key)
@@ -313,7 +318,7 @@ def get_current_group_id(group_token):
         return None
 
 
-@app.route("/edit", methods=["POST"])
+@app.route("/api/edit", methods=["POST"])
 def edit_profile():
     data = request.json
     print("Received data:", data)
@@ -361,7 +366,23 @@ def edit_profile():
             200,
         )
 
+    except ValueError as e:
+        logging.error(f"Error occurred in /edit route: {e}", exc_info=True)
+        return jsonify({"error": "Invalid data type", "details": str(e)}), 400
+
+    except TypeError as e:
+        logging.error(f"Error occurred in /edit route: {e}", exc_info=True)
+        return jsonify({"error": "Invalid data format", "details": str(e)}), 400
+
+    except KeyError as e:
+        logging.error(f"Error occurred in /edit route: {e}", exc_info=True)
+        return jsonify({"error": "Missing required field", "details": str(e)}), 400
+
+    except AttributeError as e:
+        logging.error(f"Error occurred in /edit route: {e}", exc_info=True)
+        return jsonify({"error": "Invalid attribute", "details": str(e)}), 500
     except Exception as e:
+
         db.session.rollback()
         logging.error(f"Error occurred in /edit route: {e}", exc_info=True)
         return jsonify({"error": "An error occurred"}), 500
