@@ -334,7 +334,8 @@ def edit_profile():
         return jsonify({"error": "Validation failed", "details": errors}), 400
 
     try:
-        user_id = get_current_user_id()
+        user_token = data.get("user_token")
+        user_id = get_current_user_id(user_token)
         print("user_id", user_id)
 
         if not user_id:
