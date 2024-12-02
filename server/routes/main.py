@@ -320,20 +320,20 @@ def get_current_group_id(group_token):
 
 @app.route("/api/edit", methods=["POST"])
 def edit_profile():
-    data = request.json
-    print("Received data:", data)
-
-    errors = {
-        "name": validate_name(data.get("name")),
-        "username": validate_username(data.get("username")),
-        "email": validate_email(data.get("email")),
-        "password": validate_password(data.get("password")),
-    }
-
-    if any(errors.values()):
-        return jsonify({"error": "Validation failed", "details": errors}), 400
-
     try:
+        data = request.json
+        print("Received data:", data)
+
+        errors = {
+            "name": validate_name(data.get("name")),
+            "username": validate_username(data.get("username")),
+            "email": validate_email(data.get("email")),
+            "password": validate_password(data.get("password")),
+        }
+
+        if any(errors.values()):
+            return jsonify({"error": "Validation failed", "details": errors}), 400
+
         user_token = data.get("user_token")
         user_id = get_current_user_id(user_token)
         print("user_id", user_id)
@@ -349,6 +349,8 @@ def edit_profile():
         user.name = data.get("name")
         user.username = data.get("username")
         user.email = data.get("email")
+        # user.user_id = data.get("user_id")
+
         if data.get("password"):
             user.password = generate_password_hash(
                 data["password"], method="pbkdf2:sha256"
@@ -362,6 +364,7 @@ def edit_profile():
                     "name": user.name,
                     "username": user.username,
                     "email": user.email,
+                    "user_id": user.user_id,
                 }
             ),
             200,
