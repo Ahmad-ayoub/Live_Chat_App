@@ -74,9 +74,11 @@ const SettingsPage = () => {
   };
 
   axios.interceptors.request.use(function (config) {
-    const user_token = localStorage.getItem("user_token");
-    config.headers.Authorization = user_token ? `Bearer ${user_token}` : "";
+    const userDataString = localStorage.getItem(userData);
+    const { userData } = JSON.parse(userDataString);
+    const user_token = userData.user_token
     console.log("user_token", user_token);
+    config.headers.Authorization = user_token ? `Bearer ${user_token}` : "";
     return config;
   });
 
