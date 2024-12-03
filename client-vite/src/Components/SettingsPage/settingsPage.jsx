@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import {
@@ -45,6 +45,11 @@ const SettingsPage = () => {
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
 
+
+  useEffect(() => {
+    
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validateForm(name, username, email, password);
@@ -75,7 +80,9 @@ const SettingsPage = () => {
 
   axios.interceptors.request.use(function (config) {
     const userDataString = localStorage.getItem(userData);
+    console.log("userDataString", userDataString)
     const { userData } = JSON.parse(userDataString);
+    console.log("userData", userData)
     const user_token = userData.user_token
     console.log("user_token", user_token);
     config.headers.Authorization = user_token ? `Bearer ${user_token}` : "";
