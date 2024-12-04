@@ -45,10 +45,11 @@ const SettingsPage = () => {
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
 
-
   useEffect(() => {
-    
-  }
+    const rawData = localStorage.getItem("userData");
+    console.log("rawData", rawData);
+    console.log("localStorageKeys", Object.keys(localStorage))
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
