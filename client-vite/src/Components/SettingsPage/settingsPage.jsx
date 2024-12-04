@@ -45,11 +45,15 @@ const SettingsPage = () => {
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState("");
 
-  useEffect(() => {
-    const rawData = localStorage.getItem("userData");
-    console.log("rawData", rawData);
-    console.log("localStorageKeys", Object.keys(localStorage))
-  }, []);
+  // useEffect(() => {
+  //   const rawData = localStorage.getItem("userData");
+  //   console.log("rawData", rawData);
+  //   console.log("localStorageKeys", Object.keys(localStorage))
+  //   const userData = JSON.parse(rawData);
+  //   console.log("userData", userData);
+  //   const user_token = userData.user_token;
+  //   console.log("user_token", user_token);
+  // }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -82,7 +86,7 @@ const SettingsPage = () => {
   axios.interceptors.request.use(function (config) {
     const userDataString = localStorage.getItem(userData);
     console.log("userDataString", userDataString)
-    const { userData } = JSON.parse(userDataString);
+    const userData = JSON.parse(userDataString);
     console.log("userData", userData)
     const user_token = userData.user_token
     console.log("user_token", user_token);
