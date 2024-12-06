@@ -74,8 +74,12 @@ const SettingsPage = () => {
         setPassword("");
         console.log("Updated userData:", userData);
       } catch (error) {
+        console.log("error: ", error);
         setFormErrors({ apiError: error.response.data.error });
         console.log(formErrors);
+        console.log(error.message);
+        console.log(error.name);
+        console.log(error.stack);
       }
     } else {
       setFormErrors(errors);
