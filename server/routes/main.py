@@ -323,7 +323,7 @@ def edit_profile():
 
     try:
         data = request.json
-        user_token = request.headers.get("Authorization")
+        user_token = request.args.get("user_token")
         print("user_token_edit", user_token)
         print("Received data:", data)
 
