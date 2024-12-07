@@ -94,6 +94,8 @@ const SettingsPage = () => {
     console.log("userData", userData)
     const user_token = userData.user_token
     console.log("user_token", user_token);
+    const user_id = userData.user_id
+    console.log("user_id", user_id);
     config.headers.Authorization = user_token ? `Bearer ${user_token}` : "";
     return config;
   });

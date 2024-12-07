@@ -335,8 +335,9 @@ def edit_profile():
             return jsonify({"error": "Validation failed", "details": errors}), 400
 
         user_token = data.get("user_token")
+        print("user_token_edit func", user_token)
         user_id = get_current_user_id(user_token)
-        print("user_id", user_id)
+        print("user_id edit", user_id)
 
         if not user_id:
             return jsonify({"error": "User ID is missing"}), 400
@@ -349,7 +350,7 @@ def edit_profile():
         user.name = data.get("name")
         user.username = data.get("username")
         user.email = data.get("email")
-        # user.user_id = data.get("user_id")
+        user.user_id = data.get("user_id")
 
         if data.get("password"):
             user.password = generate_password_hash(
