@@ -88,7 +88,7 @@ const SettingsPage = () => {
   };
 
   axios.interceptors.request.use(function (config) {
-    const userDataString = localStorage.getItem(userData);
+    const userDataString = localStorage.getItem("userData");
     console.log("userDataString", userDataString)
     const userData = JSON.parse(userDataString);
     console.log("userData", userData)
