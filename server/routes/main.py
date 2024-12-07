@@ -320,6 +320,7 @@ def get_current_group_id(group_token):
 
 @app.route("/api/edit", methods=["POST"])
 def edit_profile():
+
     try:
         data = request.json
         user_token = request.headers.get("Authorization")
