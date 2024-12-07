@@ -324,6 +324,7 @@ def edit_profile():
     try:
         data = request.json
         user_token = request.headers.get("Authorization").replace("Bearer ", "")
+        print("request_headers", request.headers)
         print("user_token_edit", user_token)
         print("Received data:", data)
 
@@ -337,7 +338,7 @@ def edit_profile():
         if any(errors.values()):
             return jsonify({"error": "Validation failed", "details": errors}), 400
 
-        user_token = data.get("user_token")
+        # user_token = data.get("user_token")
         print("user_token_edit func", user_token)
         user_id = get_current_user_id(user_token)
         print("user_id edit", user_id)
