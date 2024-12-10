@@ -281,6 +281,7 @@ def generate_group_token(group_room_number):
 
 
 def get_current_user_id(user_token):
+    print("function started get_cur_user_id")
     print("user_token: get_cur_tok", user_token)
     if user_token:
         try:
