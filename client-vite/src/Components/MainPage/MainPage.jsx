@@ -413,8 +413,7 @@ const MainPage = () => {
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type here..."
           />
-          <button type="button" className="input_message_button" onSubmit={handleText}
-          onsubmit={"return false"}>
+          <button type="button" className="input_message_button" onClick={handleText}>
             <FontAwesomeIcon icon={faArrowAltCircleRight} />
           </button>
         </form>
