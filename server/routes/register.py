@@ -39,4 +39,4 @@ def register():
         db.session.close()
 
 
-__all__ = ["app"]
+__all__ = ["register_bp"]
