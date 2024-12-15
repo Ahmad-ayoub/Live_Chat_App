@@ -1,10 +1,11 @@
 import os
 import sys
 import logging
-from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask import Flask, request, jsonify, Blueprint, render_template, redirect, url_for
 from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from server.routes.register import register
 from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
 import jwt
@@ -13,6 +14,8 @@ from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
 from sqlalchemy.exc import SQLAlchemyError
+from register import register_bp
+from register import User
 from token_keys.token_keys_list import (
     login_key,
     user_id_key,
@@ -34,7 +37,7 @@ CORS(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-
+app.register_blueprint(register_bp)
 
 socketio = SocketIO(app)
 
@@ -52,6 +55,10 @@ print("DB_PASSWORD: ", DB_PASSWORD)
 
 app.secret_key = flask_app_key
 print("app.secret_key", app.secret_key)
+
+register_blueprint = Blueprint("register", __name__)
+register_blueprint.add_url_rule("/api/register", view_func=register, methods=["POST"])
+app.register_blueprint(register_blueprint)
 
 
 @app.after_request
