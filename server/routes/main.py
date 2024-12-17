@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, Blueprint, render_template, redirect,
 from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from server.routes.register import register
+from register import register
 from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
 import jwt
