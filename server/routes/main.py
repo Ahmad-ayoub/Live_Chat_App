@@ -103,7 +103,7 @@ app.config["app_config_key"] = app_config_key
 
 
 class User(db.Model):
-    __tablename__ = "userdata"  # this specifies the name of the table in the database
+    __tablename__ = "userdata"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
