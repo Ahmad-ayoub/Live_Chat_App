@@ -37,7 +37,6 @@ CORS(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-app.register_blueprint(register_bp)
 
 socketio = SocketIO(app)
 
@@ -59,6 +58,7 @@ print("app.secret_key", app.secret_key)
 register_blueprint = Blueprint("register", __name__)
 register_blueprint.add_url_rule("/api/register", view_func=register, methods=["POST"])
 app.register_blueprint(register_blueprint)
+app.register_blueprint(register_bp)
 
 
 @app.after_request
