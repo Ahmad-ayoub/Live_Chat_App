@@ -13,7 +13,7 @@ register_bp = Blueprint("register", __name__)
 
 
 @register_bp.route("/api/register", methods=["POST"])
-def register():
+def register_user():
     data = request.json
     hashed_password = generate_password_hash(data["password"], method="pbkdf2:sha1")
 

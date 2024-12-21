@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, Blueprint, render_template, redirect,
 from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from register import register
+from register import register_user, register_bp, User
 from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
 import jwt
@@ -14,8 +14,9 @@ from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
 from sqlalchemy.exc import SQLAlchemyError
-from register import register_bp
-from register import User
+
+# from register import register_bp
+# from register import User
 from token_keys.token_keys_list import (
     login_key,
     user_id_key,
@@ -56,7 +57,9 @@ app.secret_key = flask_app_key
 print("app.secret_key", app.secret_key)
 
 register_blueprint = Blueprint("register", __name__)
-register_blueprint.add_url_rule("/api/register", view_func=register, methods=["POST"])
+register_blueprint.add_url_rule(
+    "/api/register", view_func=register_user, methods=["POST"]
+)
 app.register_blueprint(register_blueprint)
 app.register_blueprint(register_bp)
 
