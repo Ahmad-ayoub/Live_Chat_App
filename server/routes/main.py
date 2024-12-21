@@ -14,9 +14,6 @@ from datetime import datetime
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS, cross_origin
 from sqlalchemy.exc import SQLAlchemyError
-
-# from register import register_bp
-# from register import User
 from token_keys.token_keys_list import (
     login_key,
     user_id_key,
