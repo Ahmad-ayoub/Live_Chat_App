@@ -1,13 +1,20 @@
-from flask import Flask, request, Blueprint, jsonify, render_template, redirect, url_for
+from flask import (
+    Flask,
+    request,
+    Blueprint,
+    jsonify,
+)
 from werkzeug.security import generate_password_hash, check_password_hash
-from main import User
-from server.routes.main import app, db
-
+import importlib
 
 app = Flask(
     __name__, static_folder="../../client-vite/dist/assets", static_url_path="/assets"
 )
 print("app", app)
+
+User = importlib.import_module("main")
+app = importlib.import_module("main")
+db = importlib.import_module("main")
 
 register_bp = Blueprint("register", __name__)
 
