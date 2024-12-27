@@ -5,22 +5,18 @@ from flask import (
     jsonify,
 )
 from werkzeug.security import generate_password_hash, check_password_hash
-import importlib
 
 app = Flask(
     __name__, static_folder="../../client-vite/dist/assets", static_url_path="/assets"
 )
 print("app", app)
 
-User = importlib.import_module("main")
-app = importlib.import_module("main")
-db = importlib.import_module("main")
-
 register_bp = Blueprint("register", __name__)
 
 
 @register_bp.route("/api/register", methods=["POST"])
-def register_user():
+def register_user(db, app, User, data["name"], data["username"], data["email"], data["password"], data["birthdate"]):
+    
     data = request.json
     hashed_password = generate_password_hash(data["password"], method="pbkdf2:sha1")
 

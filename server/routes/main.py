@@ -55,7 +55,7 @@ print("app.secret_key", app.secret_key)
 
 register_blueprint = Blueprint("register", __name__)
 register_blueprint.add_url_rule(
-    "/api/register", view_func=register_user, methods=["POST"]
+    "/api/register", view_func=lambda: register_user(app, db, User), methods=["POST"]
 )
 app.register_blueprint(register_blueprint)
 app.register_blueprint(register_bp)
@@ -122,6 +122,21 @@ class Message(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     group_room_number = db.Column(db.String(20), nullable=False)
     user = db.relationship("User", backref=db.backref("messages", lazy=True))
+
+
+@register_bp.routes("/api/register", methods=["POST"])
+def register_user():
+    data = request.get_json()
+    register_user(
+        app,
+        db,
+        User,
+        data["name"],
+        data["username"],
+        data["email"],
+        data["password"],
+        data["birthdate"],
+    )
 
 
 # @app.route("/api/register", methods=["POST"])
