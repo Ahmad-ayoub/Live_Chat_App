@@ -11,10 +11,10 @@ app = Flask(
 )
 print("app", app)
 
-regis_bp = Blueprint("register", __name__)
+register_bp = Blueprint("register", __name__)
 
 
-@regis_bp.route("/api/register", methods=["POST"])
+@register_bp.route("/api/register", methods=["POST"])
 def register_user(db, User, data):
 
     data = request.json
@@ -42,4 +42,4 @@ def register_user(db, User, data):
         db.session.close()
 
 
-__all__ = ["regis_bp"]
+__all__ = ["register_bp"]
