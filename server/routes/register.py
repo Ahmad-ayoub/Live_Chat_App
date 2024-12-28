@@ -4,7 +4,8 @@ from flask import (
     Blueprint,
     jsonify,
 )
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(
     __name__, static_folder="../../client-vite/dist/assets", static_url_path="/assets"
@@ -12,6 +13,8 @@ app = Flask(
 print("app", app)
 
 register_bp = Blueprint("register", __name__)
+
+db = SQLAlchemy(app)
 
 
 @register_bp.route("/api/register", methods=["POST"])
