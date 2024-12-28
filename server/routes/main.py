@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, Blueprint, render_template, redirect,
 from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from register import register_user, register_bp
+from register import register_user, regis_bp
 from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
 import jwt
@@ -58,7 +58,7 @@ register_blueprint.add_url_rule(
     "/api/register", view_func=lambda: register_user(app, db, User), methods=["POST"]
 )
 app.register_blueprint(register_blueprint)
-app.register_blueprint(register_bp)
+app.register_blueprint(regis_bp)
 
 
 @app.after_request
@@ -124,7 +124,7 @@ class Message(db.Model):
     user = db.relationship("User", backref=db.backref("messages", lazy=True))
 
 
-@register_bp.routes("/api/register", methods=["POST"])
+@regis_bp.routes("/api/register", methods=["POST"])
 def register_user():
     data = request.get_json()
     register_user(app, db, data)
