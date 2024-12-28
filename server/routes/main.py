@@ -57,7 +57,7 @@ register_blueprint = Blueprint("register", __name__)
 register_blueprint.add_url_rule(
     "/api/register", view_func=lambda: register_user(app, db, User), methods=["POST"]
 )
-app.register_blueprint(register_blueprint)
+app.register_blueprint(register_blueprint, name="register_v1")
 app.register_blueprint(register_bp)
 
 
