@@ -124,10 +124,10 @@ class Message(db.Model):
     user = db.relationship("User", backref=db.backref("messages", lazy=True))
 
 
-@register_bp.route("/api/register", methods=["POST"])
-def register_user():
-    data = request.get_json()
-    register_user(app, db, data)
+# @register_bp.route("/api/register", methods=["POST"])
+# def register_user():
+#     data = request.get_json()
+#     register_user(app, db, data)
 
 
 # @app.route("/api/register", methods=["POST"])
