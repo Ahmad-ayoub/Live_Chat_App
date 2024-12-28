@@ -127,16 +127,7 @@ class Message(db.Model):
 @register_bp.routes("/api/register", methods=["POST"])
 def register_user():
     data = request.get_json()
-    register_user(
-        app,
-        db,
-        User,
-        data["name"],
-        data["username"],
-        data["email"],
-        data["password"],
-        data["birthdate"],
-    )
+    register_user(app, db, User, data)
 
 
 # @app.route("/api/register", methods=["POST"])
