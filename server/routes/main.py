@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, Blueprint, render_template, redirect,
 from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from register import register_user, register_bp, User
+from register import register_user, register_bp
 from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
 import jwt
@@ -127,7 +127,7 @@ class Message(db.Model):
 @register_bp.routes("/api/register", methods=["POST"])
 def register_user():
     data = request.get_json()
-    register_user(app, db, User, data)
+    register_user(app, db, data)
 
 
 # @app.route("/api/register", methods=["POST"])
