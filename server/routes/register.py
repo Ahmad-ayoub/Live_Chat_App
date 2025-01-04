@@ -20,7 +20,7 @@ def register_user(db, User, data):
 
     data = request.json
     hashed_password = generate_password_hash(data["password"], method="pbkdf2:sha1")
-
+    breakpoint()
     new_user = User(
         name=data["name"],
         email=data["email"],
