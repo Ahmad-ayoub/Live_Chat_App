@@ -1,0 +1,289 @@
+.settingsPage_layout {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  height: 100vh;
+}
+
+.fontSmall {
+  font-size: 14px;
+}
+
+.fontDefault {
+  font-size: 16px;
+}
+
+.fontLarge {
+  font-size: 18px;
+}
+
+.mainColor1 {
+  background-color: lightskyblue;
+  border: 1px solid black;
+}
+
+.mainColor2 {
+  background-color: #fd8535;
+  border: 1px solid black;
+}
+
+.mainColor3 {
+  background-color: #e6e6fa;
+  border: 1px solid black;
+}
+
+.backbutton_usernamebox {
+  display: flex;
+  margin: 10px;
+  align-items: center;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.button_layout {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  transition: background-color 0.3s ease;
+  height: 90%;
+}
+
+.button_layout_one {
+  outline: 1px solid black;
+  transition: background-color 0.3s ease;
+}
+
+.button_layout_two {
+  outline: 1px solid black;
+  transition: background-color 0.3s ease;
+}
+
+.button_layout_three {
+  transition: background-color 0.3s ease;
+}
+
+.button_shape {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+}
+
+.button_layout_one:hover {
+  background-color: #6495ed;
+}
+
+.button_layout_two:hover {
+  background-color: #6495ed;
+}
+
+.button_layout_three:hover {
+  background-color: #6495ed;
+}
+
+.font_style {
+  margin: inherit;
+  font-size: 25px;
+}
+
+.secondaryColor1 {
+  background-color: lightblue;
+  z-index: 1;
+}
+
+.secondaryColor2 {
+  background-color: #fde7c9;
+  z-index: 1;
+}
+
+.secondaryColor3 {
+  background-color: #c8a2c8;
+  z-index: 1;
+}
+
+.user_credentials {
+  text-align: center;
+  margin-top: 1.5%;
+}
+
+.button_edit {
+  border-radius: 50px;
+  background: darkorange;
+  transition: transform 0.3s ease;
+}
+
+.button_edit:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.button_cancel {
+  border-radius: 50px;
+  background: darkorange;
+  transition: transform 0.3s ease;
+  margin-left: 1%;
+}
+
+.button_cancel:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.btntext_format {
+  transform: translate(10px, 6px);
+}
+
+.fonticon_format {
+  margin-right: 3.5px;
+}
+
+.chat_list_box {
+  justify-content: flex-start;
+  width: 100%;
+  display: flex;
+  outline: 1px solid black;
+}
+
+.logout_button_box {
+  margin-top: auto;
+  outline: none;
+}
+
+.logout_button {
+  border-radius: 50px;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  background: darkorange;
+  transition: transform 0.3s ease;
+}
+
+.logout_button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.logout_text {
+  margin-bottom: 0;
+}
+
+.backbutton {
+  transition: transform 0.3s ease;
+}
+
+.backbutton:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.themeSelection {
+  width: "10vh";
+  height: "3vh";
+  background-color: lightskyblue;
+  outline: 1px solid black;
+  z-index: 1;
+  position: absolute;
+  transform: translate(0px, 9.5vh);
+  display: grid;
+  grid-template-rows: 33% 33% 33%;
+}
+
+.fontSelection {
+  width: "15vh";
+  height: "15vh";
+  background-color: lightskyblue;
+  outline: 1px solid black;
+  z-index: 1;
+  position: absolute;
+  transform: translate(0px, 14.5vh);
+  display: grid;
+  grid-template-rows: 33% 33% 33%;
+}
+
+.themeonelayout {
+  border-bottom: 1px solid #000000;
+  background-color: lightskyblue;
+  margin: 0;
+}
+
+.themeonelayout:hover {
+  background-color: #6495ed;
+}
+
+.themetwolayout {
+  border-bottom: 1px solid #000000;
+  background-color: lightskyblue;
+  margin: 0;
+}
+
+.themethreelayout {
+  margin: 0;
+  background-color: lightskyblue;
+}
+
+.themetwolayout:hover {
+  background-color: #6495ed;
+}
+
+.fontonelayout {
+  border-bottom: 1px solid #000000;
+  background-color: lightskyblue;
+  margin: 0;
+}
+
+.fontonelayout:hover {
+  background-color: #6495ed;
+}
+
+.fonttwolayout {
+  border-bottom: 1px solid #000000;
+  background-color: lightskyblue;
+  margin: 0;
+}
+
+.fonttwolayout:hover {
+  background-color: #6495ed;
+}
+
+.themethreelayout:hover {
+  background-color: #6495ed;
+}
+
+.fontthreelayout {
+  margin: 0;
+  background-color: lightskyblue;
+}
+
+.fontthreelayout:hover {
+  background-color: #6495ed;
+}
+
+.editingStyle {
+  text-align: center;
+  align-items: center;
+  margin-top: 1%;
+}
+
+.nameSpacing {
+  margin-right: 1%;
+  margin-bottom: 1%;
+}
+
+.textboxStyle {
+  border-radius: 50px;
+}
+
+.submit-button {
+  border-radius: 50px;
+  background: darkorange;
+  transition: transform 0.3s ease;
+}
+
+.submit-button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}

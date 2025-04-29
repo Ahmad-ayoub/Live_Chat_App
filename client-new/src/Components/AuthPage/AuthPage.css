@@ -1,0 +1,86 @@
+@keyframes slideRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.appTitle {
+  display: flex;
+  position: absolute;
+  left: 20px;
+  top: 10px;
+}
+
+.pageWrapper {
+  animation: slideRight 1s forwards;
+  display: flex;
+  height: 100vh;
+}
+
+.form {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginForm {
+  background-size: cover;
+  width: 50%;
+}
+
+.mainColor1 {
+  background-color: lightskyblue;
+}
+
+.mainColor2 {
+  background-color: #fd8535;
+}
+
+.mainColor3 {
+  background-color: #e6e6fa;
+}
+
+.loginBtns {
+  margin-bottom: 10px;
+  width: 50%;
+}
+
+.signupForm {
+  background: center;
+  background-size: cover;
+  width: 50%;
+}
+
+.secondaryColor1 {
+  background-color: lightblue;
+}
+
+.secondaryColor2 {
+  background-color: #fde7c9;
+}
+
+.secondaryColor3 {
+  background-color: #c8a2c8;
+}
+
+.signupBtns {
+  margin-bottom: 10px;
+  width: 50%;
+}
+
+.fontSmall {
+  font-size: 14px;
+}
+
+.fontDefault {
+  font-size: 16px;
+}
+
+.fontLarge {
+  font-size: 18px;
+}
